@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Main from '../src/layout/Main';
 
 export default function Home() {
