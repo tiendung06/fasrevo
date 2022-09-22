@@ -9,10 +9,18 @@ import {
 const Footer = () => {
   return (
     <footer className='w-full'>
-      <div className='max-w-[1920px] bg-white px-5 py-5 mx-auto flex flex-wrap'>
-        <FooterColumn heading='Chính sách' col={footerPolicy} meta='link' />
-        <FooterColumn heading='Liên hệ' col={footerContact} meta='link' />
-        <FooterColumn heading='Địa chỉ' col={storeAdress} />
+      <div className='max-w-[1920px] bg-white px-5 lg:px-10 py-5 mx-auto'>
+        <div className='border-t-[1px] border-t-[#dddddd] w-full pt-[15px]'></div>
+        <div className='flex flex-wrap justify-between'>
+          <div className='flex flex-wrap'>
+            <FooterColumn heading='Chính sách' col={footerPolicy} meta='link' />
+            <FooterColumn heading='Liên hệ' col={footerContact} meta='link' />
+            <FooterColumn heading='Địa chỉ' col={storeAdress} />
+          </div>
+          <div className='pt-5'>
+            <span className='text-xs'>© FASREVO 2022. All rights reserved</span>
+          </div>
+        </div>
       </div>
     </footer>
   );
