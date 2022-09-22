@@ -69,7 +69,7 @@ const Header = () => {
         id='header-desktop'
         className={`${styles.header_desktop} absolute top-10 z-10 bg-white  w-full h-[70px] px-5 lg:px-10 shadow-sm`}
       >
-        <div className='max-w-[1920px] mx-auto flex items-center'>
+        <div className='max-w-[1920px] h-full mx-auto flex items-center'>
           <div className='pr-[15px]'>
             <Link href='/'>
               <a className='text-[#ff5c8d] font-bold text-2xl py-[10px]'>
@@ -77,7 +77,7 @@ const Header = () => {
               </a>
             </Link>
           </div>
-          <div className='flex justify-between w-full'>
+          <div className='flex justify-between w-full items-center'>
             <ul className='list-none flex items-center h-[60px]'>
               {nav.map(({ title, path }) => (
                 <li className='px-[15px]' key={title}>
