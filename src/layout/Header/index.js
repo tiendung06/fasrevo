@@ -67,74 +67,76 @@ const Header = () => {
       </div>
       <div
         id='header-desktop'
-        className={`${styles.header_desktop} absolute top-10 bg-white flex items-center max-w-[1920px] w-full mx-auto h-[70px] px-5 shadow-sm`}
+        className={`${styles.header_desktop} absolute top-10 z-10 bg-white  w-full h-[70px] px-5 lg:px-10 shadow-sm`}
       >
-        <div className='px-4'>
-          <Link href='/'>
-            <a className='text-[#ff5c8d] font-bold text-2xl py-[10px]'>
-              fasrevo
-            </a>
-          </Link>
-        </div>
-        <div className='flex justify-between w-full'>
-          <ul className='list-none flex items-center h-[60px]'>
-            {nav.map(({ title, path }) => (
-              <li className='px-[15px]' key={title}>
-                <Link href={path}>
-                  <a className='py-5 text-xs font-medium transition-all hover:text-[#ff5c8d]'>
-                    {title}
-                  </a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className='flex items-center text-xs font-medium'>
-            <div className='flex items-center h-full relative cursor-pointer'>
-              <span
-                className='px-[15px] py-5 transition-all hover:text-[#ff5c8d]'
-                onClick={handleShowBoxSearch}
-              >
-                Tìm kiếm
-              </span>
-              <div
-                id='box-search'
-                className='absolute hidden transition-all right-0 top-[70px] bg-[#444444] w-[300px] h-10'
-              >
-                <input
-                  className='bg-transparent w-full h-full pl-5 pr-[50px] outline-0 border-none text-white'
-                  type='text'
-                  placeholder='Gõ từ khóa tìm kiếm'
-                />
-                <div className='absolute right-0 bottom-0 w-10 h-10 flex justify-center items-center cursor-pointer'>
-                  <Image
-                    className='w-3 h-3'
-                    src={icon_search_white.src}
-                    alt='Search'
-                    width={12}
-                    height={12}
+        <div className='max-w-[1920px] mx-auto flex items-center'>
+          <div className='pr-[15px]'>
+            <Link href='/'>
+              <a className='text-[#ff5c8d] font-bold text-2xl py-[10px]'>
+                fasrevo
+              </a>
+            </Link>
+          </div>
+          <div className='flex justify-between w-full'>
+            <ul className='list-none flex items-center h-[60px]'>
+              {nav.map(({ title, path }) => (
+                <li className='px-[15px]' key={title}>
+                  <Link href={path}>
+                    <a className='py-5 text-xs font-medium transition-all hover:text-[#ff5c8d]'>
+                      {title}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className='flex items-center text-xs font-medium'>
+              <div className='flex items-center h-full relative cursor-pointer'>
+                <span
+                  className='px-[15px] py-5 transition-all hover:text-[#ff5c8d]'
+                  onClick={handleShowBoxSearch}
+                >
+                  Tìm kiếm
+                </span>
+                <div
+                  id='box-search'
+                  className='absolute hidden transition-all right-0 top-[70px] bg-[#444444] w-[300px] h-10'
+                >
+                  <input
+                    className='bg-transparent w-full h-full pl-5 pr-[50px] outline-0 border-none text-white'
+                    type='text'
+                    placeholder='Gõ từ khóa tìm kiếm'
                   />
+                  <div className='absolute right-0 bottom-0 w-10 h-10 flex justify-center items-center cursor-pointer'>
+                    <Image
+                      className='w-3 h-3'
+                      src={icon_search_white.src}
+                      alt='Search'
+                      width={12}
+                      height={12}
+                    />
+                  </div>
                 </div>
               </div>
+              <Link href='/sign-in'>
+                <a className='px-[15px] py-5 transition-all hover:text-[#ff5c8d]'>
+                  Đăng nhập
+                </a>
+              </Link>
+              <Link href='/cart'>
+                <a className='py-5 pl-[15px] transition-all hover:text-[#ff5c8d]'>
+                  <span>Giỏ hàng</span>
+                  <span className='inline-flex items-center justify-center bg-[#ff5c8d] rounded-full w-[25px] h-[25px] text-white ml-[5px]'>
+                    3
+                  </span>
+                </a>
+              </Link>
             </div>
-            <Link href='/sign-in'>
-              <a className='px-[15px] py-5 transition-all hover:text-[#ff5c8d]'>
-                Đăng nhập
-              </a>
-            </Link>
-            <Link href='/cart'>
-              <a className='py-5 pl-[15px] transition-all hover:text-[#ff5c8d]'>
-                <span>Giỏ hàng</span>
-                <span className='inline-flex items-center justify-center bg-[#ff5c8d] rounded-full w-[25px] h-[25px] text-white ml-[5px]'>
-                  3
-                </span>
-              </a>
-            </Link>
           </div>
         </div>
       </div>
       <div
         id='header-mobile'
-        className={`${styles.header_mobile} hidden bg-white justify-between items-center max-w-[1920px] w-full mx-auto h-[70px] px-4 shadow-sm absolute top-10`}
+        className={`${styles.header_mobile} hidden bg-white justify-between items-center max-w-[1920px] w-full mx-auto h-[70px] px-5 shadow-sm absolute top-10 z-10`}
       >
         <div className='flex items-center w-full justify-center relative'>
           <div
