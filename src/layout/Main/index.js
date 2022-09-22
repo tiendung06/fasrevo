@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Header from '../Header';
+import Footer from '../Footer';
 
 const Main = ({ children }) => {
   return (
@@ -10,7 +11,8 @@ const Main = ({ children }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header></Header>
-      {children}
+      <div className='mt-[70px]'>{children}</div>
+      <Footer></Footer>
     </main>
   );
 };
