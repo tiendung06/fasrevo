@@ -18,10 +18,7 @@ const connection = mysql.createConnection({
   database: "fasrevo",
 });
 
-function demo(req, res, next) {
-  return 45;
-  next();
-}
+console.log("OK");
 
 app.get("/", (req, res) => {
   connection.connect(error => {
