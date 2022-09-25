@@ -1,0 +1,21 @@
+@media only screen and (max-width: 768px) {
+  .header_desktop {
+    display: none;
+  }
+  .header_mobile {
+    display: flex;
+  }
+}
+
+.show_navbar {
+  transform: translateX(0%);
+}
+
+.show_box_search {
+  display: block;
+}
+
+.sticky_class {
+  position: fixed;
+  top: 0;
+}
