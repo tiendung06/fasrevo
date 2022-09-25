@@ -77,7 +77,7 @@ const Header = () => {
               </a>
             </Link>
           </div>
-          <div className='flex justify-between w-full items-center'>
+          <div className='flex justify-between w-full h-full items-center'>
             <ul className='list-none flex items-center h-[60px]'>
               {nav.map(({ title, path }) => (
                 <li className='px-[15px]' key={title}>
@@ -89,7 +89,7 @@ const Header = () => {
                 </li>
               ))}
             </ul>
-            <div className='flex items-center text-xs font-medium'>
+            <div className='flex items-center h-full text-xs font-medium'>
               <div className='flex items-center h-full relative cursor-pointer'>
                 <span
                   className='px-[15px] py-5 transition-all hover:text-[#ff5c8d]'
