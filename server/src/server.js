@@ -1,35 +1,20 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import mysql from "mysql2";
-
-const PORT = 3030;
+import path from "path";
+import dotenv from "dotenv";
+import router from "./routers/index.js";
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "emcuong",
-  database: "fasrevo",
-});
+router(app);
 
-console.log("OK");
+const __dirname = path.resolve();
+dotenv.config({ path: path.join(__dirname, "src/config/.env") });
 
-app.get("/", (req, res) => {
-  connection.connect(error => {
-    if (error) throw error;
-    connection.query("select * from user", (err, results) => {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server ${PORT}`);
-});
+app.listen(process.env.PORT);
