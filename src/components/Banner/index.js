@@ -1,18 +1,20 @@
 import React from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper';
+import { Autoplay, Pagination } from 'swiper';
 import banner1 from '../../../public/images/banner1.jpg';
 import banner2 from '../../../public/images/banner2.jpg';
 import 'swiper/css';
+import 'swiper/css/pagination';
 
 const Banner = () => {
   return (
     <div className='w-full'>
       <Swiper
-        modules={[Autoplay]}
+        modules={[Autoplay, Pagination]}
         slidesPerView={'auto'}
         autoplay={{ delay: 5000 }}
+        pagination={{ clickable: true }}
         spaceBetween={40}
       >
         <SwiperSlide>
