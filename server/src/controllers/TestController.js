@@ -1,13 +1,19 @@
 import { sequelize } from "../database/mysql_db.js";
-import { QueryTypes } from "sequelize";
+import Category from "../model/Category.js";
+import Product from "../model/Product.js";
 import User from "../model/User.js";
+import UserDetail from "../model/UserDetail.js";
 
 try {
   await sequelize.authenticate();
-  const users = await sequelize.query("SELECT * FROM fasrevo.user", {
-    type: QueryTypes.SELECT,
-  });
-  console.log(users);
+  // create User
+  await User.sync({ alter: true });
+  // create UserDetail
+  await UserDetail.sync({ alter: true });
+  // create Category
+  await Category.sync({ alter: true });
+  // create Product
+  await Product.sync({ alter: true });
   console.log("Connection has been established successfully.");
   sequelize.close();
 } catch (error) {

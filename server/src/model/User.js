@@ -1,7 +1,7 @@
-import { DataTypes, QueryTypes } from "sequelize";
+import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 
-const User = sequelize.define("User", {
+const User = sequelize.define("user", {
   uid: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -17,11 +17,7 @@ const User = sequelize.define("User", {
     allowNull: false,
   },
   role: {
-    type: DataTypes.NUMBER,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: new Date(Date.now()),
+    type: DataTypes.INTEGER,
   },
 });
 
