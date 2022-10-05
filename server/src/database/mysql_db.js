@@ -1,27 +1,23 @@
-import path from "path";
-import dotenv from "dotenv";
 import mysql from "mysql2";
 import { Sequelize } from "sequelize";
+import mySqlConfig from "../config/dbConfig.js";
 
-const __dirname = path.resolve();
-dotenv.config({ path: path.join(__dirname, "server/src/config/.env") });
-
-// connect MySQL using mysql2
-export const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+const connection = mysql.createConnection({
+  host: mySqlConfig.host,
+  port: mySqlConfig.port,
+  user: mySqlConfig.user,
+  password: mySqlConfig.password,
+  database: mySqlConfig.database,
 });
 
-// connect MySQL using sequelize
-export const sequelize = new Sequelize(
-  process.env.DB_DATABASE,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+const sequelize = new Sequelize(
+  mySqlConfig.database,
+  mySqlConfig.user,
+  mySqlConfig.password,
   {
-    host: process.env.DB_HOST,
+    host: mySqlConfig.host,
     dialect: "mysql",
   },
 );
+
+export { connection, sequelize };
