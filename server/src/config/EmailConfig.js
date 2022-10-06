@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { emailConfig } from "./configuration";
+import { emailConfig } from "./configuration.js";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -9,16 +9,16 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-transporter
-  .sendMail({
-    from: "Em Cuong",
-    to: "cuonggaayf01@gmail.com",
-    subject: "Hello",
-    html: `<b style="color:red;">There is a new article. It's about sending emails, check it out!</b>`,
-  })
-  .then((info) => {
-    console.log({ info });
-  })
-  .catch(console.error);
+// transporter
+//   .sendMail({
+//     from: "Em Cuong",
+//     to: "cuonggaayf01@gmail.com",
+//     subject: "Hello",
+//     html: `<b style="color:red;">There is a new article. It's about sending emails, check it out!</b>`,
+//   })
+//   .then((info) => {
+//     console.log({ info });
+//   })
+//   .catch(console.error);
 
 export default transporter;
