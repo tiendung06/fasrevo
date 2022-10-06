@@ -1,6 +1,6 @@
 import mysql from "mysql2";
 import { Sequelize } from "sequelize";
-import mySqlConfig from "../config/dbConfig.js";
+import { mySqlConfig } from "../config/configuration.js";
 
 const connection = mysql.createConnection({
   host: mySqlConfig.host,
