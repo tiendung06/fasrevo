@@ -4,7 +4,7 @@ import List from '../List';
 
 const FeaturedProduct = () => {
   return (
-    <Section title='Sản phẩm bán chạy'>
+    <Section title='Sản phẩm bán chạy' viewAll>
       <List></List>
     </Section>
   );

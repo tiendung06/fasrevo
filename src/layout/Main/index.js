@@ -11,9 +11,7 @@ const Main = ({ children, heading = 'Fasrevo' }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header></Header>
-      <main className='mt-[70px] w-full max-w-[1920px] mx-auto'>
-        {children}
-      </main>
+      <main className='w-full max-w-[1920px] mx-auto'>{children}</main>
       <Footer></Footer>
     </main>
   );

@@ -19,18 +19,26 @@ const Banner = () => {
       >
         <SwiperSlide>
           <Link href='/'>
-            <div className='w-[full] max-h-[800px] overflow-hidden'>
+            <div className='w-[full] h-screen max-h-[870px] overflow-hidden'>
               <picture>
-                <img src={banner1.src} alt='' className='w-full h-full' />
+                <img
+                  src={banner1.src}
+                  alt=''
+                  className='w-full h-full object-cover'
+                />
               </picture>
             </div>
           </Link>
         </SwiperSlide>
         <SwiperSlide>
           <Link href='/'>
-            <div className='w-full max-h-[800px] overflow-hidden'>
+            <div className='w-full h-screen max-h-[870px] overflow-hidden'>
               <picture>
-                <img src={banner2.src} alt='' className='w-full h-full' />
+                <img
+                  src={banner2.src}
+                  alt=''
+                  className='w-full h-full object-cover'
+                />
               </picture>
             </div>
           </Link>
