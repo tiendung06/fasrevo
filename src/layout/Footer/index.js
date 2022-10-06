@@ -1,6 +1,7 @@
 import Link from 'next/link.js';
 import React from 'react';
 import {
+  nav,
   footerPolicy,
   footerContact,
   storeAdress,
@@ -9,17 +10,15 @@ import {
 const Footer = () => {
   return (
     <footer className='w-full'>
-      <div className='max-w-[1920px] bg-white px-5 lg:px-10 py-5 mx-auto'>
-        <div className='border-t-[1px] border-t-[#dddddd] w-full pt-[15px]'></div>
-        <div className='flex flex-wrap justify-between'>
-          <div className='flex flex-wrap'>
-            <FooterColumn heading='Chính sách' col={footerPolicy} meta='link' />
-            <FooterColumn heading='Liên hệ' col={footerContact} meta='link' />
-            <FooterColumn heading='Địa chỉ' col={storeAdress} />
-          </div>
-          <div className='pt-5'>
-            <span className='text-xs'>© FASREVO 2022. All rights reserved</span>
-          </div>
+      <div className='max-w-[1920px] bg-footer_background px-5 lg:px-32 mx-auto'>
+        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-10 py-10 lg:py-20'>
+          <FooterColumn heading='Điều hướng' col={nav} />
+          <FooterColumn heading='Chính sách' col={footerPolicy} />
+          <FooterColumn heading='Liên hệ' col={footerContact} />
+          <FooterColumn heading='Địa chỉ' col={storeAdress} meta='text' />
+        </div>
+        <div className='text-center text-xs md:text-sm text-footer_label h-10'>
+          © FASREVO 2022. All rights reserved
         </div>
       </div>
     </footer>
@@ -28,19 +27,23 @@ const Footer = () => {
 
 function FooterColumn({ heading, col, meta }) {
   return (
-    <div className='w-[250px] pt-5'>
-      <h3 className='font-medium text-base mb-4'>{heading}</h3>
+    <div>
+      <h3 className='font-medium text-sm md:text-base text-footer_label uppercase mb-4'>
+        {heading}
+      </h3>
       <ul className='list-none '>
         {col.map(({ title, path }) => (
           <li key={title}>
-            {meta === 'link' ? (
+            {meta !== 'text' ? (
               <Link href={path}>
-                <a className='text-xs block pb-[15px] transition-all hover:text-[#ff5c8d]'>
+                <a className='text-xs md:text-sm block pb-4 transition-all text-footer_text hover:text-footer_hover'>
                   {title}
                 </a>
               </Link>
             ) : (
-              <span className='text-xs block pb-[15px]'>{title}</span>
+              <span className='text-xs md:text-sm block pb-4 text-footer_text'>
+                {title}
+              </span>
             )}
           </li>
         ))}
