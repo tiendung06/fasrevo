@@ -14,7 +14,7 @@ const UserDetail = sequelize.define("user_detail", {
   },
   fullname: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   age: {
     type: DataTypes.INTEGER,
@@ -26,7 +26,7 @@ const UserDetail = sequelize.define("user_detail", {
   },
   address: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 });
 
