@@ -1,17 +1,22 @@
-import { errorConfig, okConfig } from "../config/configuration.js";
+import {
+  errorConfig,
+  okConfig,
+  TOKEN_SECRET,
+} from "../config/configuration.js";
 import User from "../model/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { transporter, isEmailValid } from "../config/EmailConfig.js";
 
 class AuthController {
+  // register
   async register(req, res) {
     const email = req.body.email;
     const { valid, reason, validators } = await isEmailValid(email);
     if (valid) {
       try {
         const user = await User.findOne({
-          where: { username: req.body.username, email: email },
+          where: { username: req.body.username, email: req.body.email },
         });
         if (user != null) {
           res.status(422).send({ message: errorConfig.register.isExist });
@@ -23,6 +28,8 @@ class AuthController {
               email: req.body.email,
               username: req.body.username,
               password: hassPass,
+              phone: req.body.phone,
+              address: req.body.address,
               role: req.body.role,
             });
             await transporter.sendMail({
@@ -52,15 +59,23 @@ class AuthController {
     }
   }
 
+  // login
   async login(req, res) {
-    
     const user = await User.findOne({
-      where: { username: req.body.username, password: req.body.password },
+      where: { username: req.body.username },
     });
     if (user == null) {
-      res.status(422).send({ message: errorConfig.login.notExist });
-    }else{
-      
+      res.status(422).send({ message: errorConfig.login.usernameExist });
+    } else {
+      const checkPass = await bcrypt.compare(req.body.password, user.password);
+      if (!checkPass) {
+        res.status(422).send({ message: errorConfig.login.password });
+      } else {
+        const token = jwt.sign({ _id: user.uid }, TOKEN_SECRET, {
+          expiresIn: 60 * 60 * 24,
+        });
+        res.header("auth-token", token).send({ authToken: token });
+      }
     }
   }
 }
