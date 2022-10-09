@@ -105,7 +105,7 @@ const Header = () => {
           <div className='top-0 flex justify-between w-full h-full items-center'>
             <ul
               id='navbar'
-              className='list-none md:flex items-center h-screen md:h-full border-t border-t-[rgba(0,0,0,0.12)] md:border-none md:static -translate-x-full md:translate-x-0 p-5 md:p-0 fixed left-0 right-0 bottom-0 top-[70px] z-30 bg-white md:bg-transparent overflow-hidden transition-all'
+              className='list-none lg:flex items-center h-screen lg:h-full border-t border-t-[rgba(0,0,0,0.12)] lg:border-none lg:static -translate-x-full lg:translate-x-0 p-5 lg:p-0 fixed left-0 right-0 bottom-0 top-[70px] z-30 bg-white lg:bg-transparent overflow-hidden transition-all'
             >
               {nav.map(({ title, path }) => (
                 <li className='pr-5' key={title}>
@@ -118,7 +118,7 @@ const Header = () => {
               ))}
             </ul>
             <div
-              className='absolute left-0 md:hidden cursor-pointer'
+              className='absolute left-0 lg:hidden cursor-pointer'
               onClick={handleShowMenu}
             >
               {showMenuNav ? (

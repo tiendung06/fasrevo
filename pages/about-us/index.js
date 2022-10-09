@@ -5,7 +5,7 @@ import Section from '../../src/layout/Section';
 const AboutUs = () => {
   return (
     <Main heading='Về chúng tôi'>
-      <Section title='Về chúng tôi'></Section>
+      <Section></Section>
     </Main>
   );
 };

@@ -5,7 +5,7 @@ import Section from '../../src/layout/Section';
 const ReturnPolicy = () => {
   return (
     <Main heading='Chính sách đổi trả'>
-      <Section title='Chính sách đổi trả'>
+      <Section>
         <div className='min-h-[400px] max-w-[800px] mx-auto'>
           <p className='mb-3'>
             Fasrevo hy vọng rằng bạn sẽ yêu thích những sản phẩm mà bạn đặt hàng

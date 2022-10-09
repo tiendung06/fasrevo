@@ -5,7 +5,7 @@ import Section from '../../src/layout/Section';
 const DelivertyPolicy = () => {
   return (
     <Main heading='Chính sách vận chuyển'>
-      <Section title='Chính sách vận chuyển'>
+      <Section>
         <div className='min-h-[400px] max-w-[800px] mx-auto'>
           <div className='mb-10'>
             <h2 className='text-lg font-bold mb-3'>

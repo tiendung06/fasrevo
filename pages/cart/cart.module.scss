@@ -1,0 +1,11 @@
+.empty_cart {
+  height: calc(100vh - 70px);
+}
+
+.cart {
+  min-height: calc(100vh - 70px);
+}
+
+.product:last-child {
+  border: none;
+}
