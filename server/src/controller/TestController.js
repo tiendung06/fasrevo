@@ -5,6 +5,8 @@ import Category from "../model/Category.js";
 import Product from "../model/Product.js";
 import ProductDetail from "../model/ProductDetail.js";
 import Cart from "../model/Cart.js";
+import Voucher from "../model/Voucher.js";
+import UserVoucher from "../model/UserVoucher.js";
 
 try {
   await sequelize.authenticate();
@@ -19,7 +21,11 @@ try {
   // create ProductDetail
   // await ProductDetail.sync({ alter: true });
   // create Cart
-  await Cart.sync({ alter: true });
+  // await Cart.sync({ alter: true });
+  // create Voucher
+  // await Voucher.sync({ alter: true });
+  // create UserVoucher
+  // await UserVoucher.sync({ alter: true });
   console.log("Connection has been established successfully.");
   sequelize.close();
 } catch (error) {
