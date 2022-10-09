@@ -1,0 +1,11 @@
+.order {
+  min-height: calc(100vh - 70px);
+}
+
+.address {
+  width: calc(100% - 60px);
+}
+
+.product:last-child {
+  border: none;
+}

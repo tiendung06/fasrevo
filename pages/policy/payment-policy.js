@@ -5,7 +5,7 @@ import Section from '../../src/layout/Section';
 const PaymentPolicy = () => {
   return (
     <Main heading='Chính sách thanh toán'>
-      <Section title='Chính sách thanh toán'>
+      <Section>
         <div className='min-h-[400px] max-w-[800px] mx-auto'>
           <p>
             Hiện tại Fasrevo có hình thức thanh toán cho bạn khi mua hàng online

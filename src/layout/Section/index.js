@@ -1,21 +1,8 @@
-import Link from 'next/link';
 import React from 'react';
 
-const Section = ({ children, title, viewAll }) => {
+const Section = ({ children }) => {
   return (
-    <section className='w-full lg:my-10 lg:px-32 px-5 my-5'>
-      <div className='flex justify-between items-center'>
-        <h1 className='text-xl font-bold uppercase text-black py-5 sm:py-10'>
-          {title}
-        </h1>
-        {viewAll ? (
-          <Link href='/products'>
-            <a className='text-sm hover:underline'>Xem thêm</a>
-          </Link>
-        ) : (
-          ''
-        )}
-      </div>
+    <section className='w-full max-w-[1920px] mx-auto mt-[70px] xl:px-32 px-5 md:px-10'>
       {children}
     </section>
   );
