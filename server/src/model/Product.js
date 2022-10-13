@@ -9,10 +9,6 @@ const Product = sequelize.define("product", {
     autoIncrement: true,
     primaryKey: true,
   },
-  ptype: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   image: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -49,7 +45,11 @@ const Product = sequelize.define("product", {
     type: DataTypes.DOUBLE,
     allowNull: true,
   },
-  cid: {
+  cname: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  cname_type: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -57,7 +57,9 @@ const Product = sequelize.define("product", {
 
 // Category.hasMany(Product);
 Product.belongsTo(Category, {
-  foreignKey: "cid",
+  foreignKey: "cname",
 });
-
+Product.belongsTo(Category, {
+  foreignKey: "cname_type",
+});
 export default Product;
