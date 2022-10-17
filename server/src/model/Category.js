@@ -11,14 +11,8 @@ const Category = sequelize.define(
       primaryKey: true,
     },
     cname: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-    },
-    cname_type: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
     },
   },
   { timestamps: false },

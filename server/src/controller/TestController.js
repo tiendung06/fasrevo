@@ -6,23 +6,26 @@ import ProductDetail from "../model/ProductDetail.js";
 import Cart from "../model/Cart.js";
 import Voucher from "../model/Voucher.js";
 import UserVoucher from "../model/UserVoucher.js";
+import CategoryDetail from "../model/CategoryDetail.js";
 
 try {
   await sequelize.authenticate();
   // create User
-  // await User.sync({ alter: true });
+  await User.sync({ alter: true });
   // create Category
   await Category.sync({ alter: true });
+  // create CategoryDetail
+  await CategoryDetail.sync({alter: true})
   // create Product
   await Product.sync({ alter: true });
   // create ProductDetail
-  // await ProductDetail.sync({ alter: true });
+  await ProductDetail.sync({ alter: true });
   // create Cart
-  // await Cart.sync({ alter: true });
+  await Cart.sync({ alter: true });
   // create Voucher
-  // await Voucher.sync({ alter: true });
+  await Voucher.sync({ alter: true });
   // create UserVoucher
-  // await UserVoucher.sync({ alter: true });
+  await UserVoucher.sync({ alter: true });
   console.log("Connection has been established successfully.");
   sequelize.close();
 } catch (error) {

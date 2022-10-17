@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 import Category from "./Category.js";
+import CategoryDetail from "./CategoryDetail.js";
 
 const Product = sequelize.define("product", {
   pid: {
@@ -45,11 +46,11 @@ const Product = sequelize.define("product", {
     type: DataTypes.DOUBLE,
     allowNull: true,
   },
-  cname: {
+  cid: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  cname_type: {
+  cdid: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -57,9 +58,9 @@ const Product = sequelize.define("product", {
 
 // Category.hasMany(Product);
 Product.belongsTo(Category, {
-  foreignKey: "cname",
+  foreignKey: "cid",
 });
-Product.belongsTo(Category, {
-  foreignKey: "cname_type",
+Product.belongsTo(CategoryDetail, {
+  foreignKey: "cdid",
 });
 export default Product;
