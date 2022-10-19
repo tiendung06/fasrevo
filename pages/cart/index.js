@@ -29,7 +29,7 @@ const Cart = () => {
           </div> */}
           <div className={`${styles.cart}`}>
             <div className='grid grid-cols-1 lg:grid-cols-2 lg:gap-20 xl:gap-40 gap-10 py-5'>
-              <div className='text-header_hover'>
+              <div className='text-primary'>
                 <h2 className='text-xl font-base py-5 uppercase border-b border-t-[rgba(0,0,0,0.12)]'>
                   Giỏ hàng
                 </h2>
@@ -43,7 +43,7 @@ const Cart = () => {
                     height={150}
                     className='object-cover w-[100px] h-[150px]'
                   />
-                  <div className='w-full h-full text-sm text-header_hover px-5'>
+                  <div className='w-full h-full text-sm text-primary px-5'>
                     <p className='text-base font-bold'>IDLE LOOSE PANT</p>
                     <p className='pb-2'>549.000 VND</p>
                     <div className='flex'>
@@ -75,17 +75,24 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className='absolute right-0 top-0 w-10 h-10 flex justify-center items-center cursor-pointer'>
-                    <Image
-                      src={icon_close.src}
-                      alt=''
-                      width={14}
-                      height={14}
-                      className='object-cover w-[100px] h-[150px]'
-                    />
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='w-6 h-6'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M6 18L18 6M6 6l12 12'
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>
-              <div className='text-header_hover'>
+              <div className='text-primary'>
                 <h2 className='text-xl font-base py-5 uppercase border-b border-t-[rgba(0,0,0,0.12)]'>
                   Thông tin thanh toán
                 </h2>
@@ -105,12 +112,12 @@ const Cart = () => {
                     <span>379.300 VND</span>
                   </div>
                   <Link href='/order'>
-                    <a className='w-full h-10 inline-block bg-header_hover text-white font-bold uppercase leading-10 text-center'>
+                    <a className='w-full h-10 inline-block bg-primary text-white font-bold uppercase leading-10 text-center'>
                       Thanh toán
                     </a>
                   </Link>
                 </div>
-                <div className='py-5 text-sm text-header_hover'>
+                <div className='py-5 text-sm text-primary'>
                   <p className='mb-3'>Giao hàng toàn quốc</p>
                   <p className='mb-3'>Giao hàng trong 3-5 ngày</p>
                   <p className='mb-3'>Giao hàng tiêu chuẩn đồng giá 30.000</p>

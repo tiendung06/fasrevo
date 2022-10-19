@@ -1,14 +1,17 @@
+import React from 'react';
 import Banner from '../src/components/Banner';
-import Collections from '../src/components/Collections';
-import FeaturedProduct from '../src/components/FeaturedProduct';
 import Main from '../src/layout/Main';
+import FeaturedProduct from '../src/components/FeaturedProduct';
+import Category from '../src/components/Category';
+import Video from '../src/components/Video';
 
 export default function Home() {
   return (
     <div>
-      <Main>
+      <Main transparent={true}>
         <Banner></Banner>
-        <Collections></Collections>
+        <Category></Category>
+        <Video></Video>
         <FeaturedProduct></FeaturedProduct>
       </Main>
     </div>

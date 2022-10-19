@@ -12,7 +12,7 @@ const Order = () => {
       <Section>
         <div className={`${styles.order}`}>
           <div className='grid grid-cols-1 lg:grid-cols-2 lg:gap-20 xl:gap-40 gap-10 py-5'>
-            <div className='text-header_hover'>
+            <div className='text-primary'>
               <h2 className='text-xl font-base py-5 uppercase border-b border-t-[rgba(0,0,0,0.12)]'>
                 Thông tin sản phẩm
               </h2>
@@ -26,7 +26,7 @@ const Order = () => {
                   height={150}
                   className='object-cover w-[100px] h-[150px]'
                 />
-                <div className='w-full h-full text-sm text-header_hover pl-5'>
+                <div className='w-full h-full text-sm text-primary pl-5'>
                   <p className='text-base font-bold'>IDLE LOOSE PANT</p>
                   <p className='pb-2'>549.000 VND</p>
                   <div className='flex'>
@@ -47,7 +47,7 @@ const Order = () => {
                 </div>
               </div>
             </div>
-            <div className='text-header_hover'>
+            <div className='text-primary'>
               <h2 className='text-xl font-base py-5 uppercase border-b border-t-[rgba(0,0,0,0.12)]'>
                 Thông tin thanh toán
               </h2>
@@ -98,7 +98,7 @@ const Order = () => {
                   <span>379.300 VND</span>
                 </div>
                 <Link href='/order'>
-                  <a className='w-full h-10 inline-block bg-header_hover text-white font-bold uppercase leading-10 text-center'>
+                  <a className='w-full h-10 inline-block bg-primary text-white font-bold uppercase leading-10 text-center'>
                     Tiến hành đặt hàng
                   </a>
                 </Link>
