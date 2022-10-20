@@ -8,34 +8,42 @@ const User = sequelize.define("user", {
     primaryKey: true,
     allowNull: false,
   },
+  // Họ và tên
   fullname: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
+  // username
   username: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
+  // password
   password: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
+  // gmail
   email: {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  // sdt
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  // Địa chỉ
   address: {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  // avatar
   image: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: true,
   },
+  // quyền
   role: {
     type: DataTypes.INTEGER,
     defaultValue: 0,

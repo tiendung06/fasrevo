@@ -1,21 +1,21 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 
-const Voucher = sequelize.define(
-  "voucher",
+const Size = sequelize.define(
+  "size",
   {
-    vid: {
+    size_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
       autoIncrement: true,
+      primaryKey: true,
     },
-    value: {
-      type: DataTypes.DOUBLE,
+    color_name: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
   { timestamps: false },
 );
 
-export default Voucher;
+export default Size;

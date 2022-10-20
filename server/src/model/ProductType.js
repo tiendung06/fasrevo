@@ -1,21 +1,21 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 
-const Voucher = sequelize.define(
-  "voucher",
+const ProductType = sequelize.define(
+  "product_type",
   {
-    vid: {
+    product_type_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
       autoIncrement: true,
+      primaryKey: true,
     },
-    value: {
-      type: DataTypes.DOUBLE,
+    product_type_name: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
   { timestamps: false },
 );
 
-export default Voucher;
+export default ProductType;

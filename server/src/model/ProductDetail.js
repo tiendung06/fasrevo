@@ -4,20 +4,28 @@ import Product from "./Product.js";
 
 const ProductDetail = sequelize.define("product_detail", {
   pid: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(10),
     allowNull: false,
     primaryKey: true,
   },
+  // Chi tiết
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  // xuất xứ
+  origin: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  // Chất liệu
   texture: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: true,
   },
-  design: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
+  // chi tiết nhỏ
   small_detail: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: true,
   },
 });
