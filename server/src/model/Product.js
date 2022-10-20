@@ -12,7 +12,7 @@ const Product = sequelize.define("product", {
   },
   image: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   pname: {
     type: DataTypes.STRING,
@@ -22,6 +22,7 @@ const Product = sequelize.define("product", {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
+  // slc
   inStoke: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -63,4 +64,5 @@ Product.belongsTo(Category, {
 Product.belongsTo(CategoryDetail, {
   foreignKey: "cdid",
 });
+
 export default Product;

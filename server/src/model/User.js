@@ -8,7 +8,7 @@ const User = sequelize.define("user", {
     primaryKey: true,
     allowNull: false,
   },
-  email: {
+  fullname: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -20,17 +20,9 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  fullname: {
+  email: {
     type: DataTypes.STRING,
-    allowNull: true,
-  },
-  age: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-  sex: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
   },
   phone: {
     type: DataTypes.STRING,
@@ -39,6 +31,10 @@ const User = sequelize.define("user", {
   address: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  image: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   role: {
     type: DataTypes.INTEGER,

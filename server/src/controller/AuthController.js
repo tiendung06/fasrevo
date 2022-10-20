@@ -29,7 +29,6 @@ class AuthController {
               password: hassPass,
               phone: req.body.phone,
               address: req.body.address,
-              role: req.body.role,
             });
             await transporter.sendMail({
               from: "fasrevo@gmail.com",
