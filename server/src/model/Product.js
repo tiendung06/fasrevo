@@ -1,9 +1,8 @@
-import { DataTypes, TEXT } from "sequelize";
+import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
+import CategoryDetail from "./CategoryDetail.js";
 import Color from "./Color.js";
 import Combo from "./Combo.js";
-import ProductType from "./ProductType.js";
-import ProductTypeDetail from "./ProductTypeDetail.js";
 import Sex from "./Sex.js";
 import Size from "./Size.js";
 
@@ -17,22 +16,13 @@ const Product = sequelize.define("product", {
       key: "sex_id",
     },
   },
-  // Áo, Quần, Phụ kiện FE chả về
-  product_type: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: ProductType,
-      key: "product_type_id",
-    },
-  },
   // Chi tiết productType FE chả về
-  ptype_detail: {
+  cdid: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: ProductTypeDetail,
-      key: "ptype_detail_id",
+      model: CategoryDetail,
+      key: "cdid",
     },
   },
   // Đuôi mã sản phẩm

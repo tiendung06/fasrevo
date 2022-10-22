@@ -6,11 +6,11 @@ import Cart from "../model/Cart.js";
 import Voucher from "../model/Voucher.js";
 import UserVoucher from "../model/UserVoucher.js";
 import Color from "../model/Color.js";
-import ProductType from "../model/ProductType.js";
-import ProductTypeDetail from "../model/ProductTypeDetail.js";
 import Sex from "../model/Sex.js";
 import Size from "../model/Size.js";
 import Combo from "../model/Combo.js";
+import Category from "../model/Category.js";
+import CategoryDetail from "../model/CategoryDetail.js";
 
 try {
   await sequelize.authenticate();
@@ -19,9 +19,9 @@ try {
   // Create Color
   await Color.sync({ alter: true });
   // Create ProductType
-  await ProductType.sync({ alert: true });
+  await Category.sync({ alert: true });
   // Create ProductTypeDetail
-  await ProductTypeDetail.sync({ alert: true });
+  await CategoryDetail.sync({ alert: true });
   // Create Sex
   await Sex.sync({ alert: true });
   // Create Size

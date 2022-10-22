@@ -1,16 +1,16 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 
-const ProductType = sequelize.define(
-  "product_type",
+const Category = sequelize.define(
+  "category",
   {
-    product_type_id: {
+    cid: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
-    product_type_name: {
+    cname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -18,4 +18,4 @@ const ProductType = sequelize.define(
   { timestamps: false },
 );
 
-export default ProductType;
+export default Category;
