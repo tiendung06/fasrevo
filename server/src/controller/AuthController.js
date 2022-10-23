@@ -66,7 +66,7 @@ class AuthController {
       where: { email: req.body.email },
     });
     if (user == null) {
-      res.status(422).send({ message: errorConfig.login.usernameExist });
+      res.status(422).send({ message: errorConfig.login.accountExist });
     } else {
       const checkPass = await bcrypt.compare(req.body.password, user.password);
       if (!checkPass) {
@@ -79,6 +79,26 @@ class AuthController {
       }
     }
   }
+
+  // Change password
+  async changePassword(req, res) {
+    const user = await User.findOne({ where: { uid: req.params.uid } });
+    if (user === null) {
+      res.status(422).send({ message: errorConfig.login.accountExist });
+    } else {
+      const hassPassOld = await bcrypt.compare(
+        req.body.password,
+        user.password,
+      );
+      if (!hassPassOld) {
+        res.status(422).send({ message: errorConfig.login.password });
+      } else {
+        await user.update({});
+      }
+    }
+  }
+
+  // Forgot password
 }
 
 export default new AuthController();
