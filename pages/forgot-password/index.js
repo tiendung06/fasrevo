@@ -12,7 +12,7 @@ const SignIn = () => {
             <input
               className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
               type='email'
-              placeholder='Email'
+              placeholder='Email*'
             />
           </div>
           <div className='text-sm'>

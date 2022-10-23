@@ -1,9 +1,15 @@
-.show_navbar {
-  transform: translateX(0%);
+.navbar {
+  min-height: calc(100vh - 80px);
 }
 
-.show_box_search {
-  top: 0px;
+.show_navbar {
+  width: 100%;
+}
+
+.white_background {
+  background: white;
+  color: #1e1e1e;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .sticky_class {

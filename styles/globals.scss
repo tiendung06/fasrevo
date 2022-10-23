@@ -35,7 +35,7 @@ a {
 .swiper-pagination-bullet {
   width: 60px !important;
   height: 3px !important;
-  background: #1e1e1e !important;
+  background: white !important;
   border-radius: 1px !important;
   opacity: 0.15 !important;
   @media only screen and (max-width: 576px) {
@@ -44,6 +44,23 @@ a {
 }
 
 .swiper-pagination-bullet-active {
-  background: #1e1e1e !important;
+  background: white !important;
   opacity: 0.7 !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px !important;
+  height: 40px !important;
+  color: #1e1e1e !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px !important;
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  display: none;
 }

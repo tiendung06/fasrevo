@@ -1,9 +1,9 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../database/mysql_db.js";
-import Category from "./Category.js";
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../database/mysql_db.js';
+import Category from './Category.js';
 
 const CategoryDetail = sequelize.define(
-  "category_detail",
+  'category_detail',
   {
     cdid: {
       type: DataTypes.INTEGER,
@@ -21,11 +21,11 @@ const CategoryDetail = sequelize.define(
       allowNull: false,
       references: {
         model: Category,
-        key: "cid",
+        key: 'cid',
       },
     },
   },
-  { timestamps: false },
+  { timestamps: false }
 );
 
 export default CategoryDetail;

@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import icon_search from '../../../public/assets/icon-search.svg';
-import icon_user from '../../../public/assets/icon-user.svg';
-import icon_cart from '../../../public/assets/icon-cart.svg';
-import icon_bars from '../../../public/assets/icon-bars.svg';
-import icon_close from '../../../public/assets/icon-times.svg';
-import image_product from '../../../public/images/product1.jpg';
 import { nav } from '../../constants/nav.js';
 import styles from './header.module.scss';
 
-const Header = () => {
+const Header = ({ transparent = false }) => {
   const [showMenuNav, setShowMenuNav] = useState(false);
-  const [showBoxSearch, setShowBoxSearch] = useState(false);
 
   const handleShowMenu = () => {
     setShowMenuNav(!showMenuNav);
-  };
-
-  const handleShowBoxSearch = () => {
-    setShowBoxSearch(!showBoxSearch);
   };
 
   useEffect(() => {
@@ -32,156 +20,165 @@ const Header = () => {
   }, [showMenuNav]);
 
   useEffect(() => {
-    const boxSearch = document.getElementById('box-search');
-    if (showBoxSearch) {
-      boxSearch.classList.add(styles.show_box_search);
-    } else {
-      boxSearch.classList.remove(styles.show_box_search);
-    }
-  }, [showBoxSearch]);
+    const header = document.getElementById('header-desktop');
+    const controlNavbar = () => {
+      if (transparent) {
+        if (window.scrollY > 0) {
+          header.classList.add(styles.white_background);
+        } else {
+          header.classList.remove(styles.white_background);
+        }
+      }
+    };
+    window.addEventListener('scroll', controlNavbar);
+    return () => {
+      window.removeEventListener('scroll', controlNavbar);
+    };
+  }, [transparent]);
 
   return (
     <header className='w-full relative'>
       <div
-        id='box-search'
-        className='fixed flex transition-all left-0 top-[-120px] bg-white w-full h-[70px] items-center justify-center shadow-sm px-5 z-20'
-      >
-        <div className='h-10 max-w-[500px] w-full relative border-[rgba(0,0,0,0.12)] border-[1px]'>
-          <input
-            className='bg-transparent w-full h-full pl-5 pr-[50px] text-xs outline-0 border-none text-secondary_text'
-            type='text'
-            placeholder='Gõ từ khóa tìm kiếm'
-          />
-          <div className='absolute right-0 bottom-0 w-10 h-10 flex justify-center items-center cursor-pointer'>
-            <Image
-              className='w-3 h-3'
-              src={icon_search.src}
-              alt='Search'
-              width={14}
-              height={14}
-            />
-          </div>
-          <div className='hidden absolute w-full top-[45px] left-0 z-40 bg-white border-[rgba(0,0,0,0.12)] border-[1px]'>
-            <div
-              className={`${styles.product_search} p-2 flex items-center cursor-pointer`}
-            >
-              <Image
-                className='w-3 h-3 object-cover'
-                src={image_product.src}
-                alt='Search'
-                width={40}
-                height={50}
-              />
-              <div className='px-3'>
-                <p className='text-sm font-medium transition-all'>
-                  IDLE TRAVEL BAG
-                </p>
-                <span className='font-normal text-xs'>320.500đ</span>
-              </div>
-            </div>
-            <div className='w-full h-10 flex items-center border-t border-[rgba(0,0,0,0.12)] cursor-pointer'>
-              <p className='px-2 text-xs'>Tìm kiếm kết quả cho ABCXYZ</p>
-            </div>
-          </div>
-        </div>
-        <div
-          className='h-10 w-[40px] flex justify-center items-center cursor-pointer'
-          onClick={handleShowBoxSearch}
-        >
-          <Image
-            className='w-full h-full'
-            src={icon_close.src}
-            alt='Search'
-            width={14}
-            height={14}
-          />
-        </div>
-      </div>
-      <div
         id='header-desktop'
-        className={`${styles.header_desktop} fixed top-0 z-10 bg-white  w-full h-[70px] px-5 lg:px-10 shadow-sm`}
+        className={`${styles.header_desktop} fixed top-0 z-10 ${
+          transparent
+            ? 'bg-transparent text-white'
+            : 'bg-white text-primary shadow-sm'
+        }  w-full h-20 px-5 transition-all`}
       >
         <div className='max-w-[1920px] h-full mx-auto items-center relative grid grid-cols-3'>
           <div className='top-0 flex justify-between w-full h-full items-center'>
-            <ul
-              id='navbar'
-              className='list-none lg:flex items-center h-screen lg:h-full border-t border-t-[rgba(0,0,0,0.12)] lg:border-none lg:static -translate-x-full lg:translate-x-0 p-5 lg:p-0 fixed left-0 right-0 bottom-0 top-[70px] z-30 bg-white lg:bg-transparent overflow-hidden transition-all'
-            >
-              {nav.map(({ title, path }) => (
-                <li className='pr-5' key={title}>
-                  <Link href={path}>
-                    <a className='pb-5 md:py-5 text-base md:text-sm text-header font-medium block transition-all hover:text-header_hover'>
-                      {title}
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
             <div
-              className='absolute left-0 lg:hidden cursor-pointer'
+              id='navbar'
+              className={`${styles.navbar} pb-10 w-0 h-full fixed left-0 right-0 bottom-0 z-30 bg-white transition-all overflow-auto`}
+            >
+              <div
+                className='close h-20 w-full px-5 flex items-center text-primary cursor-pointer'
+                onClick={handleShowMenu}
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6 18L18 6M6 6l12 12'
+                  />
+                </svg>
+              </div>
+              <ul className='list-none w-full pl-5 lg:pl-20'>
+                {nav.map(({ title, path, subMenu }) => (
+                  <li key={title}>
+                    <Link href={path}>
+                      <a className='pb-5 sm:py-5 text-2xl sm:text-4xl uppercase font-bold block transition-all text-primary hover:underline'>
+                        {title}
+                      </a>
+                    </Link>
+                    {subMenu ? (
+                      <ul className='left-0 top-[60px] list-none'>
+                        {subMenu.map(({ title, path }) => (
+                          <li className={`px-5 relative`} key={title}>
+                            <Link href={path}>
+                              <a className='pb-5 sm:py-5 text-2xl sm:text-4xl text-primary font-bold uppercase block transition-all hover:underline'>
+                                {title}
+                              </a>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      ''
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div
+              className='absolute left-0 cursor-pointer'
               onClick={handleShowMenu}
             >
-              {showMenuNav ? (
-                <div className='flex items-center justify-center h-5 w-5'>
-                  <Image
-                    className='w-full h-full'
-                    src={icon_close.src}
-                    alt='Search'
-                    width={20}
-                    height={20}
+              <div className='bars flex items-center justify-center '>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
                   />
-                </div>
-              ) : (
-                <div className='flex items-center justify-center h-5 w-5'>
-                  <Image
-                    className='w-full h-full'
-                    src={icon_bars.src}
-                    alt='Search'
-                    width={20}
-                    height={20}
-                  />
-                </div>
-              )}
+                </svg>
+              </div>
             </div>
           </div>
           <div className='h-full flex items-center justify-center text-center'>
             <Link href='/'>
-              <a className='text-header_hover font-bold text-2xl'>fasrevo</a>
+              <a className='font-bold text-2xl'>fasrevo</a>
             </Link>
           </div>
           <div className='flex items-center justify-end h-full text-xs font-medium'>
-            <div
-              className='flex items-center justify-center h-10 w-10 cursor-pointer'
-              onClick={handleShowBoxSearch}
-            >
-              <Image
-                className='w-3 h-3'
-                src={icon_search.src}
-                alt='Search'
-                width={20}
-                height={20}
-              />
+            <div className='search flex items-center justify-center h-10 w-10 cursor-pointer'>
+              <Link href='/search'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z'
+                  />
+                </svg>
+              </Link>
             </div>
             <div className='flex items-center justify-center h-10 w-10 cursor-pointer'>
               <Link href='/sign-in'>
-                <Image
-                  className='w-3 h-3'
-                  src={icon_user.src}
-                  alt='Search'
-                  width={20}
-                  height={20}
-                />
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
+                  />
+                </svg>
               </Link>
             </div>
             <div className='flex items-center justify-center h-10 w-10 cursor-pointer relative'>
               <Link href='/cart'>
-                <Image
-                  className='w-3 h-3'
-                  src={icon_cart.src}
-                  alt='Search'
-                  width={20}
-                  height={20}
-                />
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'
+                  />
+                </svg>
               </Link>
               <span className='inline-block absolute w-4 h-4 rounded-full text-center text-white top-0 right-0 bg-header_hover'>
                 3

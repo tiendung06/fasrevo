@@ -1,17 +1,17 @@
-import { sequelize } from "../database/mysql_db.js";
-import User from "../model/User.js";
-import Product from "../model/Product.js";
-import ProductDetail from "../model/ProductDetail.js";
-import Cart from "../model/Cart.js";
-import Voucher from "../model/Voucher.js";
-import UserVoucher from "../model/UserVoucher.js";
-import Color from "../model/Color.js";
-import Sex from "../model/Sex.js";
-import Size from "../model/Size.js";
-import Combo from "../model/Combo.js";
-import Category from "../model/Category.js";
-import CategoryDetail from "../model/CategoryDetail.js";
-import Collection from "../model/Collection.js";
+import { sequelize } from '../database/mysql_db.js';
+import User from '../model/User.js';
+import Product from '../model/Product.js';
+import ProductDetail from '../model/ProductDetail.js';
+import Cart from '../model/Cart.js';
+import Voucher from '../model/Voucher.js';
+import UserVoucher from '../model/UserVoucher.js';
+import Color from '../model/Color.js';
+import Sex from '../model/Sex.js';
+import Size from '../model/Size.js';
+import Combo from '../model/Combo.js';
+import Category from '../model/Category.js';
+import CategoryDetail from '../model/CategoryDetail.js';
+import Collection from '../model/Collection.js';
 
 try {
   await sequelize.authenticate();
@@ -41,7 +41,7 @@ try {
   // await Voucher.sync({ alter: true });
   // Create UserVoucher
   // await UserVoucher.sync({ alter: true });
-  console.log("Connection has been established successfully.");
+  console.log('Connection has been established successfully.');
   sequelize.close();
 } catch (error) {
   console.log(error);
