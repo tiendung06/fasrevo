@@ -10,6 +10,7 @@ const Category = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
+    // Nam Nu
     cname: {
       type: DataTypes.STRING,
       allowNull: false,

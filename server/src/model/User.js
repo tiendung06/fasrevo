@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
+import Sex from "./Sex.js";
 
 const User = sequelize.define("user", {
   uid: {
@@ -13,14 +14,9 @@ const User = sequelize.define("user", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  // username
-  username: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-  },
   // password
   password: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   // gmail
@@ -42,6 +38,14 @@ const User = sequelize.define("user", {
   image: {
     type: DataTypes.TEXT,
     allowNull: true,
+  },
+  sex: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Sex,
+      key: "sex_id",
+    },
   },
   // quyền
   role: {

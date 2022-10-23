@@ -7,7 +7,6 @@ const Sex = sequelize.define(
     sex_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
     },
     sex_name: {

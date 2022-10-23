@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 import CategoryDetail from "./CategoryDetail.js";
+import Collection from "./Collection.js";
 import Color from "./Color.js";
 import Combo from "./Combo.js";
 import Sex from "./Sex.js";
@@ -16,7 +17,7 @@ const Product = sequelize.define("product", {
       key: "sex_id",
     },
   },
-  // Chi tiết productType FE chả về
+  // Chi tiết productType FE chả về Ao Quan vs PK
   cdid: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -63,6 +64,15 @@ const Product = sequelize.define("product", {
     references: {
       model: Combo,
       key: "combo_id",
+    },
+  },
+  // Bộ sưu tập
+  collection_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Collection,
+      key: "collection_id",
     },
   },
   // ảnh sản phẩm

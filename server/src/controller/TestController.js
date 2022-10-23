@@ -11,33 +11,36 @@ import Size from "../model/Size.js";
 import Combo from "../model/Combo.js";
 import Category from "../model/Category.js";
 import CategoryDetail from "../model/CategoryDetail.js";
+import Collection from "../model/Collection.js";
 
 try {
   await sequelize.authenticate();
-  // create User
-  await User.sync({ alter: true });
   // Create Color
-  await Color.sync({ alter: true });
+  // await Color.sync({ alter: true });
   // Create ProductType
-  await Category.sync({ alert: true });
+  // await Category.sync({ alert: true });
   // Create ProductTypeDetail
-  await CategoryDetail.sync({ alert: true });
+  // await CategoryDetail.sync({ alert: true });
   // Create Sex
-  await Sex.sync({ alert: true });
+  // await Sex.sync({ alert: true });
+  // create User
+  // await User.sync({ alter: true });
   // Create Size
-  await Size.sync({ alert: true });
+  // await Size.sync({ alert: true });
   // Create Combo
-  await Combo.sync({ alter: true });
+  // await Combo.sync({ alter: true });
+  // create Collection
+  // await Collection.sync({ alter: true });
   // Create Product
-  await Product.sync({ alert: true });
+  // await Product.sync({ alert: true });
   // Create ProductDetail
-  await ProductDetail.sync({ alert: true });
+  // await ProductDetail.sync({ alert: true });
   // Create Cart
-  await Cart.sync({ alter: true });
+  // await Cart.sync({ alter: true });
   // Create Voucher
-  await Voucher.sync({ alter: true });
+  // await Voucher.sync({ alter: true });
   // Create UserVoucher
-  await UserVoucher.sync({ alter: true });
+  // await UserVoucher.sync({ alter: true });
   console.log("Connection has been established successfully.");
   sequelize.close();
 } catch (error) {

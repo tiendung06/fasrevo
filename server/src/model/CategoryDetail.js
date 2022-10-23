@@ -11,6 +11,7 @@ const CategoryDetail = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
+    // Ao quan PK
     cdname: {
       type: DataTypes.TEXT,
       allowNull: false,
