@@ -32,7 +32,4 @@ const UserVoucher = sequelize.define(
   { timestamps: false },
 );
 
-// User.belongsToMany(Voucher, { through: UserVoucher });
-// Voucher.belongsToMany(User, { through: UserVoucher });
-
 export default UserVoucher;

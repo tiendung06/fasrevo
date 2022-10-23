@@ -1,22 +1,20 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 
-const Category = sequelize.define(
-  "category",
+const Sex = sequelize.define(
+  "sex",
   {
-    cid: {
+    sex_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
     },
-    // Nam Nu
-    cname: {
-      type: DataTypes.STRING,
+    sex_name: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
   { timestamps: false },
 );
 
-export default Category;
+export default Sex;

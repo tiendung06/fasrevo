@@ -4,7 +4,7 @@ import Product from "./Product.js";
 import User from "./User.js";
 
 const Cart = sequelize.define("cart", {
-  cartId: {
+  cart_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -13,17 +13,25 @@ const Cart = sequelize.define("cart", {
   uid: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: User,
+      key: "uid",
+    },
   },
   pid: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(10),
     allowNull: false,
+    references: {
+      model: Product,
+      key: "pid",
+    },
   },
   image: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   pname: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   price: {
@@ -42,9 +50,17 @@ const Cart = sequelize.define("cart", {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
+  // combo chưa thanh toán, thanh toán 1 nửa và thanh toán và hủy thanh toán
+  status: {
+    type: DataTypes.INTEGER,
+    defaultValue: -1,
+  },
 });
 
-Cart.belongsTo(User, { foreignKey: "uid" });
-Cart.belongsTo(Product, { foreignKey: "pid" });
-
 export default Cart;
+
+/* Mô tả trường status
+- Nếu người dùng hủy đơn hàng thì db sẽ lưu trạng thái Hủy (0)
+- Nếu người dùng thanh toán hết tiền thì db sẽ lưu trạng thái Thành công (1)
+- Nếu người dùng thanh toán 1 nửa (cọc) trạng thái là Đặt cọc (2)
+*/

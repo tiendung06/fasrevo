@@ -84,6 +84,10 @@ export const footerPolicy = [
 export const footerContact = [
   { title: 'Facebook', path: 'https://www.facebook.com/' },
   { title: 'Instagram', path: 'https://www.instagram.com/' },
+<<<<<<< HEAD
+=======
+  { title: 'Hotline: 0344536552', path: 'tel:0344536552' },
+>>>>>>> origin/backend
 ];
 
 export const storeAdress = [

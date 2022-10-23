@@ -1,22 +1,21 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 
-const Category = sequelize.define(
-  "category",
+const Size = sequelize.define(
+  "size",
   {
-    cid: {
+    size_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
-    // Nam Nu
-    cname: {
-      type: DataTypes.STRING,
+    color_name: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
   { timestamps: false },
 );
 
-export default Category;
+export default Size;

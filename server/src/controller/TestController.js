@@ -1,29 +1,47 @@
-import { sequelize } from "../database/mysql_db.js";
-import User from "../model/User.js";
-import Category from "../model/Category.js";
-import Product from "../model/Product.js";
-import ProductDetail from "../model/ProductDetail.js";
-import Cart from "../model/Cart.js";
-import Voucher from "../model/Voucher.js";
-import UserVoucher from "../model/UserVoucher.js";
+import { sequelize } from '../database/mysql_db.js';
+import User from '../model/User.js';
+import Product from '../model/Product.js';
+import ProductDetail from '../model/ProductDetail.js';
+import Cart from '../model/Cart.js';
+import Voucher from '../model/Voucher.js';
+import UserVoucher from '../model/UserVoucher.js';
+import Color from '../model/Color.js';
+import Sex from '../model/Sex.js';
+import Size from '../model/Size.js';
+import Combo from '../model/Combo.js';
+import Category from '../model/Category.js';
+import CategoryDetail from '../model/CategoryDetail.js';
+import Collection from '../model/Collection.js';
 
 try {
   await sequelize.authenticate();
+  // Create Color
+  // await Color.sync({ alter: true });
+  // Create ProductType
+  // await Category.sync({ alert: true });
+  // Create ProductTypeDetail
+  // await CategoryDetail.sync({ alert: true });
+  // Create Sex
+  // await Sex.sync({ alert: true });
   // create User
   // await User.sync({ alter: true });
-  // create Category
-  await Category.sync({ alter: true });
-  // create Product
-  await Product.sync({ alter: true });
-  // create ProductDetail
-  // await ProductDetail.sync({ alter: true });
-  // create Cart
+  // Create Size
+  // await Size.sync({ alert: true });
+  // Create Combo
+  // await Combo.sync({ alter: true });
+  // create Collection
+  // await Collection.sync({ alter: true });
+  // Create Product
+  // await Product.sync({ alert: true });
+  // Create ProductDetail
+  // await ProductDetail.sync({ alert: true });
+  // Create Cart
   // await Cart.sync({ alter: true });
-  // create Voucher
+  // Create Voucher
   // await Voucher.sync({ alter: true });
-  // create UserVoucher
+  // Create UserVoucher
   // await UserVoucher.sync({ alter: true });
-  console.log("Connection has been established successfully.");
+  console.log('Connection has been established successfully.');
   sequelize.close();
 } catch (error) {
   console.log(error);

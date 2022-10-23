@@ -1,17 +1,16 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 
-const Category = sequelize.define(
-  "category",
+const Combo = sequelize.define(
+  "combo",
   {
-    cid: {
+    combo_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
-    // Nam Nu
-    cname: {
+    combo_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -19,4 +18,4 @@ const Category = sequelize.define(
   { timestamps: false },
 );
 
-export default Category;
+export default Combo;

@@ -10,9 +10,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/demo", (req, res) => {
-  res.send("OK");
-});
+// app.get("/demo", (req, res) => {
+//   res.send("OK");
+// });
 
 app.post("/regis", async (req, res) => {
   const { valid, reason, validators } = await isEmailValid(req.body.email);

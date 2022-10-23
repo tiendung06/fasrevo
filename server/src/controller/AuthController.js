@@ -15,7 +15,7 @@ class AuthController {
     if (valid) {
       try {
         const user = await User.findOne({
-          where: { username: req.body.username, email: req.body.email },
+          where: { email: req.body.email },
         });
         if (user != null) {
           res.status(422).send({ message: errorConfig.register.isExist });
@@ -24,18 +24,18 @@ class AuthController {
           const hassPass = await bcrypt.hash(req.body.password, salt);
           try {
             await User.create({
-              email: req.body.email,
-              username: req.body.username,
+              fullname: req.body.fullname,
               password: hassPass,
+              email: req.body.email,
               phone: req.body.phone,
               address: req.body.address,
-              role: req.body.role,
+              sex: req.body.sex,
             });
             await transporter.sendMail({
               from: "fasrevo@gmail.com",
               to: req.body.email,
               subject: okConfig.email.register.isOkRegister,
-              html: `<h1>Chúc mừng bạn đã đăng kí thành công tài khoản ${req.body.username}<h1>
+              html: `<h1>Chúc mừng ${req.body.fullname} đã đăng kí thành công tài khoản<h1>
                   <h3>Vui lòng bấm vào đường link dưới đây để tiến hành mua hàng</h3>
                   <a href="${okConfig.email.register.url}">Fasrevo</a>
                 `,
@@ -44,10 +44,12 @@ class AuthController {
               message: okConfig.register.isOK,
             });
           } catch (error) {
+            console.log(error);
             res.status(400).send({ message: { error } });
           }
         }
       } catch (error) {
+        console.log(error);
         res.status(400).send({ message: { error } });
       }
     } else {
@@ -61,7 +63,7 @@ class AuthController {
   // login
   async login(req, res) {
     const user = await User.findOne({
-      where: { username: req.body.username },
+      where: { email: req.body.email },
     });
     if (user == null) {
       res.status(422).send({ message: errorConfig.login.usernameExist });

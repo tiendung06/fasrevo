@@ -1,45 +1,53 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../database/mysql_db.js";
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../database/mysql_db.js';
+import Sex from './Sex.js';
 
-const User = sequelize.define("user", {
+const User = sequelize.define('user', {
   uid: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING,
+  // Họ và tên
+  fullname: {
+    type: DataTypes.TEXT,
     allowNull: false,
   },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+  // password
   password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  fullname: {
+  // gmail
+  email: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
-  age: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-  sex: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
+  // sdt
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  // Địa chỉ
   address: {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  // avatar
+  image: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  sex: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Sex,
+      key: 'sex_id',
+    },
+  },
+  // quyền
   role: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
