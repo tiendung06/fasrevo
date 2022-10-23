@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
-import icon_close from '../../public/assets/icon-times.svg';
 import product from '../../public/images/product1.jpg';
 import styles from './cart.module.scss';
 

@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 
 const Banner = () => {
   return (
-    <div className='w-full'>
+    <div className='w-full max-w-[1920px] mx-auto'>
       <Swiper
         modules={[Autoplay, Pagination]}
         slidesPerView={'auto'}

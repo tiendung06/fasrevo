@@ -16,9 +16,17 @@ const Collections = () => {
   return (
     <Section title='Danh mục mua hàng'>
       <div className='grid gap-5 grid-cols-2 md:grid-cols-3' data-aos='fade-up'>
-        <CollectionItems image={top} type='Top' link='/top' />
-        <CollectionItems image={bottom} type='Bottom' link='/bottom' />
-        <CollectionItems image={accessory} type='Accessory' link='/accessory' />
+        <CollectionItems image={top} type='Top' link='/men/products/top' />
+        <CollectionItems
+          image={bottom}
+          type='Bottom'
+          link='/men/products/bottom'
+        />
+        <CollectionItems
+          image={accessory}
+          type='Accessory'
+          link='/men/products/accessory'
+        />
       </div>
     </Section>
   );

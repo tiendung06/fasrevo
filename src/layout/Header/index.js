@@ -41,7 +41,9 @@ const Header = ({ transparent = false }) => {
       <div
         id='header-desktop'
         className={`${styles.header_desktop} fixed top-0 z-10 ${
-          transparent ? 'bg-transparent text-white' : 'bg-white text-primary'
+          transparent
+            ? 'bg-transparent text-white'
+            : 'bg-white text-primary shadow-sm'
         }  w-full h-20 px-5 transition-all`}
       >
         <div className='max-w-[1920px] h-full mx-auto items-center relative grid grid-cols-3'>
