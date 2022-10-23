@@ -17,6 +17,7 @@ const errorConfig = {
   },
   email: {
     notExist: "Email của bạn không tồn tại",
+    notSend: "Gửi không thành công",
   },
   login: {
     accountExist: "Tài khoản của bạn không tồn tại",
@@ -29,6 +30,9 @@ const errorConfig = {
   },
   fileFilter: {
     fileError: "Không đúng dịnh dạng",
+  },
+  password: {
+    notChange: "Đổi mật khẩu không thành công",
   },
 };
 
@@ -45,6 +49,11 @@ const okConfig = {
   login: {
     isExist: "Đăng nhập thành công",
   },
+  password: {
+    changeOK: "Đổi mật khẩu thành công",
+    forgotPassMes:
+      "Chúng tôi đã gửi một email đến cho bạn. Vui lòng kiểm tra hòm thư",
+  },
   userDetail: {
     addUserDetail: "Tạo mới thành công UserDetail",
   },
@@ -55,8 +64,21 @@ const okConfig = {
   },
 };
 
+const status = {
+  ok: 1,
+  error: 0,
+};
+
 const PORT = 3030;
 
 const TOKEN_SECRET = "fasrevo6789";
 
-export { mySqlConfig, emailConfig, errorConfig, okConfig, PORT, TOKEN_SECRET };
+export {
+  mySqlConfig,
+  emailConfig,
+  errorConfig,
+  okConfig,
+  PORT,
+  TOKEN_SECRET,
+  status,
+};
