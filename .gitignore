@@ -37,4 +37,4 @@ next-env.d.ts
 
 /server/node_modules
 
-/server/src/config/configuration.js
+# /server/src/config/configuration.js
