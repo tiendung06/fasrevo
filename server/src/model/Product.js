@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
+import Category from "./Category.js";
 import CategoryDetail from "./CategoryDetail.js";
 import Collection from "./Collection.js";
 import Color from "./Color.js";
@@ -17,7 +18,15 @@ const Product = sequelize.define("product", {
       key: "sex_id",
     },
   },
-  // Chi tiết productType FE chả về Ao Quan vs PK
+  cid: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Category,
+      key: "cid",
+    },
+  },
+  // Chi tiết CategoryType FE chả về Ao Quan vs PK
   cdid: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -25,13 +34,6 @@ const Product = sequelize.define("product", {
       model: CategoryDetail,
       key: "cdid",
     },
-  },
-  // Đuôi mã sản phẩm
-  pstt: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    unique: true,
-    autoIncrement: true,
   },
   // Mã sản phẩm
   pid: {

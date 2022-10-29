@@ -10,7 +10,7 @@ const Size = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    color_name: {
+    size_name: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
