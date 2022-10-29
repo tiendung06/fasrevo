@@ -8,7 +8,6 @@ import User from "../model/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { transporter, isEmailValid } from "../config/EmailConfig.js";
-import e from "express";
 
 class AuthController {
   // register
@@ -35,6 +34,7 @@ class AuthController {
               phone: req.body.phone,
               address: req.body.address,
               sex: req.body.sex,
+              role: req.body.role,
             });
             try {
               await transporter.sendMail({

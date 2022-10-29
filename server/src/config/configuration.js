@@ -8,7 +8,7 @@ const mySqlConfig = {
 
 const emailConfig = {
   email: "a5k53super@gmail.com",
-  emailKey: "uwolxjgdxuonbpiw",
+  emailKey: "ijnrvejuadtqlzlo",
 };
 
 const errorConfig = {

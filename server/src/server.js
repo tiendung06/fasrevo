@@ -10,19 +10,15 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.get("/demo", (req, res) => {
-//   res.send("OK");
-// });
-
-app.post("/regis", async (req, res) => {
-  const { valid, reason, validators } = await isEmailValid(req.body.email);
-
-  if (valid) return res.send({ message: "OK" });
-
-  return res.status(400).send({
-    message: "Please provide a valid email address.",
-    reason: validators[reason].reason,
-  });
+app.get("/demo", async (req, res) => {
+  const { valid, reason, validators } = await isEmailValid(
+    "vutrubaola2001@gmail.com",
+  );
+  if (valid) {
+    res.send("OK");
+  } else {
+    res.send("No");
+  }
 });
 
 router(app);
