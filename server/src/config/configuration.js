@@ -6,9 +6,19 @@ const mySqlConfig = {
   database: "fasrevo",
 };
 
+/*
+win: a5k53super@gmail.com ijnrvejuadtqlzlo
+linux: phungcuong2610@gmail.com ohdnegbczwdcnrka
+*/
+
+// const emailConfig = {
+//   email: "a5k53super@gmail.com",
+//   emailKey: "ijnrvejuadtqlzlo",
+// };
+
 const emailConfig = {
-  email: "a5k53super@gmail.com",
-  emailKey: "ijnrvejuadtqlzlo",
+  email: "phungcuong2610@gmail.com",
+  emailKey: "ohdnegbczwdcnrka",
 };
 
 const errorConfig = {
