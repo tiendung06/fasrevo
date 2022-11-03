@@ -20,8 +20,8 @@ class AuthController {
         });
         if (user !== null) {
           res.status(422).send({
-            message: errorConfig.register.isExist,
-            status: status.error,
+            message: errorConfig.register.EXIST_ERROR,
+            status: status.ERROR,
           });
         } else {
           const salt = await bcrypt.genSalt(10);
@@ -34,62 +34,59 @@ class AuthController {
               phone: req.body.phone,
               address: req.body.address,
               sex: req.body.sex,
-              role: req.body.role,
             });
             try {
               await transporter.sendMail({
                 from: "fasrevo@gmail.com",
                 to: req.body.email,
-                subject: okConfig.email.register.isOkRegister,
+                subject: okConfig.email.register.iS_OK_REGISTER,
                 html: `<h1>Chúc mừng ${req.body.fullname} đã đăng kí thành công tài khoản<h1>
                     <h3>Vui lòng bấm vào đường link dưới đây để tiến hành mua hàng</h3>
-                    <a href="${okConfig.email.register.url}">Fasrevo</a>
+                    <a href="${okConfig.email.register.URL}">Fasrevo</a>
                   `,
+              });
+              res.status(200).send({
+                message: okConfig.register.iS_OK,
+                status: status.OK,
               });
             } catch (error) {
               res.status(400).send({
-                message: errorConfig.email.notSend,
-                status: status.error,
+                message: errorConfig.email.SEND_ERROR,
+                status: status.ERROR,
               });
             }
-            res.status(200).send({
-              message: okConfig.register.isOK,
-              status: status.ok,
-            });
           } catch (error) {
-            // console.log(error);
-            res.status(400).send({ message: { error }, status: status.error });
+            res.status(400).send({ message: { error }, status: status.ERROR });
           }
         }
       } catch (error) {
-        console.log(error);
-        res.status(400).send({ message: { error }, status: status.error });
+        res.status(400).send({ message: { error }, status: status.ERROR });
       }
     } else {
-      return res.status(400).send({
-        message: errorConfig.email.notExist,
+      res.status(400).send({
+        message: errorConfig.email.EXIST_ERROR,
         reason: validators[reason].reason,
-        status: status.error,
+        status: status.ERROR,
       });
     }
   }
-
   // login
   async login(req, res) {
     const user = await User.findOne({
       where: { email: req.body.email },
     });
-    if (user == null) {
+    if (user === null) {
       res.status(422).send({
-        message: errorConfig.login.accountExist,
-        status: status.error,
+        message: errorConfig.login.ACCOUNT_ERROR,
+        status: status.ERROR,
       });
     } else {
       const checkPass = await bcrypt.compare(req.body.password, user.password);
       if (!checkPass) {
-        res
-          .status(422)
-          .send({ message: errorConfig.login.password, status: status.error });
+        res.status(422).send({
+          message: errorConfig.login.PASSWORD_ERROR,
+          status: status.ERROR,
+        });
       } else {
         const token = jwt.sign({ _id: user.uid }, TOKEN_SECRET, {
           expiresIn: 60 * 60 * 24,
@@ -104,8 +101,8 @@ class AuthController {
     const user = await User.findOne({ where: { uid: req.params.uid } });
     if (user === null) {
       res.status(422).send({
-        message: errorConfig.login.accountExist,
-        status: status.error,
+        message: errorConfig.login.ACCOUNT_ERROR,
+        status: status.ERROR,
       });
     } else {
       const hassPassOld = await bcrypt.compare(
@@ -113,9 +110,10 @@ class AuthController {
         user.password,
       );
       if (!hassPassOld) {
-        res
-          .status(422)
-          .send({ message: errorConfig.login.password, status: status.error });
+        res.status(422).send({
+          message: errorConfig.login.PASSWORD_ERROR,
+          status: status.ERROR,
+        });
       } else {
         const salt = await bcrypt.genSalt(10);
         const hassPass = await bcrypt.hash(req.body.passwordNew, salt);
@@ -130,11 +128,11 @@ class AuthController {
           );
           res
             .status(200)
-            .send({ message: okConfig.password.changeOK, status: status.ok });
+            .send({ message: okConfig.password.CHANGE_OK, status: status.OK });
         } catch (error) {
           res.status(400).send({
-            message: errorConfig.password.notChange,
-            status: status.error,
+            message: errorConfig.password.CHANGE_ERROR,
+            status: status.ERROR,
           });
         }
       }
@@ -150,30 +148,31 @@ class AuthController {
     });
     if (user === null) {
       res.status(422).send({
-        message: errorConfig.login.accountExist,
-        status: status.error,
+        message: errorConfig.login.ACCOUNT_ERROR,
+        status: status.ERROR,
       });
     } else {
       try {
         await transporter.sendMail({
           from: "fasrevo@gmail.com",
           to: req.body.email,
-          subject: okConfig.email.register.isOkRegister,
+          subject: okConfig.email.register.iS_OK_REGISTER,
           html: `
                 <h1>Quên mật khẩu<h1>
                 <h3>Bấm vào đường link bên dưới để đổi mật khẩu</h3>
-                <a href="${okConfig.email.register.url}">Fasrevo</a>
+                <a href="${okConfig.email.register.URL}">Fasrevo</a>
               `,
         });
       } catch (error) {
-        res
-          .status(400)
-          .send({ message: errorConfig.email.notSend, status: status.error });
+        res.status(400).send({
+          message: errorConfig.email.SEND_ERROR,
+          status: status.ERROR,
+        });
       }
       res.status(200).send({
         uid: user.uid,
-        message: okConfig.password.forgotPassMes,
-        status: status.ok,
+        message: okConfig.password.FORGOT_PASS_MESSAGE,
+        status: status.OK,
       });
     }
   }
@@ -187,8 +186,8 @@ class AuthController {
     });
     if (user === null) {
       res.status(400).send({
-        message: errorConfig.login.accountExist,
-        status: status.error,
+        message: errorConfig.login.ACCOUNT_ERROR,
+        status: status.ERROR,
       });
     } else {
       const salt = await bcrypt.genSalt(10);
@@ -200,11 +199,11 @@ class AuthController {
         );
         res
           .status(200)
-          .send({ message: okConfig.password.changeOK, status: status.ok });
+          .send({ message: okConfig.password.CHANGE_OK, status: status.OK });
       } catch (error) {
         res.status(400).send({
-          message: errorConfig.password.notChange,
-          status: status.error,
+          message: errorConfig.password.CHANGE_ERROR,
+          status: status.ERROR,
         });
       }
     }
