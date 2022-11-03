@@ -11,6 +11,7 @@
   "author": "Lee Jae Lee",
   "license": "ISC",
   "dependencies": {
+    "app-root-path": "^3.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",

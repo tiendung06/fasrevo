@@ -4,6 +4,9 @@ import bodyParser from "body-parser";
 import router from "./routers/index.js";
 import { PORT } from "./config/configuration.js";
 import { isEmailValid } from "./config/EmailConfig.js";
+import appRoot from "app-root-path";
+import multer from "multer";
+import { fileFilter, storage } from "./config/fileFilterConfig.js";
 
 const app = express();
 app.use(cors());
@@ -19,6 +22,13 @@ app.get("/demo", async (req, res) => {
   } else {
     res.send("No");
   }
+});
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
+
+app.post("/test", upload.single("image"), async (req, res) => {
+  console.log(req.file);
+  res.send(req.body);
 });
 
 router(app);

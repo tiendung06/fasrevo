@@ -1,3 +1,5 @@
+import appRootPath from "app-root-path";
+
 const mySqlConfig = {
   host: "localhost",
   port: 3306,
@@ -11,15 +13,15 @@ win: a5k53super@gmail.com ijnrvejuadtqlzlo
 linux: phungcuong2610@gmail.com ohdnegbczwdcnrka
 */
 
-// const emailConfig = {
-//   email: "a5k53super@gmail.com",
-//   emailKey: "ijnrvejuadtqlzlo",
-// };
-
 const emailConfig = {
-  email: "phungcuong2610@gmail.com",
-  emailKey: "ohdnegbczwdcnrka",
+  email: "a5k53super@gmail.com",
+  emailKey: "ijnrvejuadtqlzlo",
 };
+
+// const emailConfig = {
+//   email: "phungcuong2610@gmail.com",
+//   emailKey: "ohdnegbczwdcnrka",
+// };
 
 const errorConfig = {
   register: {
@@ -83,6 +85,14 @@ const PORT = 3030;
 
 const TOKEN_SECRET = "fasrevo6789";
 
+let path = "";
+let s = appRootPath.path.split("\\");
+for (let i = 0; i < s.length - 1; i++) {
+  path += s[i] + "\\";
+}
+
+const PATH = path + "public\\images";
+
 export {
   mySqlConfig,
   emailConfig,
@@ -91,4 +101,5 @@ export {
   PORT,
   TOKEN_SECRET,
   status,
+  PATH,
 };

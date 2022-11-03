@@ -12,6 +12,7 @@ import Combo from "../model/Combo.js";
 import Category from "../model/Category.js";
 import CategoryDetail from "../model/CategoryDetail.js";
 import Collection from "../model/Collection.js";
+import ProductImage from "../model/ProductImage.js";
 
 try {
   await sequelize.authenticate();
@@ -47,6 +48,8 @@ try {
   // await User.sync({ alter: true });
   // Create Product
   // await Product.sync({ alert: true });
+  // Create ProductImage
+  // await ProductImage.sync({ alert: true });
   // Create ProductDetail
   // await ProductDetail.sync({ alert: true });
   // Create Cart
