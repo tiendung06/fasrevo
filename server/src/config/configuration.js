@@ -1,3 +1,5 @@
+import appRootPath from "app-root-path";
+
 const mySqlConfig = {
   host: "localhost",
   port: 3306,
@@ -6,57 +8,98 @@ const mySqlConfig = {
   database: "fasrevo",
 };
 
+/*
+win: a5k53super@gmail.com ijnrvejuadtqlzlo
+linux: phungcuong2610@gmail.com ohdnegbczwdcnrka
+*/
+
 const emailConfig = {
   email: "a5k53super@gmail.com",
-  emailKey: "uwolxjgdxuonbpiw",
+  emailKey: "uqourbczoitajabj",
 };
+
+// const emailConfig = {
+//   email: "phungcuong2610@gmail.com",
+//   emailKey: "ohdnegbczwdcnrka",
+// };
 
 const errorConfig = {
   register: {
-    isExist: "Email đã tồn tại",
-  },
-  email: {
-    notExist: "Email của bạn không tồn tại",
+    EXIST_ERROR: "Email đã tồn tại",
   },
   login: {
-    accountExist: "Tài khoản của bạn không tồn tại",
-    password: "Sai mật khẩu",
-    accessDenied: "Quyền truy cập bị từ chối",
-    invalidToken: "Mã truy cập không hợp lệ",
+    ACCOUNT_ERROR: "Tài khoản của bạn không tồn tại",
+    PASSWORD_ERROR: "Sai mật khẩu",
   },
-  userDetail: {
-    notAddUserDetail: "Không thể tạo mới UserDetail",
+  jwt: {
+    ACCESS_DENIED: "Quyền truy cập bị từ chối",
+    INVALID_TOKEN: "Mã truy cập không hợp lệ",
+  },
+  email: {
+    EXIST_ERROR: "Email của bạn không tồn tại",
+    SEND_ERROR: "Gửi không thành công",
+  },
+  password: {
+    CHANGE_ERROR: "Đổi mật khẩu không thành công",
+  },
+  user: {
+    UPDATE_USER_ERROR: "Cập nhật thông tin không thành công",
   },
   fileFilter: {
-    fileError: "Không đúng dịnh dạng",
+    FILE_ERROR: "Không đúng dịnh dạng",
   },
 };
 
 const okConfig = {
   register: {
-    isOK: "Đăng ký thành công",
+    iS_OK: "Đăng ký thành công",
+  },
+  login: {
+    IS_OK: "Đăng nhập thành công",
   },
   email: {
     register: {
-      isOkRegister: "Đăng ký tài khoản Fasrevo thành công",
-      url: "https://youtu.be/dQw4w9WgXcQ",
+      iS_OK_REGISTER: "Đăng ký tài khoản Fasrevo thành công",
+      URL: "https://youtu.be/dQw4w9WgXcQ",
     },
   },
-  login: {
-    isExist: "Đăng nhập thành công",
+  password: {
+    CHANGE_OK: "Đổi mật khẩu thành công",
+    FORGOT_PASS_MESSAGE:
+      "Chúng tôi đã gửi một email đến cho bạn. Vui lòng kiểm tra hòm thư",
   },
-  userDetail: {
-    addUserDetail: "Tạo mới thành công UserDetail",
+  user: {
+    UPDATE_USER: "Cập nhật thông tin user thành công",
   },
-  category: {
-    addCategory: "Thêm mới Category thành công",
-    updateCategory: "Cập nhật Category thành công",
-    deleteCategory: "Xóa Category thành công",
+  fileFilter: {
+    FILE_OK: "Đúng định dạng",
   },
+};
+
+const status = {
+  OK: 1,
+  ERROR: 0,
 };
 
 const PORT = 3030;
 
 const TOKEN_SECRET = "fasrevo6789";
 
-export { mySqlConfig, emailConfig, errorConfig, okConfig, PORT, TOKEN_SECRET };
+let path = "";
+let s = appRootPath.path.split("\\");
+for (let i = 0; i < s.length - 1; i++) {
+  path += s[i] + "\\";
+}
+
+const PATH = path + "public\\images";
+
+export {
+  mySqlConfig,
+  emailConfig,
+  errorConfig,
+  okConfig,
+  PORT,
+  TOKEN_SECRET,
+  status,
+  PATH,
+};

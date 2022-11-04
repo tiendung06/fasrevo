@@ -1,37 +1,39 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../database/mysql_db.js';
-import CategoryDetail from './CategoryDetail.js';
-import Collection from './Collection.js';
-import Color from './Color.js';
-import Combo from './Combo.js';
-import Sex from './Sex.js';
-import Size from './Size.js';
+import { DataTypes } from "sequelize";
+import { sequelize } from "../database/mysql_db.js";
+import Category from "./Category.js";
+import CategoryDetail from "./CategoryDetail.js";
+import Collection from "./Collection.js";
+import Color from "./Color.js";
+import Combo from "./Combo.js";
+import Sex from "./Sex.js";
+import Size from "./Size.js";
 
-const Product = sequelize.define('product', {
+const Product = sequelize.define("product", {
   // Nam, Nữ FE chả về
   sex: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
       model: Sex,
-      key: 'sex_id',
+      key: "sex_id",
     },
   },
-  // Chi tiết productType FE chả về Ao Quan vs PK
+  cid: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Category,
+      key: "cid",
+    },
+  },
+  // Chi tiết CategoryType FE chả về Ao Quan vs PK
   cdid: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
       model: CategoryDetail,
-      key: 'cdid',
+      key: "cdid",
     },
-  },
-  // Đuôi mã sản phẩm
-  pstt: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    unique: true,
-    autoIncrement: true,
   },
   // Mã sản phẩm
   pid: {
@@ -45,7 +47,7 @@ const Product = sequelize.define('product', {
     allowNull: false,
     references: {
       model: Color,
-      key: 'color_id',
+      key: "color_id",
     },
   },
   // Kích cỡ FE chả về
@@ -54,7 +56,7 @@ const Product = sequelize.define('product', {
     allowNull: false,
     references: {
       model: Size,
-      key: 'size_id',
+      key: "size_id",
     },
   },
   // Gói Combo
@@ -63,7 +65,7 @@ const Product = sequelize.define('product', {
     allowNull: false,
     references: {
       model: Combo,
-      key: 'combo_id',
+      key: "combo_id",
     },
   },
   // Bộ sưu tập
@@ -72,7 +74,7 @@ const Product = sequelize.define('product', {
     allowNull: false,
     references: {
       model: Collection,
-      key: 'collection_id',
+      key: "collection_id",
     },
   },
   // ảnh sản phẩm
@@ -109,7 +111,5 @@ const Product = sequelize.define('product', {
     allowNull: true,
   },
 });
-Product.belongsTo(Category, {
-  foreignKey: 'cname_type',
-});
+
 export default Product;

@@ -1,6 +1,7 @@
 import {
   errorConfig,
   okConfig,
+  status,
   TOKEN_SECRET,
 } from "../config/configuration.js";
 import User from "../model/User.js";
@@ -17,8 +18,11 @@ class AuthController {
         const user = await User.findOne({
           where: { email: req.body.email },
         });
-        if (user != null) {
-          res.status(422).send({ message: errorConfig.register.isExist });
+        if (user !== null) {
+          res.status(422).send({
+            message: errorConfig.register.EXIST_ERROR,
+            status: status.ERROR,
+          });
         } else {
           const salt = await bcrypt.genSalt(10);
           const hassPass = await bcrypt.hash(req.body.password, salt);
@@ -31,46 +35,58 @@ class AuthController {
               address: req.body.address,
               sex: req.body.sex,
             });
-            await transporter.sendMail({
-              from: "fasrevo@gmail.com",
-              to: req.body.email,
-              subject: okConfig.email.register.isOkRegister,
-              html: `<h1>Chúc mừng ${req.body.fullname} đã đăng kí thành công tài khoản<h1>
-                  <h3>Vui lòng bấm vào đường link dưới đây để tiến hành mua hàng</h3>
-                  <a href="${okConfig.email.register.url}">Fasrevo</a>
-                `,
-            });
-            res.status(200).send({
-              message: okConfig.register.isOK,
-            });
+            try {
+              await transporter.sendMail({
+                from: "fasrevo@gmail.com",
+                to: req.body.email,
+                subject: okConfig.email.register.iS_OK_REGISTER,
+                html: `<h1>Chúc mừng ${req.body.fullname} đã đăng kí thành công tài khoản<h1>
+                    <h3>Vui lòng bấm vào đường link dưới đây để tiến hành mua hàng</h3>
+                    <a href="${okConfig.email.register.URL}">Fasrevo</a>
+                  `,
+              });
+              res.status(200).send({
+                message: okConfig.register.iS_OK,
+                status: status.OK,
+              });
+            } catch (error) {
+              res.status(400).send({
+                message: errorConfig.email.SEND_ERROR,
+                status: status.ERROR,
+              });
+            }
           } catch (error) {
-            console.log(error);
-            res.status(400).send({ message: { error } });
+            res.status(400).send({ message: { error }, status: status.ERROR });
           }
         }
       } catch (error) {
-        console.log(error);
-        res.status(400).send({ message: { error } });
+        res.status(400).send({ message: { error }, status: status.ERROR });
       }
     } else {
-      return res.status(400).send({
-        message: errorConfig.email.notExist,
+      res.status(400).send({
+        message: errorConfig.email.EXIST_ERROR,
         reason: validators[reason].reason,
+        status: status.ERROR,
       });
     }
   }
-
   // login
   async login(req, res) {
     const user = await User.findOne({
       where: { email: req.body.email },
     });
-    if (user == null) {
-      res.status(422).send({ message: errorConfig.login.accountExist });
+    if (user === null) {
+      res.status(422).send({
+        message: errorConfig.login.ACCOUNT_ERROR,
+        status: status.ERROR,
+      });
     } else {
       const checkPass = await bcrypt.compare(req.body.password, user.password);
       if (!checkPass) {
-        res.status(422).send({ message: errorConfig.login.password });
+        res.status(422).send({
+          message: errorConfig.login.PASSWORD_ERROR,
+          status: status.ERROR,
+        });
       } else {
         const token = jwt.sign({ _id: user.uid }, TOKEN_SECRET, {
           expiresIn: 60 * 60 * 24,
@@ -84,21 +100,114 @@ class AuthController {
   async changePassword(req, res) {
     const user = await User.findOne({ where: { uid: req.params.uid } });
     if (user === null) {
-      res.status(422).send({ message: errorConfig.login.accountExist });
+      res.status(422).send({
+        message: errorConfig.login.ACCOUNT_ERROR,
+        status: status.ERROR,
+      });
     } else {
       const hassPassOld = await bcrypt.compare(
-        req.body.password,
+        req.body.passwordOld,
         user.password,
       );
       if (!hassPassOld) {
-        res.status(422).send({ message: errorConfig.login.password });
+        res.status(422).send({
+          message: errorConfig.login.PASSWORD_ERROR,
+          status: status.ERROR,
+        });
       } else {
-        await user.update({});
+        const salt = await bcrypt.genSalt(10);
+        const hassPass = await bcrypt.hash(req.body.passwordNew, salt);
+        try {
+          await User.update(
+            { password: hassPass },
+            {
+              where: {
+                uid: req.params.uid,
+              },
+            },
+          );
+          res
+            .status(200)
+            .send({ message: okConfig.password.CHANGE_OK, status: status.OK });
+        } catch (error) {
+          res.status(400).send({
+            message: errorConfig.password.CHANGE_ERROR,
+            status: status.ERROR,
+          });
+        }
       }
     }
   }
 
   // Forgot password
+  async forgotPassword(req, res) {
+    const user = await User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    });
+    if (user === null) {
+      res.status(422).send({
+        message: errorConfig.login.ACCOUNT_ERROR,
+        status: status.ERROR,
+      });
+    } else {
+      try {
+        await transporter.sendMail({
+          from: "fasrevo@gmail.com",
+          to: req.body.email,
+          subject: okConfig.email.register.iS_OK_REGISTER,
+          html: `
+                <h1>Quên mật khẩu<h1>
+                <h3>Bấm vào đường link bên dưới để đổi mật khẩu</h3>
+                <a href="${okConfig.email.register.URL}">Fasrevo</a>
+              `,
+        });
+      } catch (error) {
+        res.status(400).send({
+          message: errorConfig.email.SEND_ERROR,
+          status: status.ERROR,
+        });
+      }
+      res.status(200).send({
+        uid: user.uid,
+        message: okConfig.password.FORGOT_PASS_MESSAGE,
+        status: status.OK,
+      });
+    }
+  }
+
+  // handle forgot password
+  async handleForgotPassword(req, res) {
+    const user = User.findOne({
+      where: {
+        uid: req.params.uid,
+      },
+    });
+    if (user === null) {
+      res.status(400).send({
+        message: errorConfig.login.ACCOUNT_ERROR,
+        status: status.ERROR,
+      });
+    } else {
+      const salt = await bcrypt.genSalt(10);
+      const hassPass = await bcrypt.hash(req.body.password, salt);
+      try {
+        await User.update(
+          { password: hassPass },
+          { where: { uid: req.params.uid } },
+        );
+        res
+          .status(200)
+          .send({ message: okConfig.password.CHANGE_OK, status: status.OK });
+      } catch (error) {
+        res.status(400).send({
+          message: errorConfig.password.CHANGE_ERROR,
+          status: status.ERROR,
+        });
+      }
+    }
+  }
 }
 
 export default new AuthController();

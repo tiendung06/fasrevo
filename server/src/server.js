@@ -1,28 +1,30 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import router from "./routers/index.js";
+import router from "./routers/zindex.js";
 import { PORT } from "./config/configuration.js";
 import { isEmailValid } from "./config/EmailConfig.js";
+import upload from "./middleware/handleFile.js";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.get("/demo", (req, res) => {
-//   res.send("OK");
-// });
+app.get("/demo", async (req, res) => {
+  const { valid, reason, validators } = await isEmailValid(
+    "vutrubaola2001@gmail.com",
+  );
+  if (valid) {
+    res.send("OK");
+  } else {
+    res.send("No");
+  }
+});
 
-app.post("/regis", async (req, res) => {
-  const { valid, reason, validators } = await isEmailValid(req.body.email);
-
-  if (valid) return res.send({ message: "OK" });
-
-  return res.status(400).send({
-    message: "Please provide a valid email address.",
-    reason: validators[reason].reason,
-  });
+app.post("/test", upload.single("image"), async (req, res) => {
+  console.log(req.file);
+  res.send(req.body);
 });
 
 router(app);

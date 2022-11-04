@@ -1,4 +1,6 @@
-import { errorConfig } from "./configuration.js";
+import { errorConfig, PATH } from "./configuration.js";
+import multer from "multer";
+import path from "path";
 
 const fileFilter = function (req, file, cb) {
   // Accept images only
@@ -9,4 +11,13 @@ const fileFilter = function (req, file, cb) {
   cb(null, true);
 };
 
-export default fileFilter;
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, PATH);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + Date.now() + path.extname(file.originalname));
+  },
+});
+
+export { fileFilter, storage };
