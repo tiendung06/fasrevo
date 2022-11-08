@@ -44,7 +44,7 @@ const Header = ({ transparent = false }) => {
           transparent
             ? 'bg-transparent text-white'
             : 'bg-white text-primary shadow-sm'
-        }  w-full h-20 px-5 transition-all`}
+        }  w-full h-20 px-5 md:px-10 transition-all`}
       >
         <div className='max-w-[1920px] h-full mx-auto items-center relative grid grid-cols-3'>
           <div className='top-0 flex justify-between w-full h-full items-center'>
@@ -75,7 +75,7 @@ const Header = ({ transparent = false }) => {
                 {nav.map(({ title, path, subMenu }) => (
                   <li key={title}>
                     <Link href={path}>
-                      <a className='pb-5 sm:py-5 text-2xl sm:text-4xl uppercase font-bold block transition-all text-primary hover:underline'>
+                      <a className='pb-5 sm:py-5 text-2xl sm:text-4xl uppercase font-bold block transition-all text-primary hover:text-primary_red'>
                         {title}
                       </a>
                     </Link>
@@ -84,7 +84,7 @@ const Header = ({ transparent = false }) => {
                         {subMenu.map(({ title, path }) => (
                           <li className={`px-5 relative`} key={title}>
                             <Link href={path}>
-                              <a className='pb-5 sm:py-5 text-2xl sm:text-4xl text-primary font-bold uppercase block transition-all hover:underline'>
+                              <a className='pb-5 sm:py-5 text-2xl sm:text-4xl text-primary font-bold uppercase block transition-all hover:text-priamry_red'>
                                 {title}
                               </a>
                             </Link>
@@ -99,10 +99,7 @@ const Header = ({ transparent = false }) => {
               </ul>
             </div>
 
-            <div
-              className='absolute left-0 cursor-pointer'
-              onClick={handleShowMenu}
-            >
+            <div className='cursor-pointer' onClick={handleShowMenu}>
               <div className='bars flex items-center justify-center '>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'

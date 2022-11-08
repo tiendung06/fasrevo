@@ -1,12 +1,11 @@
 import React from 'react';
-import banner from '../../public/images/banner4.jpg';
-import Collections from '../../src/components/Collections';
+import CategoryDetails from '../../src/components/CategoryDetails';
 import FeaturedProduct from '../../src/components/FeaturedProduct';
 import Main from '../../src/layout/Main';
 
 const Men = () => {
   return (
-    <Main transparent={true}>
+    <Main>
       {/* <div className='relative w-full max-w-[1920px] h-screen max-h-[870px] mx-auto overflow-hidden'>
         <picture>
           <img src={banner.src} alt='' className='w-full h-full object-cover' />
@@ -20,7 +19,7 @@ const Men = () => {
           </div>
         </div>
       </div> */}
-      <Collections></Collections>
+      <CategoryDetails></CategoryDetails>
       <FeaturedProduct></FeaturedProduct>
     </Main>
   );

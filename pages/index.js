@@ -3,7 +3,7 @@ import Banner from '../src/components/Banner';
 import Main from '../src/layout/Main';
 import FeaturedProduct from '../src/components/FeaturedProduct';
 import Category from '../src/components/Category';
-import Video from '../src/components/Video';
+import Collections from '../src/components/Collections';
 
 export default function Home() {
   return (
@@ -11,8 +11,8 @@ export default function Home() {
       <Main transparent={true}>
         <Banner></Banner>
         <Category></Category>
-        <Video></Video>
         <FeaturedProduct></FeaturedProduct>
+        <Collections></Collections>
       </Main>
     </div>
   );

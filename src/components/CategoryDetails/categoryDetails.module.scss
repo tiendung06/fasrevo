@@ -1,0 +1,11 @@
+.collections:last-child {
+  @media (max-width: 768px) {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.collections:hover {
+  img {
+    transform: scale(1.1);
+  }
+}

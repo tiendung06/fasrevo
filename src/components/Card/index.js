@@ -17,13 +17,13 @@ const Card = ({ title, image, basePrice, speicalPrice, discount }) => {
           </picture>
         </div>
         <div className='w-full'>
-          <h3 className='text-sm text-primary font-medium uppercase mt-5 mb-1 transition-all'>
+          <h3 className='text-sm md:text-base text-primary text-center font-medium uppercase mt-3 md:mt-5 mb-1 transition-all'>
             IDLE LOOSE PANT
           </h3>
-          <div className='flex'>
-            <span className='text-xs'>549.000 VND</span>
+          <div className='flex justify-center'>
+            <span className='text-xs md:text-sm'>549.000 VND</span>
             {discount ? (
-              <span className='text-xs line-through ml-4'>
+              <span className='text-xs md:text-sm line-through ml-4'>
                 {speicalPrice} VND
               </span>
             ) : (

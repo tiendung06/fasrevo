@@ -4,6 +4,7 @@ export const nav = [
     title: 'Nam',
     path: '/men',
     subMenu: [
+      { title: 'Tất cả sản phẩm', path: '/men/all' },
       {
         title: 'Top',
         path: '/men/products/top',
@@ -36,6 +37,7 @@ export const nav = [
     title: 'Nữ',
     path: '/women',
     subMenu: [
+      { title: 'Tất cả sản phẩm', path: '/men/all' },
       {
         title: 'Top',
         path: '/women/products/top',
@@ -65,13 +67,7 @@ export const nav = [
       },
     ],
   },
-  { title: 'Về chúng tôi', path: '/about-us' },
-];
-
-export const navWomen = [
-  { title: 'Trang chủ', path: '/women' },
-  { title: 'Nam', path: '/men' },
-  { title: 'Nữ', path: '/women' },
+  { title: 'Bộ sưu tập', path: '/collections' },
   { title: 'Về chúng tôi', path: '/about-us' },
 ];
 

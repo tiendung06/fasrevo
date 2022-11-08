@@ -9,9 +9,9 @@ import {
 
 const Footer = () => {
   return (
-    <footer className='w-full'>
-      <div className='max-w-[1920px] bg-footer_background px-5 xl:px-32 md:px-10 mx-auto'>
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-10 py-10 lg:py-20'>
+    <footer className='w-full max-w-[1920px] bg-footer_background mx-auto'>
+      <div className='container md:px-10 px-5 mx-auto'>
+        <div className='container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 gap-y-10 py-10 lg:py-20'>
           <FooterColumn heading='Điều hướng' col={nav} />
           <FooterColumn heading='Chính sách' col={footerPolicy} />
           <FooterColumn heading='Liên hệ' col={footerContact} />
