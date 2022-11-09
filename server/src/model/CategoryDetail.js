@@ -1,3 +1,4 @@
+
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/mysql_db.js';
 import Category from './Category.js';

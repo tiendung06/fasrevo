@@ -11,5 +11,6 @@ router.put(
   upload.single("image"),
   UserController.updateUserByUid,
 );
+router.put("/updatePassByEmail", UserController.updatePassByEmail);
 
 export default router;

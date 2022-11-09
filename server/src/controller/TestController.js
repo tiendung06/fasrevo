@@ -13,6 +13,7 @@ import Category from "../model/Category.js";
 import CategoryDetail from "../model/CategoryDetail.js";
 import Collection from "../model/Collection.js";
 import ProductImage from "../model/ProductImage.js";
+import KhachHang from "../model/KhachHang.js";
 
 try {
   await sequelize.authenticate();
@@ -28,11 +29,11 @@ try {
   // await Category.create({ cname: "accessory" });
   // Create CategoryDetail
   // await CategoryDetail.sync({ alert: true });
-  // await CategoryDetail.create({cdname: "Hoddie", cid: "1"})
+  // await CategoryDetail.create({ cdname: "Hoddie", cid: "1" });
   // Create Sex
   // await Sex.sync({ alert: true });
-  // await Sex.create({ sex_name: "male" });
-  // await Sex.create({ sex_name: "female" });
+  // await Sex.create({ sex_id: 1, sex_name: "male" });
+  // await Sex.create({ sex_id: 0, sex_name: "female" });
   // Create Size
   // await Size.sync({ alert: true });
   // await Size.create({ size_name: "S" });

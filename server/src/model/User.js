@@ -1,8 +1,8 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../database/mysql_db.js';
-import Sex from './Sex.js';
+import { DataTypes } from "sequelize";
+import { sequelize } from "../database/mysql_db.js";
+import Sex from "./Sex.js";
 
-const User = sequelize.define('user', {
+const User = sequelize.define("user", {
   uid: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -44,7 +44,7 @@ const User = sequelize.define('user', {
     allowNull: false,
     references: {
       model: Sex,
-      key: 'sex_id',
+      key: "sex_id",
     },
   },
   // quyền
