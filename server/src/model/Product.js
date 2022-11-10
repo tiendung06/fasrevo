@@ -9,8 +9,8 @@ import Sex from "./Sex.js";
 import Size from "./Size.js";
 
 const Product = sequelize.define("product", {
-  // Nam, Nữ FE chả về
-  sex: {
+  // Nam, Nữ FE trả về
+  sex_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -26,7 +26,7 @@ const Product = sequelize.define("product", {
       key: "cid",
     },
   },
-  // Chi tiết CategoryType FE chả về Ao Quan vs PK
+  // Chi tiết CategoryType FE tra ve
   cdid: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -35,14 +35,8 @@ const Product = sequelize.define("product", {
       key: "cdid",
     },
   },
-  // Mã sản phẩm
-  pid: {
-    type: DataTypes.STRING(10),
-    allowNull: false,
-    primaryKey: true,
-  },
-  // Màu sắc FE chả về
-  color: {
+  // Màu sắc FE trả về
+  color_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -50,8 +44,8 @@ const Product = sequelize.define("product", {
       key: "color_id",
     },
   },
-  // Kích cỡ FE chả về
-  size: {
+  // Kích cỡ FE trả về
+  size_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -60,7 +54,7 @@ const Product = sequelize.define("product", {
     },
   },
   // Gói Combo
-  combo: {
+  combo_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -76,6 +70,12 @@ const Product = sequelize.define("product", {
       model: Collection,
       key: "collection_id",
     },
+  },
+  // Mã sản phẩm
+  pid: {
+    type: DataTypes.STRING(10),
+    allowNull: false,
+    primaryKey: true,
   },
   // ảnh sản phẩm
   image: {

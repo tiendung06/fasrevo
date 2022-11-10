@@ -1,4 +1,3 @@
-import { okConfig } from "../config/configuration.js";
 import Category from "../model/Category.js";
 
 class CategoryController {
