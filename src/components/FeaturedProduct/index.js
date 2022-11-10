@@ -5,13 +5,12 @@ import Section from '../../layout/Section';
 import Card from '../Card';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import SectionHeading from '../SectionHeading';
 
 const FeaturedProduct = () => {
   return (
     <Section>
-      <div className='flex justify-between items-center mb-4 text-primary'>
-        <h2 className='font-bold text-xl'>Sản phẩm bán chạy</h2>
-      </div>
+      <SectionHeading>Sản phẩm bán chạy</SectionHeading>
       <Swiper
         slidesPerView={'auto'}
         modules={[Navigation]}

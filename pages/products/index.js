@@ -1,7 +1,6 @@
 import React from 'react';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
-import banner from '../../public/images/banner2.jpg';
 
 const Products = () => {
   return (

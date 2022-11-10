@@ -1,58 +1,117 @@
-import React, { useEffect } from 'react';
 import Link from 'next/link';
+import React from 'react';
 import Section from '../../layout/Section';
-import accessory from '../../../public/images/accessory.jpg';
-import top from '../../../public/images/top.jpg';
-import bottom from '../../../public/images/bottom.jpg';
-import Aos from 'aos';
+import SectionHeading from '../SectionHeading';
 import styles from './collections.module.scss';
-import 'aos/dist/aos.css';
 
 const Collections = () => {
-  useEffect(() => {
-    Aos.init();
-  }, []);
-
   return (
-    <Section title='Danh mục mua hàng'>
-      <div className='grid gap-5 grid-cols-2 md:grid-cols-3' data-aos='fade-up'>
-        <CollectionItems image={top} type='Top' link='/men/products/top' />
-        <CollectionItems
-          image={bottom}
-          type='Bottom'
-          link='/men/products/bottom'
-        />
-        <CollectionItems
-          image={accessory}
-          type='Accessory'
-          link='/men/products/accessory'
-        />
+    <Section>
+      <SectionHeading path={'/collections'}>Bộ sưu tập</SectionHeading>
+      <div className='grid gap-x-5 gap-y-5 md:gap-y-10 grid-cols-2 lg:grid-cols-4'>
+        <Link href='/'>
+          <div
+            className={`${styles.collection} flex flex-col min-h-[260px] md:min-h-[475px] hover:text-primary_red cursor-pointer`}
+          >
+            <div className='h-full'>
+              <picture>
+                <img
+                  src='images/banner5.jpg'
+                  alt=''
+                  className='w-full h-full object-cover'
+                />
+              </picture>
+            </div>
+            <div className=''>
+              <p className='font-medium uppercase text-sm md:text-base pt-4 md:pt-5 text-center transition-all'>
+                Kyle Collection
+              </p>
+            </div>
+          </div>
+        </Link>
+        <Link href='/'>
+          <div
+            className={`${styles.collection} flex flex-col min-h-[260px] md:min-h-[475px] hover:text-primary_red cursor-pointer`}
+          >
+            <div className='h-full'>
+              <picture>
+                <img
+                  src='images/banner4.jpg'
+                  alt=''
+                  className='w-full h-full object-cover'
+                />
+              </picture>
+            </div>
+            <div className=''>
+              <p className='font-medium uppercase text-sm md:text-base pt-4 md:pt-5 text-center transition-all'>
+                Kyle Collection
+              </p>
+            </div>
+          </div>
+        </Link>
+        <Link href='/'>
+          <div
+            className={`${styles.collection} flex flex-col min-h-[260px] md:min-h-[475px] hover:text-primary_red cursor-pointer`}
+          >
+            <div className='h-full'>
+              <picture>
+                <img
+                  src='images/banner3.jpg'
+                  alt=''
+                  className='w-full h-full object-cover'
+                />
+              </picture>
+            </div>
+            <div className=''>
+              <p className='font-medium uppercase text-sm md:text-base pt-4 md:pt-5 text-center transition-all'>
+                Kyle Collection
+              </p>
+            </div>
+          </div>
+        </Link>
+        <Link href='/'>
+          <div
+            className={`${styles.collection} flex flex-col min-h-[260px] md:min-h-[475px] hover:text-primary_red cursor-pointer`}
+          >
+            <div className='h-full'>
+              <picture>
+                <img
+                  src='images/banner2.jpg'
+                  alt=''
+                  className='w-full h-full object-cover'
+                />
+              </picture>
+            </div>
+            <div className=''>
+              <p className='font-medium uppercase text-sm md:text-base pt-4 md:pt-5 text-center transition-all'>
+                Kyle Collection
+              </p>
+            </div>
+          </div>
+        </Link>
+        <Link href='/'>
+          <div
+            className={`${styles.collection} flex flex-col min-h-[260px] md:min-h-[475px] hover:text-primary_red cursor-pointer`}
+          >
+            <div className='h-full'>
+              <picture>
+                <img
+                  src='images/banner1.jpg'
+                  alt=''
+                  className='w-full h-full object-cover'
+                />
+              </picture>
+            </div>
+            <div className=''>
+              <p className='font-medium uppercase text-sm md:text-base pt-4 md:pt-5 text-center transition-all'>
+                Kyle Collection
+              </p>
+            </div>
+          </div>
+        </Link>
       </div>
     </Section>
   );
 };
-
-function CollectionItems({ link, image, type }) {
-  return (
-    <Link href={link}>
-      <div
-        className={`${styles.collections} w-full bg-black relative cursor-pointer overflow-hidden`}
-      >
-        <picture>
-          <img
-            src={image.src}
-            alt=''
-            className='w-full h-full object-cover opacity-80 transition-all'
-          />
-        </picture>
-        <div className='absolute top-0 bottom-0 right-0 left-0 w-full h-full flex items-center justify-center'>
-          <span className='text-white text-3xl lg:text-4xl font-bold uppercase'>
-            {type}
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 export default Collections;

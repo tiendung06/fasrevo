@@ -20,7 +20,7 @@ const Banner = () => {
       >
         <SwiperSlide>
           <Link href='/'>
-            <div className='w-full h-screen max-h-[870px] overflow-hidden'>
+            <div className='w-full h-screen max-h-[870px] relative overflow-hidden'>
               <picture>
                 <img
                   src={banner3.src}
@@ -28,12 +28,20 @@ const Banner = () => {
                   className='w-full h-full object-cover'
                 />
               </picture>
+              <div className='absolute bottom-1/4 lg:left-40 md:left-20 px-5 max-w-[430px]'>
+                <p className='text-white text-2xl md:text-3xl lg:text-4xl font-medium uppercase pb-5'>
+                  Bộ sưu tập dành cho mùa đông
+                </p>
+                <button className='px-5 py-3 bg-white font-bold text-sm md:text-base'>
+                  Xem ngay
+                </button>
+              </div>
             </div>
           </Link>
         </SwiperSlide>
         <SwiperSlide>
           <Link href='/'>
-            <div className='w-full h-screen max-h-[870px] overflow-hidden'>
+            <div className='w-full h-screen max-h-[870px] relative overflow-hidden'>
               <picture>
                 <img
                   src={banner4.src}
@@ -41,12 +49,20 @@ const Banner = () => {
                   className='w-full h-full object-cover'
                 />
               </picture>
+              <div className='absolute bottom-1/4 lg:left-40 md:left-20 px-5 max-w-[430px]'>
+                <p className='text-white text-2xl md:text-3xl lg:text-4xl font-medium uppercase pb-5'>
+                  Bộ sưu tập dành cho mùa đông
+                </p>
+                <button className='px-5 py-3 bg-white font-bold text-sm md:text-base'>
+                  Xem ngay
+                </button>
+              </div>
             </div>
           </Link>
         </SwiperSlide>
         <SwiperSlide>
           <Link href='/'>
-            <div className='w-full h-screen max-h-[870px] overflow-hidden'>
+            <div className='w-full h-screen max-h-[870px] relative overflow-hidden'>
               <picture>
                 <img
                   src={banner5.src}
@@ -54,6 +70,14 @@ const Banner = () => {
                   className='w-full h-full object-cover'
                 />
               </picture>
+              <div className='absolute bottom-1/4 lg:left-40 md:left-20 px-5 max-w-[430px]'>
+                <p className='text-white text-2xl md:text-3xl lg:text-4xl font-medium uppercase pb-5'>
+                  Bộ sưu tập dành cho mùa đông
+                </p>
+                <button className='px-5 py-3 bg-white font-bold text-sm md:text-base'>
+                  Xem ngay
+                </button>
+              </div>
             </div>
           </Link>
         </SwiperSlide>

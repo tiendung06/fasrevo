@@ -163,6 +163,10 @@ class AuthController {
                 <a href="${okConfig.email.register.URL}">Fasrevo</a>
               `,
         });
+        res.status(200).send({
+          message: okConfig.email.SEND_OK,
+          status: status.OK,
+        });
       } catch (error) {
         res.status(400).send({
           message: errorConfig.email.SEND_ERROR,

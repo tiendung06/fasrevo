@@ -1,4 +1,5 @@
 import React from 'react';
+import SectionHeading from '../../src/components/SectionHeading';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
 import styles from './search.module.scss';
@@ -7,7 +8,8 @@ const Search = () => {
   return (
     <Main>
       <Section>
-        <div className={`${styles.search} w-full h-full py-5`}>
+        <div className={`${styles.search} w-full h-full py-10`}>
+          <SectionHeading>Tìm kiếm</SectionHeading>
           <div className='w-full h-10'>
             <input
               type='text'

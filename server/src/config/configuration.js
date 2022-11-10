@@ -62,6 +62,7 @@ const okConfig = {
       iS_OK_REGISTER: "Đăng ký tài khoản Fasrevo thành công",
       URL: "https://youtu.be/dQw4w9WgXcQ",
     },
+    SEND_OK: "Gửi không thành công",
   },
   password: {
     CHANGE_OK: "Đổi mật khẩu thành công",
