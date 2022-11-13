@@ -62,6 +62,7 @@ const okConfig = {
       iS_OK_REGISTER: "Đăng ký tài khoản Fasrevo thành công",
       URL: "https://youtu.be/dQw4w9WgXcQ",
     },
+    SEND_OK: "Gửi không thành công",
   },
   password: {
     CHANGE_OK: "Đổi mật khẩu thành công",
@@ -85,13 +86,7 @@ const PORT = 3030;
 
 const TOKEN_SECRET = "fasrevo6789";
 
-let path = "";
-let s = appRootPath.path.split("\\");
-for (let i = 0; i < s.length - 1; i++) {
-  path += s[i] + "\\";
-}
-
-const PATH = path + "public\\images";
+const PATH = appRootPath + "public\\images";
 
 export {
   mySqlConfig,

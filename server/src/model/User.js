@@ -14,13 +14,13 @@ const User = sequelize.define("user", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  // password
-  password: {
+  // gmail
+  email: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  // gmail
-  email: {
+  // password
+  password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
