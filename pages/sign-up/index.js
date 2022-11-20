@@ -10,6 +10,23 @@ const SignIn = () => {
   const [districtCode, setDistrictCode] = useState();
   const [ward, setWard] = useState([]);
 
+  const handleSubmit = async (e) => {
+    try {
+      await axios
+        .post(`${register}`, {
+          fullname: fullname,
+          email: email,
+          password: password,
+        })
+        .then((resp) => {
+          dispatch(setToken(resp.data.authToken));
+          sessionStorage.setItem('token', resp.data.authToken);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     axios.get('https://vapi.vnappmob.com/api/province').then((resp) => {
       setCity(resp.data.results);
@@ -39,49 +56,49 @@ const SignIn = () => {
           <h1 className='font-bold text-center text-2xl py-5'>Đăng ký</h1>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='text'
               placeholder='Họ và tên*'
             />
           </div>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='text'
               placeholder='Tên tài khoản*'
             />
           </div>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='password'
               placeholder='Mật khẩu*'
             />
           </div>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='password'
               placeholder='Xác nhận mật khẩu*'
             />
           </div>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='text'
               placeholder='Số điện thoại*'
             />
           </div>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='email'
               placeholder='Email*'
             />
           </div>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='text'
               placeholder='Địa chỉ chi tiết*'
             />
@@ -90,7 +107,7 @@ const SignIn = () => {
             <select
               name='province'
               id='province'
-              className='w-full h-full px-5 text-sm text-secondary_text outline-none border border-[rgba(0,0,0,0.12)]'
+              className='w-full h-full px-5 text-sm text-secondary_text outline-none border border-border_input'
               defaultValue={-1}
               onChange={(e) => {
                 setCityCode(e.target.value);
@@ -109,7 +126,7 @@ const SignIn = () => {
             <select
               name='district'
               id='district'
-              className='w-full h-full px-5 text-sm text-secondary_text outline-none border border-[rgba(0,0,0,0.12)]'
+              className='w-full h-full px-5 text-sm text-secondary_text outline-none border border-border_input'
               onChange={(e) => {
                 setDistrictCode(e.target.value);
               }}
@@ -142,7 +159,7 @@ const SignIn = () => {
           <div className='w-full text-center'>
             <span className='text-sm'>Bạn đã có tài khoản? </span>
             <Link href='/sign-in'>
-              <a className='text-sm hover:underline transition-all'>
+              <a className='text-sm hover:underline transition-all font-medium'>
                 Đăng nhập
               </a>
             </Link>

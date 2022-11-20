@@ -13,6 +13,7 @@ module.exports = {
         footer_text: '#959595',
         footer_label: '#5b5b5b',
         footer_hover: '#b3b3b3',
+        border_input: '#0000001f',
       },
     },
   },

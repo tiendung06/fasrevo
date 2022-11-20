@@ -1,3 +1,5 @@
-const domain = 'http://26.9.248.185:3030';
+const domain = 'http://192.168.1.32:3030';
 const login = `${domain}/auth/login`;
-export { login };
+const register = `${domain}/auth/register`;
+const demo = `${domain}/demo`;
+export { login, demo };
