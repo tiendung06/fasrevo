@@ -3,11 +3,11 @@ import {
   okConfig,
   status,
   TOKEN_SECRET,
-} from "../config/configuration.js";
-import User from "../model/User.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import { transporter, isEmailValid } from "../config/EmailConfig.js";
+} from '../config/configuration.js';
+import User from '../model/User.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import { transporter, isEmailValid } from '../config/EmailConfig.js';
 
 class AuthController {
   // register
@@ -37,7 +37,7 @@ class AuthController {
             });
             try {
               await transporter.sendMail({
-                from: "fasrevo@gmail.com",
+                from: 'fasrevo@gmail.com',
                 to: req.body.email,
                 subject: okConfig.email.register.iS_OK_REGISTER,
                 html: `<h1>Chúc mừng ${req.body.fullname} đã đăng kí thành công tài khoản<h1>
@@ -91,9 +91,28 @@ class AuthController {
         const token = jwt.sign({ _id: user.uid }, TOKEN_SECRET, {
           expiresIn: 60 * 60 * 24,
         });
-        res.header("auth-token", token).send({ authToken: token });
+        res
+          .cookie('access_token', token, {
+            httpOnly: true,
+            secure: true,
+          })
+          .status(200)
+          .json({ message: 'Logged in successfully', authenticated: true });
       }
     }
+  }
+
+  async logOut(req, res) {
+    return res
+      .clearCookie('access_token')
+      .status(200)
+      .json({ message: 'Successfully logged out' });
+  }
+
+  async authenticate(req, res) {
+    console.log(req.verified);
+
+    return res.status(200).json({ authenticated: req.verified ? true : false });
   }
 
   // Change password
@@ -107,7 +126,7 @@ class AuthController {
     } else {
       const hassPassOld = await bcrypt.compare(
         req.body.passwordOld,
-        user.password,
+        user.password
       );
       if (!hassPassOld) {
         res.status(422).send({
@@ -124,7 +143,7 @@ class AuthController {
               where: {
                 uid: req.params.uid,
               },
-            },
+            }
           );
           res
             .status(200)
@@ -154,7 +173,7 @@ class AuthController {
     } else {
       try {
         await transporter.sendMail({
-          from: "fasrevo@gmail.com",
+          from: 'fasrevo@gmail.com',
           to: req.body.email,
           subject: okConfig.email.register.iS_OK_REGISTER,
           html: `
@@ -199,7 +218,7 @@ class AuthController {
       try {
         await User.update(
           { password: hassPass },
-          { where: { uid: req.params.uid } },
+          { where: { uid: req.params.uid } }
         );
         res
           .status(200)

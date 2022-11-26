@@ -5,14 +5,19 @@ import router from "./routers/zindex.js";
 import { PORT } from "./config/configuration.js";
 import { isEmailValid } from "./config/EmailConfig.js";
 import upload from "./middleware/handleFile.js";
-import verifyToken from "./middleware/verifyToken.js";
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: true,
+  }),
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-app.get("/demo", verifyToken, async (req, res) => {
+app.get("/demo", async (req, res) => {
   const { valid, reason, validators } = await isEmailValid(
     "vutrubaola2001@gmail.com",
   );

@@ -60,11 +60,9 @@ const Cart = () => {
                           <span className='font-bold text-center cursor-pointer block w-5'>
                             -
                           </span>
-                          <input
-                            type='text'
-                            className='text-center outline-none w-10'
-                            value={3}
-                          />
+                          <span className='text-center outline-none w-10'>
+                            3
+                          </span>
                           <span className='font-bold text-center cursor-pointer block w-5'>
                             +
                           </span>

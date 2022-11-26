@@ -3,56 +3,79 @@ import Link from 'next/link';
 import axios from 'axios';
 import { login } from '../../src/constants/constants.js';
 import Main from '../../src/layout/Main';
+import { setAuthenticated } from '../../redux/authSlide';
+import { useDispatch, useSelector } from 'react-redux';
+import useHandleChange from '../../hooks/useHandleChange.js';
+import { useRouter } from 'next/router';
 
 const SignIn = () => {
-  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [autoken, setAuthtoken] = useState('');
+  const authenticated = useSelector((state) => state.auth.authenticated);
+  const dispatch = useDispatch();
+  const router = useRouter();
   const handleSubmit = async (e) => {
     try {
       await axios
         .post(`${login}`, {
-          username: username,
+          email: email,
           password: password,
         })
         .then((resp) => {
-          setAuthtoken(resp.data.authToken);
-          console.log(autoken);
+          dispatch(setAuthenticated(resp.data.authenticated));
         });
     } catch (error) {
       console.log(error);
     }
-    console.log(autoken);
   };
 
-  const handleChangeUsername = (event) => {
-    setUserName(event.target.value);
+  if (typeof window !== 'undefined') {
+    if (authenticated) {
+      router.push('/');
+    }
+  }
+
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
   };
 
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
   };
 
+  const { values, handleChange } = useHandleChange({
+    email: '',
+    password: '',
+  });
+
   return (
     <Main>
-      <div className='w-full min-h-screen flex justify-center items-center'>
+      <div className='w-full container mx-auto min-h-screen max-h-[850px] flex justify-center items-center'>
         <div className='px-5 py-10 w-full max-w-[500px] text-primary'>
-          <h1 className='font-bold text-center text-2xl py-5'>Đăng nhập</h1>
+          <h1 className='font-bold text-center text-2xl pt-5 pb-6'>
+            Đăng nhập
+          </h1>
+          <p className='text-base text-center pb-3 text-primary'>
+            Chào mừng đến với Fasrevo
+          </p>
+          <p className='text-base text-center pb-5 text-primary'>
+            Đăng nhập với email của bạn và mật khẩu
+          </p>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
-              type='text'
+              type='email'
+              name='email'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               placeholder='Tài khoản*'
-              value={username}
-              onChange={handleChangeUsername}
+              onChange={handleChangeEmail}
             />
           </div>
           <div className='w-full h-10 my-5'>
             <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-[rgba(0,0,0,0.12)] text-sm text-secondary_text'
               type='password'
+              name='password'
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               placeholder='Mật khẩu*'
-              value={password}
               onChange={handleChangePassword}
             />
           </div>
@@ -63,16 +86,18 @@ const SignIn = () => {
               </a>
             </Link>
           </div>
-          <div
+          <button
             className='w-full h-10 my-5 bg-primary text-center text-white flex justify-center items-center cursor-pointer'
             onClick={handleSubmit}
           >
             Đăng nhập
-          </div>
+          </button>
           <div className='w-full text-center'>
             <span className='text-sm'>Bạn chưa có tài khoản? </span>
             <Link href='/sign-up'>
-              <a className='text-sm hover:underline transition-all'>Đăng ký</a>
+              <a className='text-sm hover:underline transition-all font-medium'>
+                Đăng ký
+              </a>
             </Link>
           </div>
         </div>

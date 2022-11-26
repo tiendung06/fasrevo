@@ -2,9 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { nav } from '../../constants/nav.js';
 import styles from './header.module.scss';
+import axios from 'axios';
+import { authenticate } from '../../constants/constants.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthenticated } from '../../../redux/authSlide.js';
 
 const Header = ({ transparent = false }) => {
   const [showMenuNav, setShowMenuNav] = useState(false);
+
+  const authenticated = useSelector((state) => state.auth.authenticated);
 
   const handleShowMenu = () => {
     setShowMenuNav(!showMenuNav);
@@ -143,22 +149,41 @@ const Header = ({ transparent = false }) => {
               </Link>
             </div>
             <div className='flex items-center justify-center h-10 w-10 cursor-pointer'>
-              <Link href='/sign-in'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-6 h-6'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
-                  />
-                </svg>
-              </Link>
+              {authenticated ? (
+                <Link href='/account/my-order'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='w-6 h-6'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
+                    />
+                  </svg>
+                </Link>
+              ) : (
+                <Link href='/sign-in'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='w-6 h-6'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
+                    />
+                  </svg>
+                </Link>
+              )}
             </div>
             <div className='flex items-center justify-center h-10 w-10 cursor-pointer relative'>
               <Link href='/cart'>
