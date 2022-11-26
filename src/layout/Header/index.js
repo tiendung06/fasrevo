@@ -2,9 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { nav } from '../../constants/nav.js';
 import styles from './header.module.scss';
+import axios from 'axios';
+import { authenticate } from '../../constants/constants.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthenticated } from '../../../redux/authSlide.js';
 
 const Header = ({ transparent = false }) => {
   const [showMenuNav, setShowMenuNav] = useState(false);
+
+  const authenticated = useSelector((state) => state.auth.authenticated);
 
   const handleShowMenu = () => {
     setShowMenuNav(!showMenuNav);
@@ -35,13 +41,6 @@ const Header = ({ transparent = false }) => {
       window.removeEventListener('scroll', controlNavbar);
     };
   }, [transparent]);
-
-  let token = false;
-  if (typeof window !== 'undefined') {
-    if (sessionStorage.getItem('token')) {
-      token = true;
-    }
-  }
 
   return (
     <header className='w-full relative'>
@@ -150,7 +149,7 @@ const Header = ({ transparent = false }) => {
               </Link>
             </div>
             <div className='flex items-center justify-center h-10 w-10 cursor-pointer'>
-              {token ? (
+              {authenticated ? (
                 <Link href='/account/my-order'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

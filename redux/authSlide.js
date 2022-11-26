@@ -3,15 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 export const authSlide = createSlice({
   name: 'auth',
   initialState: {
-    token: null,
+    authenticated: false,
   },
   reducers: {
-    setToken: (state, action) => {
+    setAuthenticated: (state, action) => {
       // console.log({ state, action });
-      state.token = action.payload;
+      state.authenticated = action.payload;
     },
   },
 });
 
-export const { setToken } = authSlide.actions;
+export const { setAuthenticated } = authSlide.actions;
 export default authSlide.reducer;

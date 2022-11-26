@@ -1,5 +1,7 @@
-const domain = 'http://192.168.1.32:3030';
+const domain = 'http://localhost:3030';
+const authenticate = `${domain}/auth`;
 const login = `${domain}/auth/login`;
+const logout = `${domain}/auth/logout`;
 const register = `${domain}/auth/register`;
 const demo = `${domain}/demo`;
-export { login, demo };
+export { login, demo, register, logout, authenticate };

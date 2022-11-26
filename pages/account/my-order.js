@@ -2,20 +2,25 @@ import React from 'react';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
 import { useRouter } from 'next/router';
+import axios from 'axios';
+import { logout } from '../../src/constants/constants';
+import { useDispatch, useSelector } from 'react-redux';
 
 const MyOrder = () => {
   const router = useRouter();
+
+  const authenticated = useSelector((state) => state.auth.authenticated);
+
   const handleSignOut = () => {
     if (typeof window !== 'undefined') {
-      if (sessionStorage.getItem('token')) {
-        sessionStorage.removeItem('token');
-      }
+      axios.get(logout).then((res) => {
+        router.push('/');
+      });
     }
-    router.push('/');
   };
 
   if (typeof window !== 'undefined') {
-    if (!sessionStorage.getItem('token')) {
+    if (!authenticated) {
       router.push('/');
     }
   }

@@ -2,13 +2,22 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import Main from '../../src/layout/Main';
+import { register } from '../../src/constants/constants.js';
+import useHandleChange from '../../hooks/useHandleChange.js';
 
 const SignIn = () => {
+  const [fullname, setFullname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [sex, setSex] = useState();
+  const [phone, setPhone] = useState('');
   const [province, setCity] = useState([]);
   const [provinceCode, setCityCode] = useState();
   const [districts, setDistricts] = useState([]);
   const [districtCode, setDistrictCode] = useState();
   const [ward, setWard] = useState([]);
+  const [street, setStreet] = useState('');
+  let address = `${street}, ${ward}, ${districts}, ${province}`;
 
   const handleSubmit = async (e) => {
     try {
@@ -17,14 +26,17 @@ const SignIn = () => {
           fullname: fullname,
           email: email,
           password: password,
+          phone: phone,
+          address: 'Hà Nội',
+          sex: sex,
         })
         .then((resp) => {
-          dispatch(setToken(resp.data.authToken));
-          sessionStorage.setItem('token', resp.data.authToken);
+          console.log(resp);
         });
     } catch (error) {
       console.log(error);
     }
+    console.log(values);
   };
 
   useEffect(() => {
@@ -49,23 +61,68 @@ const SignIn = () => {
       });
   }, [districtCode]);
 
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleChangeFullname = (event) => {
+    setFullname(event.target.value);
+  };
+
+  const handleChangePhone = (event) => {
+    setPhone(event.target.value);
+  };
+
+  const handleChangeSex = (event) => {
+    setSex(event.target.value);
+  };
+
+  const handleChangeProvince = (e) => {};
+
+  const handleChangeStreet = (event) => {
+    setStreet(event.target.value);
+  };
+
+  const { values, handleChange } = useHandleChange({
+    fullname: '',
+    email: '',
+    password: '',
+    sex: -1,
+    phone: '0',
+    street: '',
+  });
+
   return (
     <Main>
       <div className='w-full min-h-screen flex justify-center items-center mt-[70px]'>
         <div className='px-5 py-10 w-full max-w-[500px] text-primary'>
           <h1 className='font-bold text-center text-2xl py-5'>Đăng ký</h1>
+          <p className='text-primary text-base text-center pb-5'>
+            Tạo tài khoản để tăng trải nghiệm mua sắm cá nhân và thanh toán trực
+            tuyến một cách nhanh nhất.
+          </p>
           <div className='w-full h-10 my-5'>
             <input
               className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='text'
               placeholder='Họ và tên*'
+              onChange={handleChange}
+              // value={fullname}
+              name='fullname'
             />
           </div>
           <div className='w-full h-10 my-5'>
             <input
               className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
-              type='text'
-              placeholder='Tên tài khoản*'
+              type='email'
+              placeholder='Email*'
+              onChange={handleChange}
+              // value={email}
+              name='email'
             />
           </div>
           <div className='w-full h-10 my-5'>
@@ -73,6 +130,9 @@ const SignIn = () => {
               className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='password'
               placeholder='Mật khẩu*'
+              onChange={handleChange}
+              // value={password}
+              name='password'
             />
           </div>
           <div className='w-full h-10 my-5'>
@@ -83,24 +143,28 @@ const SignIn = () => {
             />
           </div>
           <div className='w-full h-10 my-5'>
+            <select
+              name='sex'
+              id='sex'
+              className='w-full h-full px-5 text-sm text-secondary_text outline-none border border-border_input'
+              defaultValue={-1}
+              onChange={handleChange}
+            >
+              <option value={-1} disabled>
+                Chọn giới tính*
+              </option>
+              <option value={1}>Nam</option>
+              <option value={0}>Nữ</option>
+            </select>
+          </div>
+          <div className='w-full h-10 my-5'>
             <input
               className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               type='text'
               placeholder='Số điện thoại*'
-            />
-          </div>
-          <div className='w-full h-10 my-5'>
-            <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
-              type='email'
-              placeholder='Email*'
-            />
-          </div>
-          <div className='w-full h-10 my-5'>
-            <input
-              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
-              type='text'
-              placeholder='Địa chỉ chi tiết*'
+              onChange={handleChange}
+              // value={phone}
+              name='phone'
             />
           </div>
           <div className='w-full h-10 my-5'>
@@ -153,9 +217,22 @@ const SignIn = () => {
               ))}
             </select>
           </div>
-          <div className='w-full h-10 my-5 bg-primary text-center text-white flex justify-center items-center cursor-pointer'>
-            Đăng nhập
+          <div className='w-full h-10 my-5'>
+            <input
+              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
+              type='text'
+              placeholder='Số nhà, đường*'
+              onChange={handleChange}
+              // value={street}
+              name='street'
+            />
           </div>
+          <button
+            className='w-full h-10 my-5 bg-primary text-center text-white flex justify-center items-center cursor-pointer'
+            onClick={handleSubmit}
+          >
+            Đăng ký
+          </button>
           <div className='w-full text-center'>
             <span className='text-sm'>Bạn đã có tài khoản? </span>
             <Link href='/sign-in'>

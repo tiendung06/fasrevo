@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import authSlide from './authSlide';
 
 const reducer = combineReducers({
-  token: authSlide,
+  auth: authSlide,
 });
 
 const store = configureStore({

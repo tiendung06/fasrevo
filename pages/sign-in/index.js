@@ -3,7 +3,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { login } from '../../src/constants/constants.js';
 import Main from '../../src/layout/Main';
-import { setToken } from '../../redux/authSlide';
+import { setAuthenticated } from '../../redux/authSlide';
 import { useDispatch, useSelector } from 'react-redux';
 import useHandleChange from '../../hooks/useHandleChange.js';
 import { useRouter } from 'next/router';
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const token = useSelector((state) => state.token.token);
+  const authenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
   const router = useRouter();
   const handleSubmit = async (e) => {
@@ -22,8 +22,7 @@ const SignIn = () => {
           password: password,
         })
         .then((resp) => {
-          dispatch(setToken(resp.data.authToken));
-          sessionStorage.setItem('token', resp.data.authToken);
+          dispatch(setAuthenticated(resp.data.authenticated));
         });
     } catch (error) {
       console.log(error);
@@ -31,7 +30,7 @@ const SignIn = () => {
   };
 
   if (typeof window !== 'undefined') {
-    if (sessionStorage.getItem('token')) {
+    if (authenticated) {
       router.push('/');
     }
   }
