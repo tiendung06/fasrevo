@@ -1,4 +1,4 @@
-import { sequelize } from "../database/mysql_db.js";
+import { sequelize } from "./mysql_db.js";
 import User from "../model/User.js";
 import Product from "../model/Product.js";
 import ProductDetail from "../model/ProductDetail.js";
@@ -13,7 +13,6 @@ import Category from "../model/Category.js";
 import CategoryDetail from "../model/CategoryDetail.js";
 import Collection from "../model/Collection.js";
 import ProductImage from "../model/ProductImage.js";
-import KhachHang from "../model/KhachHang.js";
 
 try {
   await sequelize.authenticate();

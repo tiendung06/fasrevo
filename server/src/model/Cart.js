@@ -4,12 +4,6 @@ import Product from "./Product.js";
 import User from "./User.js";
 
 const Cart = sequelize.define("cart", {
-  cart_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
   uid: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -49,11 +43,6 @@ const Cart = sequelize.define("cart", {
   subtotal: {
     type: DataTypes.DOUBLE,
     allowNull: false,
-  },
-  // combo chưa thanh toán, thanh toán 1 nửa và thanh toán và hủy thanh toán
-  status: {
-    type: DataTypes.INTEGER,
-    defaultValue: -1,
   },
 });
 
