@@ -13,6 +13,9 @@ import Category from "../model/Category.js";
 import CategoryDetail from "../model/CategoryDetail.js";
 import Collection from "../model/Collection.js";
 import ProductImage from "../model/ProductImage.js";
+import Role from "../model/Role.js";
+import Order from "../model/Order.js";
+import Report from "../model/Report.js";
 
 try {
   await sequelize.authenticate();
@@ -44,6 +47,15 @@ try {
   // await Combo.create({ combo_name: "B" });
   // create Collection
   // await Collection.sync({ alter: true });
+  // await Collection.create({
+  //   collection_name: "Bộ sưu tập mùa đông",
+  //   collection_image: "Ảnh mùa đông",
+  //   heading: "Danh cho mua dong",
+  // });
+  // create Role
+  // await Role.sync({ alter: true });
+  // await Role.create({ role_id: 0, role_name: "Khách hàng" });
+  // await Role.create({ role_id: 1, role_name: "Admin" });
   // create User
   // await User.sync({ alter: true });
   // Create Product
@@ -58,6 +70,10 @@ try {
   // await Voucher.sync({ alter: true });
   // Create UserVoucher
   // await UserVoucher.sync({ alter: true });
+  // Create Order
+  // await Order.sync({ alter: true });
+  // Create Report
+  await Report.sync({alter: true});
   console.log("Connection has been established successfully.");
   sequelize.close();
 } catch (error) {

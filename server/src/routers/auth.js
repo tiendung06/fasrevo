@@ -8,7 +8,6 @@ router.get('/', verifyToken, AuthController.authenticate);
 router.post('/register', AuthController.register);
 router.post('/login', AuthController.login);
 router.get('/logout', verifyToken, AuthController.logOut);
-router.put('/changePass/:uid', verifyToken, AuthController.changePassword);
 router.post('/forgotPass', AuthController.forgotPassword);
 router.put('/handleForgotPass/:uid', AuthController.handleForgotPassword);
 

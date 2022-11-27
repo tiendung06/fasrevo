@@ -6,14 +6,14 @@ const router = express.Router();
 
 router.get('/getAllCategory', verifyToken, CategoryController.getAllCategory);
 router.get(
-  '/getCategoryByCid',
+  '/getCategoryByCid/:cid',
   verifyToken,
   CategoryController.getCategoryByCid
 );
 router.post('/postCategory', verifyToken, CategoryController.addCategory);
-router.put('/updateCategory', verifyToken, CategoryController.updateCategory);
+router.put('/updateCategory/:cid', verifyToken, CategoryController.updateCategory);
 router.delete(
-  '/deleteCategory',
+  '/deleteCategory/:cid',
   verifyToken,
   CategoryController.deleteCategory
 );

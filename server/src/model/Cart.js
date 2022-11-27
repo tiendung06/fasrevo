@@ -46,6 +46,8 @@ const Cart = sequelize.define("cart", {
   },
 });
 
+Cart.removeAttribute('id');
+
 export default Cart;
 
 /* Mô tả trường status
