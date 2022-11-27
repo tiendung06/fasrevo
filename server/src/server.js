@@ -2,8 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import router from "./routers/zindex.js";
-import { PORT } from "./config/configuration.js";
-import upload from "./middleware/handleFile.js";
+import { PATH, PORT } from "./config/configuration.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -16,11 +15,14 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use('/image', express.static(PATH))
 
-app.post("/test", upload.single("image"), async (req, res) => {
-  console.log(req.file);
-  res.send(req.body);
-});
+// test upload image
+app.get("/test", (req, res) => {
+  res.status(200).json({
+    profile_url: `http://localhost:3030/image/image1669538193645.jpg`
+  })
+})
 
 router(app);
 

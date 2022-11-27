@@ -60,6 +60,26 @@ try {
   // await User.sync({ alter: true });
   // Create Product
   // await Product.sync({ alert: true });
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P1', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P2', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P3', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P4', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P5', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P6', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P7', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P8', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P9', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P10', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P11', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P12', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P13', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P14', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P15', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P16', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P17', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P18', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P19', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
+  // await Product.create({sex_id: 0, cid: 1, cdid: 1, color_id: 1, size_id: 1, combo_id: 1, collection_id: 1, pid: 'P20', image: 'http://localhost:3030/image/image1669538193645.jpg', pname: 'pant', cost: '249000', inStoke: 23, quantity_sold: 50, isDiscount: 1, discount: 0.5})
   // Create ProductImage
   // await ProductImage.sync({ alert: true });
   // Create ProductDetail
@@ -73,7 +93,7 @@ try {
   // Create Order
   // await Order.sync({ alter: true });
   // Create Report
-  await Report.sync({alter: true});
+  // await Report.sync({alter: true});
   console.log("Connection has been established successfully.");
   sequelize.close();
 } catch (error) {

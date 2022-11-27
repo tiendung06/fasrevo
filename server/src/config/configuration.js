@@ -86,7 +86,7 @@ const PORT = 3030;
 
 const TOKEN_SECRET = "fasrevo6789";
 
-const PATH = appRootPath + "public\\images";
+const PATH = appRootPath + "\\src\\public\\images";
 
 export {
   mySqlConfig,
