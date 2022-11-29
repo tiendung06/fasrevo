@@ -5,7 +5,7 @@ import Main from '../../src/layout/Main';
 import { register } from '../../src/constants/constants.js';
 import useHandleChange from '../../hooks/useHandleChange.js';
 
-const SignIn = () => {
+const SignUp = () => {
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +17,6 @@ const SignIn = () => {
   const [districtCode, setDistrictCode] = useState();
   const [ward, setWard] = useState([]);
   const [street, setStreet] = useState('');
-  let address = `${street}, ${ward}, ${districts}, ${province}`;
 
   const handleSubmit = async (e) => {
     try {
@@ -98,7 +97,7 @@ const SignIn = () => {
 
   return (
     <Main>
-      <div className='w-full min-h-screen flex justify-center items-center mt-[70px]'>
+      <div className='w-full min-h-screen flex justify-center items-center mt-20'>
         <div className='px-5 py-10 w-full max-w-[500px] text-primary'>
           <h1 className='font-bold text-center text-2xl py-5'>Đăng ký</h1>
           <p className='text-primary text-base text-center pb-5'>
@@ -247,4 +246,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

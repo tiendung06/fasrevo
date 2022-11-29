@@ -5,7 +5,7 @@ import Section from '../../src/layout/Section';
 const Products = () => {
   return (
     <Main heading='Sản phẩm'>
-      <div className='w-full my-[70px]'>
+      <div className='w-full my-20'>
         {/* <div className='banner w-full h-[550px] relative bg-black'>
           <picture>
             <img
