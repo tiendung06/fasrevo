@@ -6,12 +6,6 @@ import Voucher from "./Voucher.js";
 const UserVoucher = sequelize.define(
   "user_voucher",
   {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     uid: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -31,5 +25,7 @@ const UserVoucher = sequelize.define(
   },
   { timestamps: false },
 );
+
+UserVoucher.removeAttribute('id');
 
 export default UserVoucher;

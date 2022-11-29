@@ -7,6 +7,10 @@ const ProductDetail = sequelize.define("product_detail", {
     type: DataTypes.STRING(10),
     allowNull: false,
     primaryKey: true,
+    references: {
+      model: Product,
+      key: "pid",
+    },
   },
   // Chi tiết
   description: {
@@ -28,10 +32,6 @@ const ProductDetail = sequelize.define("product_detail", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-});
-
-ProductDetail.belongsTo(Product, {
-  foreignKey: "pid",
 });
 
 export default ProductDetail;

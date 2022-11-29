@@ -5,16 +5,6 @@ import Product from "./Product.js";
 const ProductImage = sequelize.define(
   "product_images",
   {
-    piid: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    piname: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
     pid: {
       type: DataTypes.STRING(10),
       allowNull: false,
@@ -22,6 +12,10 @@ const ProductImage = sequelize.define(
         model: Product,
         key: "pid",
       },
+    },
+    piname: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
   },
   { timestamps: false },

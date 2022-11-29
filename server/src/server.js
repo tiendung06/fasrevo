@@ -1,38 +1,28 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import router from './routers/zindex.js';
-import { PORT } from './config/configuration.js';
-import { isEmailValid } from './config/EmailConfig.js';
-import upload from './middleware/handleFile.js';
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import router from "./routers/zindex.js";
+import { PATH, PORT } from "./config/configuration.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(
   cors({
     credentials: true,
     origin: true,
-  })
+  }),
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use('/image', express.static(PATH))
 
-app.get('/demo', async (req, res) => {
-  const { valid, reason, validators } = await isEmailValid(
-    'vutrubaola2001@gmail.com'
-  );
-  if (valid) {
-    res.send('OK');
-  } else {
-    res.send('No');
-  }
-});
-
-app.post('/test', upload.single('image'), async (req, res) => {
-  console.log(req.file);
-  res.send(req.body);
-});
+// test upload image
+app.get("/test", (req, res) => {
+  res.status(200).json({
+    profile_url: `http://localhost:3030/image/image1669538193645.jpg`
+  })
+})
 
 router(app);
 

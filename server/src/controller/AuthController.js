@@ -3,11 +3,11 @@ import {
   okConfig,
   status,
   TOKEN_SECRET,
-} from '../config/configuration.js';
-import User from '../model/User.js';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import { transporter, isEmailValid } from '../config/EmailConfig.js';
+} from "../config/configuration.js";
+import User from "../model/User.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { transporter, isEmailValid } from "../config/EmailConfig.js";
 
 class AuthController {
   // register
@@ -37,7 +37,7 @@ class AuthController {
             });
             try {
               await transporter.sendMail({
-                from: 'fasrevo@gmail.com',
+                from: "fasrevo@gmail.com",
                 to: req.body.email,
                 subject: okConfig.email.register.iS_OK_REGISTER,
                 html: `<h1>Chúc mừng ${req.body.fullname} đã đăng kí thành công tài khoản<h1>
@@ -70,6 +70,7 @@ class AuthController {
       });
     }
   }
+
   // login
   async login(req, res) {
     const user = await User.findOne({
@@ -92,70 +93,35 @@ class AuthController {
           expiresIn: 60 * 60 * 24,
         });
         res
-          .cookie('access_token', token, {
+          .cookie("access_token", token, {
+            httpOnly: true,
+            secure: true,
+          })
+          .cookie("uid", user.uid, {
+            maxAge: 90000,
             httpOnly: true,
             secure: true,
           })
           .status(200)
-          .json({ message: 'Logged in successfully', authenticated: true });
+          .json({
+            message: "Logged in successfully",
+            authenticated: true,
+            status: status.OK,
+          });
       }
     }
   }
 
   async logOut(req, res) {
     return res
-      .clearCookie('access_token')
+      .clearCookie("access_token")
       .status(200)
-      .json({ message: 'Successfully logged out' });
+      .json({ message: "Successfully logged out", status: status.OK });
   }
 
   async authenticate(req, res) {
-    console.log(req.verified);
-
+    // console.log(req.verified);
     return res.status(200).json({ authenticated: req.verified ? true : false });
-  }
-
-  // Change password
-  async changePassword(req, res) {
-    const user = await User.findOne({ where: { uid: req.params.uid } });
-    if (user === null) {
-      res.status(422).send({
-        message: errorConfig.login.ACCOUNT_ERROR,
-        status: status.ERROR,
-      });
-    } else {
-      const hassPassOld = await bcrypt.compare(
-        req.body.passwordOld,
-        user.password
-      );
-      if (!hassPassOld) {
-        res.status(422).send({
-          message: errorConfig.login.PASSWORD_ERROR,
-          status: status.ERROR,
-        });
-      } else {
-        const salt = await bcrypt.genSalt(10);
-        const hassPass = await bcrypt.hash(req.body.passwordNew, salt);
-        try {
-          await User.update(
-            { password: hassPass },
-            {
-              where: {
-                uid: req.params.uid,
-              },
-            }
-          );
-          res
-            .status(200)
-            .send({ message: okConfig.password.CHANGE_OK, status: status.OK });
-        } catch (error) {
-          res.status(400).send({
-            message: errorConfig.password.CHANGE_ERROR,
-            status: status.ERROR,
-          });
-        }
-      }
-    }
   }
 
   // Forgot password
@@ -173,7 +139,7 @@ class AuthController {
     } else {
       try {
         await transporter.sendMail({
-          from: 'fasrevo@gmail.com',
+          from: "fasrevo@gmail.com",
           to: req.body.email,
           subject: okConfig.email.register.iS_OK_REGISTER,
           html: `
@@ -218,7 +184,7 @@ class AuthController {
       try {
         await User.update(
           { password: hassPass },
-          { where: { uid: req.params.uid } }
+          { where: { uid: req.params.uid } },
         );
         res
           .status(200)

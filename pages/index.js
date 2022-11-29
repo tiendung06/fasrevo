@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+import React from "react";
+import Banner from "../src/components/Banner";
+import Main from "../src/layout/Main";
+import FeaturedProduct from "../src/components/FeaturedProduct";
+import Category from "../src/components/Category";
+import Collections from "../src/components/Collections";
+=======
 import React, { useEffect, useState } from 'react';
 import Banner from '../src/components/Banner';
 import Main from '../src/layout/Main';
@@ -10,6 +18,7 @@ import { authenticate } from '../src/constants/constants';
 import { setAuthenticated } from '../redux/authSlide';
 
 axios.defaults.withCredentials = true;
+>>>>>>> 6429d27998ef467be8ad55d6fb76452e0c89fd7b
 
 export default function Home() {
   const dispatch = useDispatch();

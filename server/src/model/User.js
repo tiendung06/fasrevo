@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
+import Role from "./Role.js";
 import Sex from "./Sex.js";
 
 const User = sequelize.define("user", {
@@ -51,6 +52,10 @@ const User = sequelize.define("user", {
   role: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
+    references: {
+      model: Role,
+      key: "role_id",
+    },
   },
 });
 

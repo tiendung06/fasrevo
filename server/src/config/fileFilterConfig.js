@@ -5,8 +5,8 @@ import path from "path";
 const fileFilter = function (req, file, cb) {
   // Accept images only
   if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-    req.fileValidationError = errorConfig.fileFilter.fileError;
-    return cb(new Error(errorConfig.fileFilter.fileError), false);
+    req.fileValidationError = errorConfig.fileFilter.FILE_ERROR;
+    return cb(new Error(errorConfig.fileFilter.FILE_ERROR), false);
   }
   cb(null, true);
 };
