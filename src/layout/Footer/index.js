@@ -4,7 +4,7 @@ import {
   nav,
   footerPolicy,
   footerContact,
-  storeAdress,
+  storeAddress,
 } from '../../constants/nav.js';
 
 const Footer = () => {
@@ -15,7 +15,7 @@ const Footer = () => {
           <FooterColumn heading='Điều hướng' col={nav} />
           <FooterColumn heading='Chính sách' col={footerPolicy} />
           <FooterColumn heading='Liên hệ' col={footerContact} />
-          <FooterColumn heading='Địa chỉ' col={storeAdress} meta='text' />
+          <FooterColumn heading='Địa chỉ' col={storeAddress} meta='text' />
         </div>
         <div className='text-center text-sm text-footer_label h-10'>
           © FASREVO 2022. All rights reserved

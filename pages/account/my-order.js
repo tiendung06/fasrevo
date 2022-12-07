@@ -5,15 +5,20 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { logout } from '../../src/constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
+import { setAuthenticated } from '../../redux/authSlide';
 
 const MyOrder = () => {
   const router = useRouter();
 
   const authenticated = useSelector((state) => state.auth.authenticated);
 
+  const dispatch = useDispatch();
+
   const handleSignOut = () => {
     if (typeof window !== 'undefined') {
       axios.get(logout).then((res) => {
+        dispatch(setAuthenticated(false));
+
         router.push('/');
       });
     }
@@ -30,10 +35,10 @@ const MyOrder = () => {
       <Section>
         <div className='w-full grid grid-cols-4 h-screen gap-5 py-10'>
           <div className='border-border_input border-r pr-5'>
-            <div className='w-full h-[300px]'>
+            {/* <div className='w-full h-[300px]'>
               <picture>
                 <img
-                  src='../images/men.jpg'
+                  src='../images/men.webp'
                   alt=''
                   className='w-full h-full object-cover'
                 />
@@ -41,10 +46,10 @@ const MyOrder = () => {
             </div>
             <p className='text-center text-2xl text-primary font-medium pt-5'>
               Đỗ Tiến Dũng
-            </p>
+            </p> */}
             <button onClick={handleSignOut}>Đăng xuất</button>
           </div>
-          <div className='col-span-3 bg-slate-500'></div>
+          <div className='col-span-3 '></div>
         </div>
       </Section>
     </Main>

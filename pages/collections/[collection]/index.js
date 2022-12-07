@@ -9,7 +9,7 @@ const CollectionDetails = () => {
       <div className='w-full max-w-[1920px] mx-auto h-screen max-h-[550px] relative'>
         <picture>
           <img
-            src='/images/banner4.jpg'
+            src='/images/banner4.webp'
             alt=''
             className='w-full h-full object-cover'
           />

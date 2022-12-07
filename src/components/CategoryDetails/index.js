@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Section from '../../layout/Section';
-import accessory from '../../../public/images/accessory.jpg';
-import top from '../../../public/images/top.jpg';
-import bottom from '../../../public/images/bottom.jpg';
 import Aos from 'aos';
 import styles from './categoryDetails.module.scss';
 import 'aos/dist/aos.css';
@@ -16,14 +13,18 @@ const CategoryDetails = () => {
   return (
     <Section title='Danh mục mua hàng'>
       <div className='grid gap-5 grid-cols-2 md:grid-cols-3' data-aos='fade-up'>
-        <CategoryDetailsItems image={top} type='Top' link='/men/products/top' />
         <CategoryDetailsItems
-          image={bottom}
+          image='./images/top.webp'
+          type='Top'
+          link='/men/products/top'
+        />
+        <CategoryDetailsItems
+          image='./images/bottom.webp'
           type='Bottom'
           link='/men/products/bottom'
         />
         <CategoryDetailsItems
-          image={accessory}
+          image='./images/accessory.webp'
           type='Accessory'
           link='/men/products/accessory'
         />

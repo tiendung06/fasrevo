@@ -76,7 +76,7 @@ const ProductDetails = () => {
                 <div className='max-h-[870px]'>
                   <picture>
                     <img
-                      src='/images/product1.jpg'
+                      src='/images/product1.webp'
                       alt=''
                       className='w-full h-full object-cover'
                     />
@@ -87,7 +87,7 @@ const ProductDetails = () => {
                 <div className='max-h-[870px]'>
                   <picture>
                     <img
-                      src='/images/top.jpg'
+                      src='/images/top.webp'
                       alt=''
                       className='w-full h-full object-cover'
                     />

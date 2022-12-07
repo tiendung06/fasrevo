@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { nav } from '../../constants/nav.js';
 import styles from './header.module.scss';
-import axios from 'axios';
-import { authenticate } from '../../constants/constants.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAuthenticated } from '../../../redux/authSlide.js';
+import { useSelector } from 'react-redux';
 
 const Header = ({ transparent = false }) => {
   const [showMenuNav, setShowMenuNav] = useState(false);
-
   const authenticated = useSelector((state) => state.auth.authenticated);
+  const [activeItem, setActiveItem] = useState(-1);
 
   const handleShowMenu = () => {
     setShowMenuNav(!showMenuNav);
@@ -59,7 +56,7 @@ const Header = ({ transparent = false }) => {
               className={`${styles.navbar} pb-10 w-0 h-full fixed left-0 right-0 bottom-0 z-30 bg-white transition-all overflow-auto`}
             >
               <div
-                className='close h-20 w-full px-5 flex items-center text-primary cursor-pointer'
+                className='close h-20 w-full px-5 md:px-10 flex items-center text-primary cursor-pointer'
                 onClick={handleShowMenu}
               >
                 <svg
@@ -77,20 +74,51 @@ const Header = ({ transparent = false }) => {
                   />
                 </svg>
               </div>
-              <ul className='list-none w-full pl-5 lg:pl-20'>
-                {nav.map(({ title, path, subMenu }) => (
-                  <li key={title}>
-                    <Link href={path}>
-                      <a className='pb-5 sm:py-5 text-2xl sm:text-4xl uppercase font-bold block transition-all text-primary hover:text-primary_red'>
-                        {title}
-                      </a>
-                    </Link>
+              <ul className='list-none w-full px-5 md:px-20'>
+                {nav.map(({ title, path, subMenu }, i) => (
+                  <li key={title} className={styles.collapsible_menu}>
+                    <button
+                      onClick={() => {
+                        if (activeItem !== i) {
+                          setActiveItem(i);
+                        } else {
+                          setActiveItem(-1);
+                        }
+                      }}
+                      className={`w-full pb-5 sm:py-5 flex justify-between items-center btnShowSubMenu text-left text-primary hover:text-primary_red`}
+                    >
+                      <Link href={path}>
+                        <a className='text-2xl sm:text-4xl uppercase font-bold inline-block transition-all'>
+                          {title}
+                        </a>
+                      </Link>
+                      {subMenu ? (
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          strokeWidth={1.5}
+                          stroke='currentColor'
+                          className='w-6 h-6'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            d='M12 6v12m6-6H6'
+                          />
+                        </svg>
+                      ) : null}
+                    </button>
                     {subMenu ? (
-                      <ul className='left-0 top-[60px] list-none'>
+                      <ul
+                        className={`left-0 top-[60px] list-none max-h-0 overflow-hidden transition-all ${
+                          activeItem === i ? 'max-h-full' : ''
+                        }`}
+                      >
                         {subMenu.map(({ title, path }) => (
                           <li className={`px-5 relative`} key={title}>
                             <Link href={path}>
-                              <a className='pb-5 sm:py-5 text-2xl sm:text-4xl text-primary font-bold uppercase block transition-all hover:text-priamry_red'>
+                              <a className='pb-5 sm:py-5 text-xl sm:text-3xl text-header font-medium uppercase block transition-all hover:text-primary_red'>
                                 {title}
                               </a>
                             </Link>
@@ -98,7 +126,7 @@ const Header = ({ transparent = false }) => {
                         ))}
                       </ul>
                     ) : (
-                      ''
+                      <p className='max-h-0'></p>
                     )}
                   </li>
                 ))}

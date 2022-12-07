@@ -3,7 +3,6 @@ import Link from 'next/link';
 import React from 'react';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
-import product from '../../public/images/product1.jpg';
 import styles from './order.module.scss';
 
 const Order = () => {
@@ -20,7 +19,7 @@ const Order = () => {
                 className={`${styles.product} w-full py-5 flex relative border-b border-t-[rgba(0,0,0,0.12)]`}
               >
                 <Image
-                  src={product.src}
+                  src='./images/product1.webp'
                   alt=''
                   width={100}
                   height={150}

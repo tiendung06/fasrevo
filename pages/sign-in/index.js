@@ -5,27 +5,27 @@ import { login } from '../../src/constants/constants.js';
 import Main from '../../src/layout/Main';
 import { setAuthenticated } from '../../redux/authSlide';
 import { useDispatch, useSelector } from 'react-redux';
-import useHandleChange from '../../hooks/useHandleChange.js';
 import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import Input from '../../src/components/Input/index.js';
 
 const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState();
   const authenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
   const router = useRouter();
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (values) => {
     try {
-      await axios
-        .post(`${login}`, {
-          email: email,
-          password: password,
-        })
-        .then((resp) => {
-          dispatch(setAuthenticated(resp.data.authenticated));
-        });
-    } catch (error) {
-      console.log(error);
+      await axios.post(`${login}`, values).then((resp) => {
+        dispatch(setAuthenticated(resp.data.authenticated));
+      });
+    } catch ({ response }) {
+      if (response.data.status === 0) {
+        setMessage(response.data.message);
+      } else {
+        router.push('/');
+      }
     }
   };
 
@@ -34,18 +34,20 @@ const SignIn = () => {
       router.push('/');
     }
   }
-
-  const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handleChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const { values, handleChange } = useHandleChange({
-    email: '',
-    password: '',
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email('Email không hợp lệ')
+        .required('Email không được để trống'),
+      password: Yup.string().required('Mật khẩu không được để trống'),
+    }),
+    onSubmit: (values) => {
+      handleSubmit(values);
+    },
   });
 
   return (
@@ -61,37 +63,44 @@ const SignIn = () => {
           <p className='text-base text-center pb-5 text-primary'>
             Đăng nhập với email của bạn và mật khẩu
           </p>
-          <div className='w-full h-10 my-5'>
-            <input
+          <form onSubmit={formik.handleSubmit}>
+            <Input
               type='email'
               name='email'
-              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               placeholder='Tài khoản*'
-              onChange={handleChangeEmail}
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              touched={formik.touched.email}
+              error={formik.errors.email}
             />
-          </div>
-          <div className='w-full h-10 my-5'>
-            <input
+            <Input
               type='password'
               name='password'
-              className='bg-transparent w-full h-full px-5 outline-none border border-border_input text-sm text-secondary_text'
               placeholder='Mật khẩu*'
-              onChange={handleChangePassword}
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              touched={formik.touched.password}
+              error={formik.errors.password}
             />
-          </div>
-          <div className='text-right '>
-            <Link href='/forgot-password'>
-              <a className='text-sm hover:underline transition-all'>
-                Quên mật khẩu?
-              </a>
-            </Link>
-          </div>
-          <button
-            className='w-full h-10 my-5 bg-primary text-center text-white flex justify-center items-center cursor-pointer'
-            onClick={handleSubmit}
-          >
-            Đăng nhập
-          </button>
+            <div className='text-right '>
+              <Link href='/forgot-password'>
+                <a className='text-sm hover:underline transition-all'>
+                  Quên mật khẩu?
+                </a>
+              </Link>
+            </div>
+            {message ? (
+              <div className='text-red-500 bg-red-300 h-10 text-center my-5 font-medium flex items-center justify-center'>
+                {message}
+              </div>
+            ) : null}
+            <button
+              className='w-full h-10 my-5 bg-primary text-center text-white flex justify-center items-center cursor-pointer'
+              type='submit'
+            >
+              Đăng nhập
+            </button>
+          </form>
           <div className='w-full text-center'>
             <span className='text-sm'>Bạn chưa có tài khoản? </span>
             <Link href='/sign-up'>

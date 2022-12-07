@@ -6,7 +6,10 @@ const verifyToken = (req, res, next) => {
 
   console.log('verifyToken', token);
 
-  if (!token) return res.status(401);
+  if (!token) {
+    res.status(401);
+    return res.send({ message: 'Unauthorized' });
+  }
 
   try {
     const verified = jwt.verify(token, TOKEN_SECRET);

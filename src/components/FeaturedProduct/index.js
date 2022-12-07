@@ -22,7 +22,7 @@ const FeaturedProduct = () => {
           .fill()
           .map((item, index) => (
             <SwiperSlide key={index}>
-              <Card discount={50} speicalPrice={'640.000'} />
+              <Card discount={50} specialPrice={'640.000'} />
             </SwiperSlide>
           ))}
       </Swiper>

@@ -1,16 +1,15 @@
 import Link from 'next/link';
 import React from 'react';
-import card from '../../../public/images/product1.jpg';
 import styles from './card.module.scss';
 
-const Card = ({ title, image, basePrice, speicalPrice, discount }) => {
+const Card = ({ title, image, basePrice, specialPrice, discount }) => {
   return (
     <Link href='/'>
       <div className={`${styles.card} max-w-[480px] cursor-pointer relative`}>
         <div className='w-full max-h-[700px] bg-slate-400  overflow-hidden'>
           <picture>
             <img
-              src={card.src}
+              src='./images/product1.webp'
               alt={title}
               className='object-cover w-full h-full transition-all'
             />
@@ -21,14 +20,14 @@ const Card = ({ title, image, basePrice, speicalPrice, discount }) => {
             IDLE LOOSE PANT
           </h3>
           <div className='flex justify-center'>
-            <span className='text-xs md:text-sm'>549.000 VND</span>
             {discount ? (
-              <span className='text-xs md:text-sm line-through ml-4'>
-                {speicalPrice} VND
+              <span className='text-xs md:text-sm line-through mr-4'>
+                {specialPrice} VND
               </span>
             ) : (
               ''
             )}
+            <span className='text-xs md:text-sm'>549.000 VND</span>
           </div>
         </div>
         {discount ? (

@@ -49,7 +49,7 @@ const Cart = () => {
                           <div className='h-full flex'>
                             <picture>
                               <img
-                                src='/images/product1.jpg'
+                                src='/images/product1.webp'
                                 alt=''
                                 className='w-full h-full object-cover'
                               />

@@ -41,7 +41,7 @@ const Collections = () => {
                   <div className='h-full'>
                     <picture>
                       <img
-                        src='images/banner2.jpg'
+                        src='images/banner2.webp'
                         alt=''
                         className='w-full h-full object-cover'
                       />

@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Section from '../../layout/Section';
 import Aos from 'aos';
-import men from '../../../public/images/men.jpg';
-import women from '../../../public/images/women.jpg';
 import 'aos/dist/aos.css';
 import styles from './category.module.scss';
 import SectionHeading from '../SectionHeading';
@@ -24,7 +22,7 @@ const Category = () => {
           >
             <picture>
               <img
-                src={men.src}
+                src='./images/men.webp'
                 alt=''
                 className='w-full h-full object-cover opacity-80 transition-all'
               />
@@ -43,7 +41,7 @@ const Category = () => {
           >
             <picture>
               <img
-                src={women.src}
+                src='./images/women.webp'
                 alt=''
                 className='w-full h-full object-cover opacity-80 transition-all'
               />

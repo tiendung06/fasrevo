@@ -82,6 +82,6 @@ export const footerContact = [
   { title: 'Instagram', path: 'https://www.instagram.com/' },
 ];
 
-export const storeAdress = [
+export const storeAddress = [
   { title: 'Ngõ 3, Giao Tác, Liên Hà, Đông Anh, Hà Nội' },
 ];
