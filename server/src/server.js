@@ -10,19 +10,19 @@ app.use(
   cors({
     credentials: true,
     origin: true,
-  }),
+  })
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/image', express.static(PATH))
+app.use("/image", express.static(PATH));
 
 // test upload image
 app.get("/test", (req, res) => {
   res.status(200).json({
-    profile_url: `http://localhost:3030/image/image1669538193645.jpg`
-  })
-})
+    profile_url: `http://localhost:3030/image/image1669538193645.jpg`,
+  });
+});
 
 router(app);
 

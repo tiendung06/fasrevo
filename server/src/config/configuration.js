@@ -88,6 +88,13 @@ const TOKEN_SECRET = 'fasrevo6789';
 
 const PATH = appRootPath + '\\src\\public\\images';
 
+const vnpay = {
+  VNP_TMNCODE: "YE3SQLHZ",
+  VNP_HASHSECRET: "FPQSBHFPLTQSJOMPUEWGFWKKPUFWIQUJ",
+  VNP_URL: "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
+  VNP_RETURNURL: "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction",
+};
+
 export {
   mySqlConfig,
   emailConfig,
@@ -97,4 +104,5 @@ export {
   TOKEN_SECRET,
   status,
   PATH,
+  vnpay,
 };

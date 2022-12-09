@@ -16,6 +16,7 @@ import ProductImage from "../model/ProductImage.js";
 import Role from "../model/Role.js";
 import Order from "../model/Order.js";
 import Report from "../model/Report.js";
+import DeliveryStatus from "../model/DeliveryStatus.js";
 
 try {
   await sequelize.authenticate();
@@ -92,6 +93,8 @@ try {
   // await UserVoucher.sync({ alter: true });
   // Create Order
   // await Order.sync({ alter: true });
+  // Create DeliveryStatus
+  // await DeliveryStatus.sync({ alter: true });
   // Create Report
   // await Report.sync({alter: true});
   console.log("Connection has been established successfully.");
