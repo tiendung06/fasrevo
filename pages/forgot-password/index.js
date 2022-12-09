@@ -3,6 +3,7 @@ import Main from '../../src/layout/Main';
 import Input from '../../src/components/Input';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Button from '../../src/components/Button';
 
 const SignIn = () => {
   const formik = useFormik({
@@ -34,15 +35,10 @@ const SignIn = () => {
               touched={formik.touched.email}
               error={formik.errors.email}
             />
-            <div className='text-sm'>
+            <div className='text-sm mb-5'>
               Xác nhận địa chỉ email, mật khẩu mới sẽ được gửi tới email của bạn
             </div>
-            <button
-              type='submit'
-              className='w-full h-10 my-5 bg-primary text-center text-white flex justify-center items-center cursor-pointer'
-            >
-              Xác nhận
-            </button>
+            <Button type='submit'>Xác nhận</Button>
           </form>
         </div>
       </div>

@@ -9,14 +9,17 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../../src/components/Input/index.js';
+import Button from '../../src/components/Button/index.js';
 
 const SignIn = () => {
   const [message, setMessage] = useState();
+  const [loading, setLoading] = useState(false);
   const authenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
   const router = useRouter();
   const handleSubmit = async (values) => {
     try {
+      setLoading(true);
       await axios.post(`${login}`, values).then((resp) => {
         dispatch(setAuthenticated(resp.data.authenticated));
       });
@@ -26,6 +29,8 @@ const SignIn = () => {
       } else {
         router.push('/');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,7 +56,7 @@ const SignIn = () => {
   });
 
   return (
-    <Main>
+    <Main heading='Đăng nhập'>
       <div className='w-full container mx-auto min-h-screen max-h-[850px] flex justify-center items-center'>
         <div className='px-5 py-10 w-full max-w-[500px] text-primary'>
           <h1 className='font-bold text-center text-2xl pt-5 pb-6'>
@@ -67,7 +72,8 @@ const SignIn = () => {
             <Input
               type='email'
               name='email'
-              placeholder='Tài khoản*'
+              label='Email'
+              placeholder='Nhập email của bạn*'
               onChange={formik.handleChange}
               value={formik.values.email}
               touched={formik.touched.email}
@@ -76,35 +82,33 @@ const SignIn = () => {
             <Input
               type='password'
               name='password'
-              placeholder='Mật khẩu*'
+              label='Mật khẩu'
+              placeholder='Nhập mật khẩu của bạn*'
               onChange={formik.handleChange}
               value={formik.values.password}
               touched={formik.touched.password}
               error={formik.errors.password}
             />
-            <div className='text-right '>
+            <div className='text-right mb-5'>
               <Link href='/forgot-password'>
-                <a className='text-sm hover:underline transition-all'>
+                <a className='text-sm hover:text-primary_red transition-all'>
                   Quên mật khẩu?
                 </a>
               </Link>
             </div>
             {message ? (
-              <div className='text-red-500 bg-red-300 h-10 text-center my-5 font-medium flex items-center justify-center'>
+              <div className='text-secondary_red bg-[#ffe2e2] h-10 text-center text-sm mb-5 font-medium flex items-center justify-center'>
                 {message}
               </div>
             ) : null}
-            <button
-              className='w-full h-10 my-5 bg-primary text-center text-white flex justify-center items-center cursor-pointer'
-              type='submit'
-            >
+            <Button type='submit' loading={loading}>
               Đăng nhập
-            </button>
+            </Button>
           </form>
-          <div className='w-full text-center'>
+          <div className='w-full text-center mt-5'>
             <span className='text-sm'>Bạn chưa có tài khoản? </span>
             <Link href='/sign-up'>
-              <a className='text-sm hover:underline transition-all font-medium'>
+              <a className='text-sm hover:underline text-primary_red transition-all font-medium'>
                 Đăng ký
               </a>
             </Link>

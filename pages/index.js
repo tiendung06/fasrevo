@@ -32,7 +32,11 @@ export default function Home() {
   }, [dispatch]);
 
   if (loading) {
-    return <div>loading...</div>;
+    return (
+      <div className='h-screen w-screen flex justify-center items-center'>
+        <div className='w-10 h-10 rounded-full border-4 border-primary_red border-t-transparent border-t-4 mx-auto animate-spin'></div>
+      </div>
+    );
   }
 
   return (

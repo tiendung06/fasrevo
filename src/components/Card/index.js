@@ -6,7 +6,7 @@ const Card = ({ title, image, basePrice, specialPrice, discount }) => {
   return (
     <Link href='/'>
       <div className={`${styles.card} max-w-[480px] cursor-pointer relative`}>
-        <div className='w-full max-h-[700px] bg-slate-400  overflow-hidden'>
+        <div className='w-full max-h-[700px] bg-slate-400 overflow-hidden'>
           <picture>
             <img
               src='./images/product1.webp'
@@ -19,19 +19,27 @@ const Card = ({ title, image, basePrice, specialPrice, discount }) => {
           <h3 className='text-sm md:text-base text-primary text-center font-medium uppercase mt-3 md:mt-5 mb-1 transition-all'>
             IDLE LOOSE PANT
           </h3>
-          <div className='flex justify-center'>
+          <div className='flex justify-center items-center'>
             {discount ? (
-              <span className='text-xs md:text-sm line-through mr-4'>
+              <span className='text-xs md:text-sm line-through mr-4 text-header'>
                 {specialPrice} VND
               </span>
             ) : (
               ''
             )}
-            <span className='text-xs md:text-sm'>549.000 VND</span>
+            <span
+              className={`text-xs ${
+                discount
+                  ? 'text-primary_red font-medium md:text-base'
+                  : 'md:text-sm'
+              } `}
+            >
+              549.000 VND
+            </span>
           </div>
         </div>
         {discount ? (
-          <div className='w-10 h-10 bg-[#444444] absolute top-0 right-5 flex items-center justify-center'>
+          <div className='w-10 h-10 bg-primary_red absolute top-0 right-5 flex items-center justify-center'>
             <span className='text-white text-sm font-medium'>{discount}%</span>
           </div>
         ) : (

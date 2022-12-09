@@ -5,6 +5,7 @@ import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
 import styles from './cart.module.scss';
 import FeaturedProduct from '../../src/components/FeaturedProduct';
+import Button from '../../src/components/Button';
 
 const Cart = () => {
   return (
@@ -154,15 +155,11 @@ const Cart = () => {
                     <span className='font-medium'>Giảm giá:</span>
                     <span>0 VND</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='flex justify-between mb-5'>
                     <span className='font-bold text-xl'>Tổng tiền:</span>
                     <span className='font-bold text-xl'>747.000 VND</span>
                   </div>
-                  <Link href={'/'}>
-                    <button className='bg-primary_red text-white w-full block text-center font-bold text-xl uppercase h-10 mt-8'>
-                      Mua hàng
-                    </button>
-                  </Link>
+                  <Button>Mua hàng</Button>
                 </div>
               </div>
             </div>

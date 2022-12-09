@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import Main from '../../src/layout/Main';
@@ -7,17 +7,24 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../../src/components/Input';
+import Button from '../../src/components/Button';
 
 const SignUp = () => {
-  const [province, setCity] = useState([]);
-  const [provinceCode, setCityCode] = useState();
-  const [districts, setDistricts] = useState([]);
+  const [arrayProvince, setArrayProvince] = useState([]);
+  const [provinceCode, setProvinceCode] = useState();
+  const [arrayDistricts, setArrayDistricts] = useState([]);
   const [districtCode, setDistrictCode] = useState();
-  const [ward, setWard] = useState([]);
+  const [arrayWard, setArrayWard] = useState([]);
   const [message, setMessage] = useState();
+  const [loading, setLoading] = useState(false);
+  const [province, setProvince] = useState('');
+  const [districts, setDistricts] = useState('');
+  const [ward, setWard] = useState('');
+
   const router = useRouter();
   const handleSubmit = async (values) => {
     try {
+      setLoading(true);
       await axios.post(`${register}`, values).then((response) => {
         console.log(response);
       });
@@ -27,6 +34,8 @@ const SignUp = () => {
       } else {
         router.push('/sign-in');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,7 +45,7 @@ const SignUp = () => {
         withCredentials: false,
       })
       .then((resp) => {
-        setCity(resp.data.results);
+        setArrayProvince(resp.data.results);
       });
   }, []);
 
@@ -45,7 +54,7 @@ const SignUp = () => {
       axios
         .get(`https://vapi.vnappmob.com/api/province/district/${provinceCode}`)
         .then((resp) => {
-          setDistricts(resp.data.results);
+          setArrayDistricts(resp.data.results);
         });
     }
   }, [provinceCode]);
@@ -55,10 +64,28 @@ const SignUp = () => {
       axios
         .get(`https://vapi.vnappmob.com/api/province/ward/${districtCode}`)
         .then((resp) => {
-          setWard(resp.data.results);
+          setArrayWard(resp.data.results);
         });
     }
   }, [districtCode]);
+
+  const handleSelectProvince = () => {
+    const selectProvince = document.getElementById('province');
+    setProvince(selectProvince.options[selectProvince.selectedIndex].text);
+    console.log(selectProvince.options[selectProvince.selectedIndex].text);
+  };
+
+  const handleSelectDistricts = () => {
+    const selectDistricts = document.getElementById('district');
+    setDistricts(selectDistricts.options[selectDistricts.selectedIndex].text);
+    console.log(selectDistricts.options[selectDistricts.selectedIndex].text);
+  };
+
+  const handleSelectWard = () => {
+    const selectWard = document.getElementById('ward');
+    setWard(selectWard.options[selectWard.selectedIndex].text);
+    console.log(selectWard.options[selectWard.selectedIndex].text);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -67,8 +94,8 @@ const SignUp = () => {
       password: '',
       confirmPassword: '',
       phone: '',
+      province: -1,
       street: '',
-      sex: -1,
     },
     validationSchema: Yup.object({
       fullname: Yup.string().required('Tên người dùng không được để trống'),
@@ -76,34 +103,28 @@ const SignUp = () => {
         .email('Email không hợp lệ')
         .required('Email không được để trống'),
       password: Yup.string()
-        .min(6, 'Mật khẩu phải trên 6 ký tự')
+        .min(6, 'Mật khẩu phải từ 6 ký tự')
         .required('Mật khẩu không được để trống'),
-      confirmPassword: Yup.string().oneOf(
-        [Yup.ref('password')],
-        'Nhập lại mật khẩu không đúng'
-      ),
+      confirmPassword: Yup.string()
+        .required('Mật khẩu nhập lại không được để trống')
+        .oneOf([Yup.ref('password')], 'Mật khẩu nhập lại không đúng'),
       phone: Yup.number().required('Số điện thoại không được để trống'),
       street: Yup.string().required('Số nhà không được để trống'),
-      sex: Yup.number()
-        .integer('Vui lòng chọn giới tính')
-        .min(0, 'Vui lòng chọn giới tính')
-        .max(1, 'Vui lòng chọn giới tính')
-        .required('Vui lòng chọn giới tính'),
     }),
-    onSubmit: ({ fullname, email, password, phone, street, sex }) => {
+    onSubmit: ({ fullname, email, password, phone, address, sex }) => {
       handleSubmit({
         fullname,
         email,
         password,
         phone,
-        street,
+        address,
         sex,
       });
     },
   });
 
   return (
-    <Main>
+    <Main heading='Đăng ký'>
       <div className='w-full min-h-screen flex justify-center items-center mt-20'>
         <div className='px-5 py-10 w-full max-w-[500px] text-primary'>
           <h1 className='font-bold text-center text-2xl py-5'>Đăng ký</h1>
@@ -115,7 +136,8 @@ const SignUp = () => {
             <Input
               type='text'
               name='fullname'
-              placeholder='Họ và tên*'
+              label='Họ tên'
+              placeholder='Nhập họ và tên*'
               onChange={formik.handleChange}
               value={formik.values.fullname}
               touched={formik.touched.fullname}
@@ -124,7 +146,8 @@ const SignUp = () => {
             <Input
               type='email'
               name='email'
-              placeholder='Email*'
+              label='Email'
+              placeholder='Nhập email của bạn*'
               onChange={formik.handleChange}
               value={formik.values.email}
               touched={formik.touched.email}
@@ -133,7 +156,8 @@ const SignUp = () => {
             <Input
               type='password'
               name='password'
-              placeholder='Mật khẩu*'
+              label='Mật khẩu'
+              placeholder='Nhập mật khẩu của bạn*'
               onChange={formik.handleChange}
               value={formik.values.password}
               touched={formik.touched.password}
@@ -142,80 +166,81 @@ const SignUp = () => {
             <Input
               type='password'
               name='confirmPassword'
-              placeholder='Xác nhận mật khẩu*'
+              label='Nhập lại mật khẩu'
+              placeholder='Nhập lại mật khẩu*'
               onChange={formik.handleChange}
               value={formik.values.confirmPassword}
               touched={formik.touched.confirmPassword}
               error={formik.errors.confirmPassword}
             />
-            <div className='w-full my-5'>
+            <div className='w-full mb-5'>
+              <label htmlFor='sex' className='text-sm font-medium'>
+                Giới tính
+              </label>
               <select
                 name='sex'
                 id='sex'
                 className='w-full h-10 px-5 text-sm text-secondary_text outline-none border border-border_input'
-                defaultValue={-1}
+                defaultValue={1}
                 onChange={formik.handleChange}
               >
-                <option value={-1} disabled>
-                  Chọn giới tính*
-                </option>
                 <option value={1}>Nam</option>
                 <option value={0}>Nữ</option>
               </select>
-              {formik.touched.sex && formik.errors.sex ? (
-                <div className='text-sm text-red-500'>{formik.errors.sex}</div>
-              ) : null}
             </div>
+            <Input
+              type='number'
+              name='phone'
+              label='Số điện thoại'
+              placeholder='Nhập số điện thoại của bạn*'
+              onChange={formik.handleChange}
+              value={formik.values.phone}
+              touched={formik.touched.phone}
+              error={formik.errors.phone}
+            />
             <div className='w-full my-5'>
-              <input
-                type='text'
-                name='phone'
-                className='bg-transparent w-full h-10 px-5 outline-none border border-border_input text-sm text-secondary_text'
-                placeholder='Số điện thoại*'
-                onChange={formik.handleChange}
-                value={formik.values.phone}
-              />
-              {formik.touched.phone && formik.errors.phone ? (
-                <div className='text-sm text-red-500'>
-                  {formik.errors.phone}
-                </div>
-              ) : null}
-            </div>
-            <div className='w-full my-5'>
+              <label htmlFor='sex' className='text-sm font-medium'>
+                Chọn Tỉnh/Thành phố
+              </label>
               <select
                 name='province'
                 id='province'
                 className='w-full h-10 px-5 text-sm text-secondary_text outline-none border border-border_input'
                 defaultValue={-1}
                 onChange={(e) => {
-                  setCityCode(e.target.value);
+                  setProvinceCode(e.target.value);
                   setDistrictCode(-1);
+                  handleSelectProvince();
                 }}
               >
                 <option value={-1}>Chọn Tỉnh/Thành Phố*</option>
-                {province.map(({ province_name, province_id }) => (
+                {arrayProvince.map(({ province_name, province_id }) => (
                   <option key={province_id} value={province_id}>
                     {province_name}
                   </option>
                 ))}
               </select>
               {formik.touched.province && formik.errors.province ? (
-                <div className='text-sm text-red-500'>
+                <div className='text-sm text-secondary_red'>
                   {formik.errors.province}
                 </div>
               ) : null}
             </div>
             <div className='w-full my-5'>
+              <label htmlFor='sex' className='text-sm font-medium'>
+                Chọn Quận/Huyện
+              </label>
               <select
                 name='district'
                 id='district'
                 className='w-full h-10 px-5 text-sm text-secondary_text outline-none border border-border_input'
                 onChange={(e) => {
                   setDistrictCode(e.target.value);
+                  handleSelectDistricts();
                 }}
               >
                 <option value={-1}>Chọn Quận/Huyện*</option>
-                {districts.map(({ district_name, district_id }) => (
+                {arrayDistricts.map(({ district_name, district_id }) => (
                   <option key={district_name} value={district_id}>
                     {district_name}
                   </option>
@@ -223,50 +248,48 @@ const SignUp = () => {
               </select>
             </div>
             <div className='w-full my-5'>
+              <label htmlFor='sex' className='text-sm font-medium'>
+                Chọn Xã/Phường
+              </label>
               <select
                 name='ward'
                 id='ward'
                 className='w-full h-10 px-5 text-sm text-secondary_text outline-none border border-[rgba(0,0,0,0.12)]'
+                onChange={() => {
+                  handleSelectWard();
+                }}
               >
                 <option value={-1}>Chọn Phường/Xã*</option>
-                {ward.map(({ ward_name, ward_id }) => (
+                {arrayWard.map(({ ward_name, ward_id }) => (
                   <option className='pr-5' key={ward_name} value={ward_id}>
                     {ward_name}
                   </option>
                 ))}
               </select>
             </div>
-            <div className='w-full my-5'>
-              <input
-                type='text'
-                name='street'
-                className='bg-transparent w-full h-10 px-5 outline-none border border-border_input text-sm text-secondary_text'
-                placeholder='Số nhà, đường*'
-                onChange={formik.handleChange}
-                value={formik.values.street}
-              />
-              {formik.touched.street && formik.errors.street ? (
-                <div className='text-sm text-red-500'>
-                  {formik.errors.street}
-                </div>
-              ) : null}
-            </div>
+            <Input
+              type='text'
+              name='street'
+              label='Số nhà, đường'
+              placeholder='Nhập số nhà của bạn*'
+              onChange={formik.handleChange}
+              value={formik.values.street}
+              touched={formik.touched.street}
+              error={formik.errors.street}
+            />
             {message ? (
-              <div className='text-red-500 bg-red-300 h-10 text-center my-5 font-medium flex items-center justify-center'>
+              <div className='text-secondary_red bg-[#ffe2e2] h-10 text-center text-sm mb-5 font-medium flex items-center justify-center'>
                 {message}
               </div>
             ) : null}
-            <button
-              className='w-full h-10 my-5 bg-primary text-center text-white flex justify-center items-center cursor-pointer'
-              type='submit'
-            >
+            <Button type='submit' loading={loading}>
               Đăng ký
-            </button>
+            </Button>
           </form>
-          <div className='w-full text-center'>
+          <div className='w-full text-center mt-5'>
             <span className='text-sm'>Bạn đã có tài khoản? </span>
             <Link href='/sign-in'>
-              <a className='text-sm hover:underline transition-all font-medium'>
+              <a className='text-sm hover:underline text-primary_red transition-all font-medium'>
                 Đăng nhập
               </a>
             </Link>
