@@ -14,12 +14,20 @@ const Order = sequelize.define("order", {
     allowNull: false,
     references: {
       model: User,
-      key: 'uid'
-    }
+      key: "uid",
+    },
   },
   pid: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  amount: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
   // -1 Chua thanh toan, 0 thanh toan 1 nua, 1 thanh toan ok
   status: {

@@ -92,7 +92,7 @@ const vnpay = {
   VNP_TMNCODE: "YE3SQLHZ",
   VNP_HASHSECRET: "FPQSBHFPLTQSJOMPUEWGFWKKPUFWIQUJ",
   VNP_URL: "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
-  VNP_RETURNURL: "http://localhost:3030/vnpay/get-transaction",
+  VNP_RETURNURL: "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction",
 };
 
 export {
