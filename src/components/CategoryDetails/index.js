@@ -11,25 +11,23 @@ const CategoryDetails = () => {
   }, []);
 
   return (
-    <Section title='Danh mục mua hàng'>
-      <div className='grid gap-5 grid-cols-2 md:grid-cols-3' data-aos='fade-up'>
-        <CategoryDetailsItems
-          image='./images/top.webp'
-          type='Top'
-          link='/men/products/top'
-        />
-        <CategoryDetailsItems
-          image='./images/bottom.webp'
-          type='Bottom'
-          link='/men/products/bottom'
-        />
-        <CategoryDetailsItems
-          image='./images/accessory.webp'
-          type='Accessory'
-          link='/men/products/accessory'
-        />
-      </div>
-    </Section>
+    <div className='grid gap-5 grid-cols-2 md:grid-cols-3' data-aos='fade-up'>
+      <CategoryDetailsItems
+        image='./images/top.webp'
+        type='Top'
+        link='/men/products/top'
+      />
+      <CategoryDetailsItems
+        image='./images/bottom.webp'
+        type='Bottom'
+        link='/men/products/bottom'
+      />
+      <CategoryDetailsItems
+        image='./images/accessory.webp'
+        type='Accessory'
+        link='/men/products/accessory'
+      />
+    </div>
   );
 };
 
@@ -37,11 +35,11 @@ function CategoryDetailsItems({ link, image, type }) {
   return (
     <Link href={link}>
       <div
-        className={`${styles.collections} w-full bg-black relative cursor-pointer overflow-hidden`}
+        className={`${styles.collections} w-full max-h-[400px] bg-black relative cursor-pointer overflow-hidden`}
       >
         <picture>
           <img
-            src={image.src}
+            src={image}
             alt=''
             className='w-full h-full object-cover opacity-80 transition-all'
           />

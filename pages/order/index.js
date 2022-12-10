@@ -1,106 +1,66 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
 import styles from './order.module.scss';
+import Button from '../../src/components/Button';
 
 const Order = () => {
   return (
-    <Main>
+    <Main heading='Đơn hàng'>
       <Section>
-        <div className={`${styles.order}`}>
-          <div className='grid grid-cols-1 lg:grid-cols-2 lg:gap-20 xl:gap-40 gap-10 py-5'>
-            <div className='text-primary'>
-              <h2 className='text-xl font-base py-5 uppercase border-b border-t-[rgba(0,0,0,0.12)]'>
-                Thông tin sản phẩm
-              </h2>
-              <div
-                className={`${styles.product} w-full py-5 flex relative border-b border-t-[rgba(0,0,0,0.12)]`}
-              >
-                <Image
-                  src='./images/product1.webp'
-                  alt=''
-                  width={100}
-                  height={150}
-                  className='object-cover w-[100px] h-[150px]'
-                />
-                <div className='w-full h-full text-sm text-primary pl-5'>
-                  <p className='text-base font-bold'>IDLE LOOSE PANT</p>
-                  <p className='pb-2'>549.000 VND</p>
-                  <div className='flex'>
-                    <p className='w-[80px]'>Size:</p>
-                    <p>L</p>
+        <h1 className='text-primary font-bold text-2xl py-10'>Đơn hàng</h1>
+        <div className='grid grid-cols-1 lg:grid-cols-6 gap-y-10 lg:gap-5'>
+          <div className='lg:col-span-3 xl:col-span-2'>
+            <OrderItem />
+            <OrderItem />
+            <OrderItem />
+          </div>
+          <div className='hidden xl:block invisible'></div>
+          <div className='lg:col-span-3 justify-end'>
+            <div className='w-full flex justify-end'>
+              <div className='w-full max-w-[500px]'>
+                <div className='text-sm md:text-sm pb-5 border-b border-t-border_input'>
+                  <div className='flex items-center justify-between pb-2'>
+                    <p>Họ và tên:</p>
+                    <p>Nguyễn Văn A</p>
                   </div>
-                  <div className='flex'>
-                    <p className='w-[80px]'>Màu sắc:</p>
-                    <p>Đen</p>
+                  <div className='flex items-center justify-between pb-2'>
+                    <p>Số điện thoại:</p>
+                    <p>0344536552</p>
                   </div>
-                  <div className='flex justify-between'>
-                    <div className='flex'>
-                      <p className='w-[80px]'>Số lượng:</p>
-                      <p>3</p>
-                    </div>
-                    <div className='font-bold'>549.000 VND</div>
+                  <div className='flex items-center justify-between pb-2'>
+                    <p>Email:</p>
+                    <p>nguyenvana@gmail.com</p>
+                  </div>
+                  <div className='flex items-center justify-between'>
+                    <p>Địa chỉ:</p>
+                    <p>Giao Tác, Liên Hà, Đông Anh, Hà Nội</p>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className='text-primary'>
-              <h2 className='text-xl font-base py-5 uppercase border-b border-t-[rgba(0,0,0,0.12)]'>
-                Thông tin thanh toán
-              </h2>
-              <div className='py-5 text-sm border-b border-t-[rgba(0,0,0,0.12)]'>
-                <div className='flex items-center justify-between pb-2'>
-                  <p>Họ và tên:</p>
-                  <p>Nguyễn Văn A</p>
+                <div className='py-5 text-sm border-b border-t-border_input'>
+                  <div className='flex items-center justify-between'>
+                    <p className='pr-1'>Mã giảm giá:</p>
+                    <p>Mã giảm giá 123</p>
+                  </div>
                 </div>
-                <div className='flex items-center justify-between pb-2'>
-                  <p>Số điện thoại:</p>
-                  <p>0344536552</p>
+                <div className='py-5 text-sm border-b border-t-border_input'>
+                  <div className='flex items-center justify-between pb-2'>
+                    <p>Giá trị</p>
+                    <span>349.300 VND</span>
+                  </div>
+                  <div className='flex items-center justify-between'>
+                    <p>Vận chuyển</p>
+                    <span>30.000 VND</span>
+                  </div>
                 </div>
-                <div className='flex items-center justify-between pb-2'>
-                  <p>Email:</p>
-                  <p>nguyenvana@gmail.com</p>
+                <div className='py-5 text-lg'>
+                  <div className='flex items-center justify-between font-bold'>
+                    <p>Tổng</p>
+                    <span className='text-primary_red'>379.300 VND</span>
+                  </div>
                 </div>
-                <div className='flex items-center justify-between'>
-                  <label>Địa chỉ:</label>
-                  <select className='outline-none'>
-                    <option value=''>
-                      Giao Tác, Liên Hà, Đông Anh, Hà Nội
-                    </option>
-                    <option value=''>130 Xuân Thủy, Cầu Giấy, Hà Nội</option>
-                  </select>
-                </div>
-              </div>
-              <div className='py-5 text-sm border-b border-t-[rgba(0,0,0,0.12)]'>
-                <div className='flex items-center justify-between'>
-                  <label className='pr-1'>Mã giảm giá:</label>
-                  <select className='outline-none'>
-                    <option value=''>Mã giảm giá 123</option>
-                  </select>
-                </div>
-              </div>
-              <div className='py-5 border-b border-t-[rgba(0,0,0,0.12)]'>
-                <div className='flex items-center justify-between pb-2 text-sm'>
-                  <p>Giá trị</p>
-                  <span>349.300 VND</span>
-                </div>
-                <div className='flex items-center justify-between text-sm'>
-                  <p>Vận chuyển</p>
-                  <span>30.000 VND</span>
-                </div>
-              </div>
-              <div className='py-5'>
-                <div className='flex items-center justify-between text-sm font-bold mb-3'>
-                  <p>Tổng</p>
-                  <span>379.300 VND</span>
-                </div>
-                <Link href='/order'>
-                  <a className='w-full h-10 inline-block bg-primary text-white font-bold uppercase leading-10 text-center'>
-                    Tiến hành đặt hàng
-                  </a>
-                </Link>
+                <Button>Tiến hành thanh toán</Button>
               </div>
             </div>
           </div>
@@ -109,5 +69,42 @@ const Order = () => {
     </Main>
   );
 };
+
+function OrderItem() {
+  return (
+    <div className='h-[200px] flex pb-5'>
+      <picture>
+        <img
+          src='/images/product1.webp'
+          alt=''
+          className='w-full h-full object-cover'
+        />
+      </picture>
+      <div className='pl-5 flex justify-between flex-col'>
+        <div>
+          <p className='font-medium text-base md:text-xl pb-1'>
+            Bondi Outdoor Lounge Ottoman Chair & Set
+          </p>
+          <div className='flex items-center'>
+            <span className='text-header pr-3 line-through text-sm'>
+              349.000 VND
+            </span>
+            <span className='text-primary text-sm md:text-base'>
+              249.000 VND
+            </span>
+          </div>
+          <p className='text-sm text-primary'>Màu: Be</p>
+          <p className='text-sm text-primary'>Size: L</p>
+        </div>
+        <div className=''>
+          <p className='text-sm text-primary'>Số lượng: 3</p>
+          <p className='text-primary font-medium text-sm md:text-base'>
+            Số tiền: <span className='text-primary_red'>747.000 VND</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default Order;

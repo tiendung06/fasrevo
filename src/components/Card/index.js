@@ -2,14 +2,14 @@ import Link from 'next/link';
 import React from 'react';
 import styles from './card.module.scss';
 
-const Card = ({ title, image, basePrice, specialPrice, discount }) => {
+const Card = ({ id, title, image, basePrice, specialPrice, discount }) => {
   return (
-    <Link href='/'>
+    <Link href={`/products/${id}`}>
       <div className={`${styles.card} max-w-[480px] cursor-pointer relative`}>
         <div className='w-full max-h-[700px] bg-slate-400 overflow-hidden'>
           <picture>
             <img
-              src='./images/product1.webp'
+              src={image}
               alt={title}
               className='object-cover w-full h-full transition-all'
             />
@@ -17,7 +17,7 @@ const Card = ({ title, image, basePrice, specialPrice, discount }) => {
         </div>
         <div className='w-full'>
           <h3 className='text-sm md:text-base text-primary text-center font-medium uppercase mt-3 md:mt-5 mb-1 transition-all'>
-            IDLE LOOSE PANT
+            {title} {id}
           </h3>
           <div className='flex justify-center items-center'>
             {discount ? (
@@ -34,7 +34,7 @@ const Card = ({ title, image, basePrice, specialPrice, discount }) => {
                   : 'md:text-sm'
               } `}
             >
-              549.000 VND
+              {basePrice} VND
             </span>
           </div>
         </div>

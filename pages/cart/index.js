@@ -9,7 +9,7 @@ import Button from '../../src/components/Button';
 
 const Cart = () => {
   return (
-    <Main>
+    <Main heading='Giỏ hàng'>
       <Section>
         <div className='w-full'>
           {/* <div

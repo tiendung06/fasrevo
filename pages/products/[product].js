@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
+import { Pagination, Navigation } from 'swiper';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import 'swiper/css';
 import Button from '../../src/components/Button';
 
@@ -76,7 +77,8 @@ const ProductDetails = () => {
           <div className='lg:col-span-2'>
             <Swiper
               slidesPerView={'auto'}
-              modules={[Pagination]}
+              modules={[Pagination, Navigation]}
+              navigation
               pagination={{ clickable: true }}
               spaceBetween={40}
             >
@@ -115,7 +117,7 @@ const ProductDetails = () => {
                 <span className='text-sm md:text-base line-through mr-4 text-header'>
                   640.000 VND
                 </span>
-                <span className='text-base md:text-lg font-medium'>
+                <span className='text-base md:text-lg font-medium text-primary_red'>
                   549.000 VND
                 </span>
               </div>

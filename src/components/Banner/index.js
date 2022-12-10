@@ -5,8 +5,10 @@ import { Autoplay, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Button from '../Button';
+import { useEffect } from 'react';
 
 const Banner = () => {
+  useEffect(() => {});
   return (
     <div className='w-full max-w-[1920px] mx-auto'>
       <Swiper
@@ -17,7 +19,7 @@ const Banner = () => {
         spaceBetween={40}
       >
         <SwiperSlide>
-          <Link href='/'>
+          <Link href='/collections/123'>
             <div className='w-full h-screen max-h-[870px] relative overflow-hidden'>
               <picture>
                 <img

@@ -1,26 +1,44 @@
+import Link from 'next/link';
 import React from 'react';
+import Card from '../../src/components/Card';
 import CategoryDetails from '../../src/components/CategoryDetails';
 import FeaturedProduct from '../../src/components/FeaturedProduct';
+import SectionHeading from '../../src/components/SectionHeading';
 import Main from '../../src/layout/Main';
+import Section from '../../src/layout/Section';
 
 const Men = () => {
   return (
     <Main>
-      {/* <div className='relative w-full max-w-[1920px] h-screen max-h-[870px] mx-auto overflow-hidden'>
-        <picture>
-          <img src={banner.src} alt='' className='w-full h-full object-cover' />
-        </picture>
-        <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bottom-0 text-white text-center flex items-center justify-center'>
-          <div className=''>
-            <h1 className='uppercase text-5xl font-bold mb-5'>Nam</h1>
-            <p className='uppercase font-bold mb-5 text-lg'>
-              Sự đơn giản là định nghĩa của thanh lịch.
-            </p>
-          </div>
+      <Section>
+        <div className='flex items-center pt-10 pb-5 text-xs md:text-sm'>
+          <Link href='/'>
+            <a className='font-medium text-header pr-2 lg:pr-3'>Trang chủ</a>
+          </Link>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke-width='1.5'
+            stroke='currentColor'
+            class='w-3 h-3 text-header'
+          >
+            <path
+              stroke-linecap='round'
+              stroke-linejoin='round'
+              d='M8.25 4.5l7.5 7.5-7.5 7.5'
+            />
+          </svg>
+          <Link href='/collections'>
+            <a className='font-bold pl-2 lg:pl-3 text-primary_red'>
+              Thời trang nam
+            </a>
+          </Link>
         </div>
-      </div> */}
-      <CategoryDetails></CategoryDetails>
-      <FeaturedProduct></FeaturedProduct>
+        <SectionHeading>Thời trang nam</SectionHeading>
+        <CategoryDetails></CategoryDetails>
+        <div className='mt-10'></div>
+      </Section>
     </Main>
   );
 };

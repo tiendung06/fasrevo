@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Button from '../../src/components/Button';
 
-const SignIn = () => {
+const ForgotPassword = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -29,7 +29,8 @@ const SignIn = () => {
             <Input
               type='email'
               name='email'
-              placeholder='Email*'
+              label='Email'
+              placeholder='Nhập email của bạn*'
               onChange={formik.handleChange}
               value={formik.values.email}
               touched={formik.touched.email}
@@ -46,4 +47,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;
