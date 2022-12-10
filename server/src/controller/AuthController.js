@@ -7,7 +7,7 @@ import {
 import User from "../model/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { transporter, isEmailValid } from "../config/EmailConfig.js";
+import { transporter, isEmailValid } from "../config/emailConfig.js";
 
 class AuthController {
   // register
@@ -27,14 +27,26 @@ class AuthController {
           const salt = await bcrypt.genSalt(10);
           const hassPass = await bcrypt.hash(req.body.password, salt);
           try {
-            await User.create({
-              fullname: req.body.fullname,
-              password: hassPass,
-              email: req.body.email,
-              phone: req.body.phone,
-              address: req.body.address,
-              sex: req.body.sex,
-            });
+            if (req.body.role === undefined) {
+              await User.create({
+                fullname: req.body.fullname,
+                password: hassPass,
+                email: req.body.email,
+                phone: req.body.phone,
+                address: req.body.address,
+                sex: req.body.sex,
+              });
+            } else {
+              await User.create({
+                fullname: req.body.fullname,
+                password: hassPass,
+                email: req.body.email,
+                phone: req.body.phone,
+                address: req.body.address,
+                sex: req.body.sex,
+                role: req.body.role,
+              });
+            }
             try {
               await transporter.sendMail({
                 from: "fasrevo@gmail.com",
@@ -184,7 +196,7 @@ class AuthController {
       try {
         await User.update(
           { password: hassPass },
-          { where: { uid: req.params.uid } },
+          { where: { uid: req.params.uid } }
         );
         res
           .status(200)

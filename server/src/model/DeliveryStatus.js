@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../database/mysql_db";
-import Order from "./Order";
+import { sequelize } from "../database/mysql_db.js";
+import Order from "./Order.js";
 
 const DeliveryStatus = sequelize.define("delivery-status", {
   ds_id: {

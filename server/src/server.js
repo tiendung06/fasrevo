@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import router from "./routers/zindex.js";
 import { PATH, PORT } from "./config/configuration.js";
 import cookieParser from "cookie-parser";
+import upload from "./middleware/handleFile.js";
 
 const app = express();
 app.use(
@@ -18,10 +19,8 @@ app.use(cookieParser());
 app.use("/image", express.static(PATH));
 
 // test upload image
-app.get("/test", (req, res) => {
-  res.status(200).json({
-    profile_url: `http://localhost:3030/image/image1669538193645.jpg`,
-  });
+app.post("/test", upload.single("image"), (req, res) => {
+  res.send(req.file);
 });
 
 router(app);

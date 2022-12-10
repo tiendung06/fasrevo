@@ -34,19 +34,15 @@ const Cart = sequelize.define("cart", {
   },
   quantity: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    defaultValue: 1,
   },
   total: {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
-  subtotal: {
-    type: DataTypes.DOUBLE,
-    allowNull: false,
-  },
 });
 
-Cart.removeAttribute('id');
+Cart.removeAttribute("id");
 
 export default Cart;
 

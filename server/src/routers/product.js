@@ -1,9 +1,14 @@
 import express from "express";
 import ProductController from "../controller/ProductController.js";
+import upload from "../middleware/handleFile.js";
 
 const router = express.Router();
 
-router.get("/getAllProducts", ProductController.getAllProducts);
-router.post("/getProductsByCid", ProductController.getProductByCid);
+router.get("/get-all", ProductController.getAllProducts);
+router.post(
+  "/add-product",
+  upload.single("image"),
+  ProductController.addProduct
+);
 
 export default router;
