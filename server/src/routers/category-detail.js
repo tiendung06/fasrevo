@@ -1,19 +1,27 @@
-import express from 'express'
-import CategoryDetailController from '../controller/CategoryDetailController.js';
-import verifyToken from '../middleware/verifyToken.js'
+import express from "express";
+import CategoryDetailController from "../controller/CategoryDetailController.js";
+import verifyToken from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
-router.get('/getAllCategoryDetail', verifyToken, CategoryDetailController.getAllCategoryDetail);
 router.get(
-  '/getCategoryDetailByCid/:cdid',
+  "/get-all",
+  verifyToken,
+  CategoryDetailController.getAllCategoryDetail
+);
+router.get(
+  "/get-cid/:cdid",
   verifyToken,
   CategoryDetailController.getCategoryDetailByCdid
 );
-router.post('/postCategoryDetail', verifyToken, CategoryDetailController.addCategoryDetail);
-router.put('/updateCategoryDetail/:cdid', verifyToken, CategoryDetailController.updateCategoryDetail);
+router.post("/add", verifyToken, CategoryDetailController.addCategoryDetail);
+router.put(
+  "/update/:cdid",
+  verifyToken,
+  CategoryDetailController.updateCategoryDetail
+);
 router.delete(
-  '/deleteCategoryDetail/:cdid',
+  "/delete/:cdid",
   verifyToken,
   CategoryDetailController.deleteCategoryDetail
 );

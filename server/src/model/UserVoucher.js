@@ -22,10 +22,14 @@ const UserVoucher = sequelize.define(
         key: "vid",
       },
     },
+    status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+    },
   },
-  { timestamps: false },
+  { timestamps: false }
 );
 
-UserVoucher.removeAttribute('id');
+UserVoucher.removeAttribute("id");
 
 export default UserVoucher;

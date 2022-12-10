@@ -10,6 +10,10 @@ const User = sequelize.define("user", {
     primaryKey: true,
     allowNull: false,
   },
+  image: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
   // Họ và tên
   fullname: {
     type: DataTypes.TEXT,

@@ -21,7 +21,7 @@ const Order = sequelize.define("order", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  amount: {
+  total: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

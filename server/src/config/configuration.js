@@ -87,6 +87,7 @@ const PORT = 3030;
 const TOKEN_SECRET = "fasrevo6789";
 
 const PATH = appRootPath + "\\src\\public\\images";
+const IMAGE_URL = "http://localhost:3030/image";
 
 const vnpay = {
   VNP_TMNCODE: "YE3SQLHZ",
@@ -94,6 +95,8 @@ const vnpay = {
   VNP_URL: "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
   VNP_RETURNURL: "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction",
 };
+
+const PAGE_LIMIT = 20;
 
 export {
   mySqlConfig,
@@ -105,4 +108,6 @@ export {
   status,
   PATH,
   vnpay,
+  PAGE_LIMIT,
+  IMAGE_URL,
 };
