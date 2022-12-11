@@ -3,10 +3,8 @@ import { sequelize } from "../database/mysql_db.js";
 import Category from "./Category.js";
 import CategoryDetail from "./CategoryDetail.js";
 import Collection from "./Collection.js";
-import Color from "./Color.js";
 import Combo from "./Combo.js";
 import Sex from "./Sex.js";
-import Size from "./Size.js";
 
 const Product = sequelize.define("product", {
   // Nam, Nữ FE trả về
@@ -33,24 +31,6 @@ const Product = sequelize.define("product", {
     references: {
       model: CategoryDetail,
       key: "cdid",
-    },
-  },
-  // Màu sắc FE trả về
-  color_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Color,
-      key: "color_id",
-    },
-  },
-  // Kích cỡ FE trả về
-  size_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Size,
-      key: "size_id",
     },
   },
   // Gói Combo

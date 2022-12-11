@@ -1,18 +1,24 @@
+import { Op } from "sequelize";
 import { status } from "../config/configuration.js";
+import Product from "../model/Product.js";
 import ProductDetail from "../model/ProductDetail.js";
 
 class ProductDetailController {
   // doGet
   async getProductDetailByPid(req, res) {
     try {
-      const productDetail = await ProductDetail.findAll({
+      const product = await Product.findOne({
         where: { pid: req.query.pid },
       });
-      res.status(200).send(productDetail);
+      const productDetail = await ProductDetail.findOne({
+        where: { pid: req.query.pid },
+      });
+      res.status(200).send({ product: product, productDetail: productDetail });
     } catch (error) {
       res.status(400).send(error);
     }
   }
+
   // doPut
   async updateProductDetail(req, res) {
     try {

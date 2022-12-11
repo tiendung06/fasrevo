@@ -2,6 +2,8 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 import Product from "./Product.js";
 import User from "./User.js";
+import Color from "./Color.js";
+import Size from "./Size.js";
 
 const Cart = sequelize.define("cart", {
   uid: {
@@ -27,6 +29,20 @@ const Cart = sequelize.define("cart", {
   pname: {
     type: DataTypes.TEXT,
     allowNull: false,
+  },
+  color_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Color,
+      key: "color_id",
+    },
+  },
+  size_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Size,
+      key: "size_id",
+    },
   },
   price: {
     type: DataTypes.DOUBLE,
