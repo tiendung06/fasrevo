@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.js',
+  ],
   theme: {
     extend: {
       colors: {
@@ -15,8 +19,10 @@ module.exports = {
         footer_label: '#5b5b5b',
         footer_hover: '#b3b3b3',
         border_input: '#0000001f',
+        primary_blue: '#2563eb',
+        admin_background: '#f2f4fc',
       },
     },
   },
-  plugins: [],
+  plugins: [require('tw-elements/dist/plugin')],
 };

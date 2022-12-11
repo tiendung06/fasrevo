@@ -6,6 +6,7 @@ const logout = `${domain}/auth/logout`;
 const register = `${domain}/auth/register`;
 const demo = `${domain}/demo`;
 const search = `${domain}/search`;
+const product = `${domain}/product-detail`;
 const searchItem = {
   getCollection: (page = 1, collection_id) =>
     `${search}/search-by-collection?page=${page}&collection_id=${collection_id}`,
@@ -37,4 +38,15 @@ const searchItem = {
   getFilter: (page = 1, sex_id, cid, cdid, collection_id, color_id, size_id) =>
     `${search}/filter?page=${page}&sex_id=${sex_id}&cid=${cid}&cdid=${cdid}&collection_id=${collection_id}&color_id=${color_id}&size_id=${size_id}`,
 };
-export { login, demo, register, logout, authenticate, searchItem };
+const productDetail = {
+  getProductDetail: (pid) => `${product}/get-pid?pid=${pid}`,
+};
+export {
+  login,
+  demo,
+  register,
+  logout,
+  authenticate,
+  searchItem,
+  productDetail,
+};

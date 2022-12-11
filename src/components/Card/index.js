@@ -3,6 +3,13 @@ import React from 'react';
 import styles from './card.module.scss';
 
 const Card = ({ id, title, image, basePrice, specialPrice, discount }) => {
+  function formatMoney(n, currency) {
+    return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + currency;
+  }
+
+  const basePriceFormat = formatMoney(basePrice, 'VND');
+  const specialPriceFormat = formatMoney(specialPrice, 'VND');
+
   return (
     <Link href={`/products/${id}`}>
       <div className={`${styles.card} max-w-[480px] cursor-pointer relative`}>
@@ -22,7 +29,7 @@ const Card = ({ id, title, image, basePrice, specialPrice, discount }) => {
           <div className='flex justify-center items-center'>
             {discount ? (
               <span className='text-xs md:text-sm line-through mr-4 text-header'>
-                {specialPrice} VND
+                {specialPriceFormat}
               </span>
             ) : (
               ''
@@ -34,7 +41,7 @@ const Card = ({ id, title, image, basePrice, specialPrice, discount }) => {
                   : 'md:text-sm'
               } `}
             >
-              {basePrice} VND
+              {basePriceFormat}
             </span>
           </div>
         </div>

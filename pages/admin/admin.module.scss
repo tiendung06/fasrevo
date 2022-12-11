@@ -1,0 +1,22 @@
+.table_users {
+  @apply w-full my-5;
+  thead tr {
+    @apply bg-white;
+  }
+  tbody tr {
+    @apply border-b border-b-gray-100 bg-white;
+  }
+  th,
+  td {
+    @apply grid items-center p-3 text-left text-sm;
+  }
+  th {
+    @apply font-medium;
+  }
+  tr {
+    display: grid;
+    grid-template-columns: 5% 12% 13% 7% 10% 17% 20% 8% 8%;
+  }
+}
+@media screen and (min-width: 1024px) {
+}

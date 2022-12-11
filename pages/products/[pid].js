@@ -1,15 +1,38 @@
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css';
 import Button from '../../src/components/Button';
+import { productDetail } from '../../src/constants/constants';
 
 const ProductDetails = () => {
+  const [product, setProduct] = useState();
+  const [productDetails, setProductDetails] = useState();
+  const [quantity, setQuantity] = useState(1);
+  const router = useRouter();
+  const { pid } = router.query;
+
+  useEffect(() => {
+    if (pid) {
+      axios.get(`${productDetail.getProductDetail(pid)}`).then((res) => {
+        setProduct(res.data.product);
+        setProductDetails(res.data.productDetail);
+      });
+    }
+  }, [pid]);
+
+  const handleMinusQuantity = () => {
+    if (quantity >= 2) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handlePlusQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
   return (
     <Main>
       <Section>
@@ -21,13 +44,13 @@ const ProductDetails = () => {
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
-            stroke-width='1.5'
+            strokeWidth='1.5'
             stroke='currentColor'
-            class='w-3 h-3 text-header'
+            className='w-3 h-3 text-header'
           >
             <path
-              stroke-linecap='round'
-              stroke-linejoin='round'
+              strokeLinecap='round'
+              strokeLinejoin='round'
               d='M8.25 4.5l7.5 7.5-7.5 7.5'
             />
           </svg>
@@ -40,13 +63,13 @@ const ProductDetails = () => {
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
-            stroke-width='1.5'
+            strokeWidth='1.5'
             stroke='currentColor'
-            class='w-3 h-3 text-header'
+            className='w-3 h-3 text-header'
           >
             <path
-              stroke-linecap='round'
-              stroke-linejoin='round'
+              strokeLinecap='round'
+              strokeLinejoin='round'
               d='M8.25 4.5l7.5 7.5-7.5 7.5'
             />
           </svg>
@@ -57,13 +80,13 @@ const ProductDetails = () => {
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
-            stroke-width='1.5'
+            strokeWidth='1.5'
             stroke='currentColor'
-            class='w-3 h-3 text-header'
+            className='w-3 h-3 text-header'
           >
             <path
-              stroke-linecap='round'
-              stroke-linejoin='round'
+              strokeLinecap='round'
+              strokeLinejoin='round'
               d='M8.25 4.5l7.5 7.5-7.5 7.5'
             />
           </svg>
@@ -75,56 +98,39 @@ const ProductDetails = () => {
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-6 gap-y-10 lg:gap-5 justify-between'>
           <div className='lg:col-span-2'>
-            <Swiper
-              slidesPerView={'auto'}
-              modules={[Pagination, Navigation]}
-              navigation
-              pagination={{ clickable: true }}
-              spaceBetween={40}
-            >
-              <SwiperSlide>
-                <div className='max-h-[870px]'>
-                  <picture>
-                    <img
-                      src='/images/product1.webp'
-                      alt=''
-                      className='w-full h-full object-cover'
-                    />
-                  </picture>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className='max-h-[870px]'>
-                  <picture>
-                    <img
-                      src='/images/top.webp'
-                      alt=''
-                      className='w-full h-full object-cover'
-                    />
-                  </picture>
-                </div>
-              </SwiperSlide>
-            </Swiper>
+            <div className='max-h-[870px]'>
+              <picture>
+                <img
+                  src={product.image}
+                  alt=''
+                  className='w-full h-full object-cover'
+                />
+              </picture>
+            </div>
           </div>
           <div className='hidden md:block invisible'></div>
           <div className='lg:col-span-3'>
             <div className='max-w-[500px]'>
               <p className='text-xs md:text-sm text-header pb-3'>Pants</p>
               <h2 className='text-3xl md:text-4xl font-medium pb-2'>
-                Bondi Outdoor Lounge Ottoman Chair & Set
+                {product.pname}
               </h2>
               <div className='flex items-center pb-5'>
-                <span className='text-sm md:text-base line-through mr-4 text-header'>
-                  640.000 VND
+                <span
+                  className={`${
+                    product.isDiscount === 1
+                      ? 'text-sm md:text-base line-through text-header'
+                      : 'text-base md:text-lg font-medium text-primary_red'
+                  }  mr-4`}
+                >
+                  {product.cost}
                 </span>
                 <span className='text-base md:text-lg font-medium text-primary_red'>
-                  549.000 VND
+                  {product.discount}
                 </span>
               </div>
               <p className='pb-5 text-sm md:text-base'>
-                Made of three natural organic latex layers, including a plush
-                Heveya Natural Organic Latex Topper to give you ideal support
-                and comfort.
+                {productDetails.description}
               </p>
               <div className='w-1/2 mb-5'>
                 <label htmlFor='color' className='text-sm font-medium'>
@@ -161,7 +167,7 @@ const ProductDetails = () => {
               <div className='mb-5'>
                 <label className='text-sm font-medium'>Số lượng</label>
                 <div className='flex justify-between text-header w-40 border border-border_input h-10 px-3'>
-                  <button>
+                  <button onClick={handleMinusQuantity}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       fill='none'
@@ -177,8 +183,8 @@ const ProductDetails = () => {
                       />
                     </svg>
                   </button>
-                  <span className='flex items-center'>3</span>
-                  <button>
+                  <span className='flex items-center'>{quantity}</span>
+                  <button onClick={handlePlusQuantity}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       fill='none'
@@ -202,15 +208,16 @@ const ProductDetails = () => {
                   Chi tiết sản phẩm
                 </p>
                 <p className='text-sm md:text-base pb-1'>
-                  Mã sản phẩm: TROUSER0P001
-                </p>
-                <p className='text-sm md:text-base pb-1'>Nguồn gốc: Việt Nam</p>
-                <p className='text-sm md:text-base pb-1'>
-                  Chất liệu: Mịn, co giãn, chống nhăn
+                  Mã sản phẩm: {product.pid}
                 </p>
                 <p className='text-sm md:text-base pb-1'>
-                  Chi tiết nhỏ: 2 túi chéo thân trước, 2 túi ốp thân sau và có
-                  dây rút eo
+                  Nguồn gốc: {productDetail.origin}
+                </p>
+                <p className='text-sm md:text-base pb-1'>
+                  Chất liệu: {productDetail.texture}
+                </p>
+                <p className='text-sm md:text-base pb-1'>
+                  Chi tiết nhỏ: {productDetail.small_detail}
                 </p>
               </div>
             </div>

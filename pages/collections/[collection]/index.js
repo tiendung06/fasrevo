@@ -91,19 +91,19 @@ const CollectionDetails = () => {
                 <h3 className='pb-5 font-medium'>Bộ sưu tập</h3>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='kyle' className='w-4 h-4' />
-                  <label for='kyle' className='pl-2'>
+                  <label htmlFor='kyle' className='pl-2'>
                     Kyle Collection
                   </label>
                 </div>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='felix' className='w-4 h-4' />
-                  <label for='felix' className='pl-2'>
+                  <label htmlFor='felix' className='pl-2'>
                     FELIX
                   </label>
                 </div>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='casmere' className='w-4 h-4' />
-                  <label for='casmere' className='pl-2'>
+                  <label htmlFor='casmere' className='pl-2'>
                     CASMERE
                   </label>
                 </div>
@@ -112,19 +112,19 @@ const CollectionDetails = () => {
                 <h3 className='pb-5 font-medium'>Màu sắc</h3>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='black' className='w-4 h-4' />
-                  <label for='black' className='pl-2'>
+                  <label htmlFor='black' className='pl-2'>
                     Đen
                   </label>
                 </div>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='white' className='w-4 h-4' />
-                  <label for='white' className='pl-2'>
+                  <label htmlFor='white' className='pl-2'>
                     Trắng
                   </label>
                 </div>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='pink' className='w-4 h-4' />
-                  <label for='pink' className='pl-2'>
+                  <label htmlFor='pink' className='pl-2'>
                     Hồng
                   </label>
                 </div>
@@ -133,25 +133,25 @@ const CollectionDetails = () => {
                 <h3 className='pb-5 font-medium'>Kích cỡ</h3>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='s' className='w-4 h-4' />
-                  <label for='s' className='pl-2'>
+                  <label htmlFor='s' className='pl-2'>
                     S
                   </label>
                 </div>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='m' className='w-4 h-4' />
-                  <label for='m' className='pl-2'>
+                  <label htmlFor='m' className='pl-2'>
                     M
                   </label>
                 </div>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='l' className='w-4 h-4' />
-                  <label for='l' className='pl-2'>
+                  <label htmlFor='l' className='pl-2'>
                     L
                   </label>
                 </div>
                 <div className='flex items-center pb-3'>
                   <input type='checkbox' id='xl' className='w-4 h-4' />
-                  <label for='xl' className='pl-2'>
+                  <label htmlFor='xl' className='pl-2'>
                     XL
                   </label>
                 </div>
