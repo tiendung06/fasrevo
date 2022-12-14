@@ -1,20 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper';
+import { Autoplay, Pagination, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import Button from '../Button';
 import { useEffect } from 'react';
 
 const Banner = () => {
   useEffect(() => {});
   return (
-    <div className='w-full max-w-[1920px] mx-auto'>
+    <div className='w-full max-w-[1920px] mx-auto banner'>
       <Swiper
-        modules={[Autoplay, Pagination]}
+        modules={[Autoplay, Pagination, Navigation]}
         slidesPerView={'auto'}
         autoplay={{ delay: 5000 }}
+        navigation
         pagination={{ clickable: true }}
         spaceBetween={40}
       >

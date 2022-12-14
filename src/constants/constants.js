@@ -1,5 +1,5 @@
-// const domain = 'http://localhost:3030';
-const domain = 'http://26.139.40.205:3030';
+const domain = 'http://localhost:3030';
+// const domain = 'http://26.139.40.205:3030';
 const authenticate = `${domain}/auth`;
 const login = `${domain}/auth/login`;
 const logout = `${domain}/auth/logout`;

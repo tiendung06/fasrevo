@@ -1,0 +1,132 @@
+import React, { useState } from 'react';
+import Input from '../../../src/components/Input';
+import Select from '../../../src/components/Select';
+import Button from '../../../src/components/Button';
+import MainAccount from '../../../src/layout/MainAccount';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
+const Profile = () => {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState();
+
+  const formik = useFormik({
+    initialValues: {
+      fullname: 'Đỗ Tiến Dũng',
+      phone: '0344536552',
+    },
+    validationSchema: Yup.object({
+      fullname: Yup.string().required('Tên người dùng không được để trống'),
+      phone: Yup.number().required('Số điện thoại không được để trống'),
+      street: Yup.string().required('Số nhà không được để trống'),
+    }),
+    onSubmit: ({ fullname, email, password, phone, address, sex }) => {
+      handleSubmit({
+        fullname,
+        phone,
+        address,
+        sex,
+      });
+    },
+  });
+
+  return (
+    <MainAccount heading='Thông tin cá nhân'>
+      <form onSubmit={formik.handleSubmit} className='max-w-[500px]'>
+        <Input
+          type='text'
+          name='fullname'
+          label='Họ tên'
+          placeholder='Nhập họ và tên*'
+          onChange={formik.handleChange}
+          value={formik.values.fullname}
+          touched={formik.touched.fullname}
+          error={formik.errors.fullname}
+        />
+        <p className='text-sm font-medium pb-5'>
+          Email: dungdotien14@gmail.com
+        </p>
+        <Select className='giới tính'>
+          <option value=''>Nam</option>
+          <option value=''>Nữ</option>
+        </Select>
+        <Input
+          type='number'
+          name='phone'
+          label='Số điện thoại'
+          placeholder='Nhập số điện thoại của bạn*'
+          onChange={formik.handleChange}
+          value={formik.values.phone}
+          touched={formik.touched.phone}
+          error={formik.errors.phone}
+        />
+        <div className='mb-5 flex gap-x-5'>
+          <span className='font-medium text-sm'>
+            Địa chỉ: Ngõ 3, Giao Tác, Liên Hà, Đông Anh, Hà Nội
+          </span>
+          <span
+            className='text-sm font-medium text-primary_blue underline cursor-pointer'
+            data-bs-toggle='modal'
+            data-bs-target='#exampleModal'
+          >
+            Chỉnh sửa
+          </span>
+        </div>
+        <div
+          className='modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto'
+          id='exampleModal'
+          tabIndex='-1'
+          aria-labelledby='exampleModalLabel'
+          aria-hidden='true'
+        >
+          <div className='modal-dialog relative w-auto pointer-events-none'>
+            <div className='modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md'>
+              <div className='modal-header flex flex-shrink-0 items-center justify-between p-5 border-b border-border_input rounded-t-md'>
+                <h5
+                  className='text-base font-medium text-primary'
+                  id='exampleModalLabel'
+                >
+                  Thay đổi địa chỉ
+                </h5>
+                <button
+                  type='button'
+                  className='btn-close box-content w-4 h-4 text-primary border-none opacity-50'
+                  data-bs-dismiss='modal'
+                  aria-label='Close'
+                ></button>
+              </div>
+              <div className='modal-body relative p-5'>
+                <Select label='Chọn Tỉnh/Thành phố'></Select>
+                <Select label='Chọn Quận/Huyện'></Select>
+                <Select label='Chọn Xã/Phường'></Select>
+                <Input
+                  type='text'
+                  name='street'
+                  label='Số nhà, đường'
+                  placeholder='Nhập số nhà, đường của bạn*'
+                  onChange={formik.handleChange}
+                  value={formik.values.street}
+                  touched={formik.touched.street}
+                  error={formik.errors.street}
+                />
+              </div>
+              <div className='modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-5 border-t border-border_input rounded-b-md'>
+                <Button>Cập nhật địa chỉ</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {message ? (
+          <div className='text-secondary_red bg-[#ffe2e2] h-10 text-center text-sm mb-5 font-medium flex items-center justify-center'>
+            {message}
+          </div>
+        ) : null}
+        <Button type='submit' loading={loading}>
+          Cập nhật thông tin
+        </Button>
+      </form>
+    </MainAccount>
+  );
+};
+
+export default Profile;

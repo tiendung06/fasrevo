@@ -80,7 +80,7 @@ const Search = () => {
                 Không có kết quả
               </h2>
               <p className='text-center'>
-                Không tìm thấy kết quả tìm kiếm cho {filter}
+                Không tìm thấy kết quả tìm kiếm cho &ldquo;{filter}&rdquo;
               </p>
             </div>
           ) : (

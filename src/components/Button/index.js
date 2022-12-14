@@ -6,13 +6,16 @@ const Button = ({
   bgWhite,
   fullWidth = true,
   loading = false,
+  colorRed,
 }) => {
   return (
     <button
       type={type}
       className={`${fullWidth ? 'w-full' : ''} h-10 ${
         bgWhite ? 'bg-white text-black' : 'bg-primary text-white'
-      } text-center text-sm md:text-base font-bold px-5 cursor-pointer`}
+      } text-center text-sm md:text-base font-bold px-5 cursor-pointer ${
+        colorRed ? 'bg-primary_red' : ''
+      }`}
     >
       {loading ? (
         <div

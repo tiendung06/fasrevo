@@ -27,7 +27,7 @@ const SignIn = () => {
       if (response.data.status === 0) {
         setMessage(response.data.message);
       } else {
-        router.push('/');
+        router.push('/account/my-order');
       }
     } finally {
       setLoading(false);
@@ -36,7 +36,7 @@ const SignIn = () => {
 
   if (typeof window !== 'undefined') {
     if (authenticated) {
-      router.push('/');
+      router.push('/account/my-order');
     }
   }
   const formik = useFormik({

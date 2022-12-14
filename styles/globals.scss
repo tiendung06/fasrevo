@@ -59,6 +59,20 @@ a {
   display: none;
 }
 
+.banner {
+  .swiper-button-next,
+  .swiper-button-prev {
+    background-color: transparent;
+    color: white !important;
+  }
+
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 16px !important;
+    font-weight: bold;
+  }
+}
+
 .pagination {
   display: flex;
   align-items: center;
@@ -75,5 +89,22 @@ a {
     height: 30px;
     background-color: #1e1e1e;
     border-radius: 50%;
+  }
+}
+
+table {
+  @apply w-full;
+  thead tr {
+    @apply bg-white;
+  }
+  tbody tr {
+    @apply border-b border-b-gray-100;
+  }
+  td,
+  th {
+    @apply align-middle p-5 text-left text-sm whitespace-nowrap bg-white;
+  }
+  th {
+    @apply font-medium;
   }
 }

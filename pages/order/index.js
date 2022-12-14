@@ -60,7 +60,10 @@ const Order = () => {
                     <span className='text-primary_red'>379.300 VND</span>
                   </div>
                 </div>
-                <Button>Tiến hành thanh toán</Button>
+                <div className='flex gap-x-5'>
+                  <Button colorRed={true}>Hủy đặt hàng</Button>
+                  <Button>Tiến hành thanh toán</Button>
+                </div>
               </div>
             </div>
           </div>

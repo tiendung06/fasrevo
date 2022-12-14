@@ -20,6 +20,12 @@ const Main = ({ heading = 'Admin', children }) => {
           <main className='p-5'>{children}</main>
         </div>
       </div>
+      <div className='fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center bg-gray-600 text-white lg:hidden p-5 text-center'>
+        <h2>
+          Hệ thống chỉ hoạt động trên thiết bị có kích thước màn hình lớn hơn
+          1024px
+        </h2>
+      </div>
     </>
   );
 };
