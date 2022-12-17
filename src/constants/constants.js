@@ -12,6 +12,7 @@ const userEditPassword = `${domain}/user/update-pass-email`;
 const getCart = `${domain}/cart/get`;
 const addCart = `${domain}/cart/add`;
 const featured_product = `${domain}/product/get-featured-products?page=1`;
+const updateQuantity = `${domain}/cart/update-quantity`;
 const searchItem = {
   getCollection: (page = 1, collection_id) =>
     `${search}/search-by-collection?page=${page}&collection_id=${collection_id}`,
@@ -67,4 +68,5 @@ export {
   getCart,
   addCart,
   featured_product,
+  updateQuantity,
 };

@@ -7,7 +7,7 @@ import Input from '../../src/components/Input';
 import Select from '../../src/components/Select';
 import Link from 'next/link';
 import axios from 'axios';
-import { getCart } from '../../src/constants/constants';
+import { getCart, updateQuantity } from '../../src/constants/constants';
 import { useSelector } from 'react-redux';
 
 const Cart = () => {
@@ -21,17 +21,21 @@ const Cart = () => {
 
   const [sizeList, setSizeList] = useState([]);
 
+  const init = () => {
+    axios.post(getCart, { uid: user.uid }).then((res) => {
+      setProducts(res.data.carts);
+
+      setSubtotal(res.data.subtotal);
+
+      setColorList(res.data.colorList);
+
+      setSizeList(res.data.sizeList);
+    });
+  };
+
   useEffect(() => {
     if (user) {
-      axios.post(getCart, { uid: user.uid }).then((res) => {
-        setProducts(res.data.carts);
-
-        setSubtotal(res.data.subtotal);
-
-        setColorList(res.data.colorList);
-
-        setSizeList(res.data.sizeList);
-      });
+      init();
     }
   }, [user]);
 
@@ -66,6 +70,7 @@ const Cart = () => {
                             sizeList.find((s) => s.size_id === product.size_id)
                               ?.size_name
                           }
+                          reload={init}
                         />
                       ))}
                     </tbody>
@@ -100,7 +105,24 @@ const Cart = () => {
   );
 };
 
-function CartItem({ product, color, size }) {
+function CartItem({ product, color, size, reload }) {
+  const handleUpdateQuantity = (newQuantity) => {
+    if (newQuantity > 0) {
+      axios
+        .post(updateQuantity, {
+          uid: product.uid,
+          pid: product.pid,
+          quantity: newQuantity,
+          price: product.price,
+        })
+        .then((res) => {
+          reload();
+        });
+    } else {
+      // gọi api xóa
+    }
+  };
+
   return (
     <tr>
       <td>
@@ -108,14 +130,14 @@ function CartItem({ product, color, size }) {
           <div className="h-full flex">
             <picture>
               <img
-                src="/images/product1.webp"
+                src={product.image}
                 alt=""
                 className="w-full min-w-[100px] h-full object-cover"
               />
             </picture>
             <div className="pl-5 flex justify-between flex-col">
               <div>
-                <Link href={'/products/123'}>
+                <Link href={`/products/${product.pid}`}>
                   <a className="font-medium text-lg pb-1 block">
                     {product.pname}
                   </a>
@@ -138,7 +160,11 @@ function CartItem({ product, color, size }) {
       </td>
       <td>
         <div className="flex justify-between text-header w-40 border border-border_input p-3">
-          <button>
+          <button
+            onClick={() => {
+              handleUpdateQuantity(product.quantity - 1);
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -151,7 +177,11 @@ function CartItem({ product, color, size }) {
             </svg>
           </button>
           <span>{product.quantity}</span>
-          <button>
+          <button
+            onClick={() => {
+              handleUpdateQuantity(product.quantity + 1);
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
