@@ -1,4 +1,5 @@
 import { QueryTypes } from 'sequelize';
+import { where } from 'sequelize';
 import { IMAGE_URL, PAGE_LIMIT, status } from '../config/configuration.js';
 import { sequelize } from '../database/mysql_db.js';
 import CategoryDetail from '../model/CategoryDetail.js';
@@ -23,10 +24,6 @@ class ProductController {
   // doPost
   async addProduct(req, res) {
     try {
-      const cdname = await CategoryDetail.findOne(
-        { attributes: ['cdname'] },
-        { where: { cdid: req.body.cdid } }
-      );
       const ranCode = randomCode(6);
       const image = req.file.filename;
       await Product.create({
@@ -37,7 +34,7 @@ class ProductController {
         combo_id: req.body.combo_id,
         image: `${IMAGE_URL}/${image}`,
         collection_id: req.body.collection_id,
-        pname: `${cdname.cdname.toString()}: ${req.body.pname}`,
+        pname: `${req.body.pname}`,
         cost: req.body.cost,
         inStoke: req.body.inStoke,
         quantity_sold: req.body.quantity_sold,
@@ -47,13 +44,21 @@ class ProductController {
       await ProductDetail.create({
         pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
       });
-      await ProductColor.create({
-        pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
-        color_id: req.body.color_id,
+      const colorId = req.body.color_id;
+      const colorIdArr = colorId.toString().split(',');
+      colorIdArr.map(async (item) => {
+        await ProductColor.create({
+          pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
+          color_id: parseInt(item),
+        });
       });
-      await ProductSize.create({
-        pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
-        size_id: req.body.size_id,
+      const sizeId = req.body.size_id;
+      const sizeIdArr = sizeId.toString().split(',');
+      sizeIdArr.map(async (item) => {
+        await ProductSize.create({
+          pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
+          size_id: parseInt(item),
+        });
       });
       await ProductDetail.update(
         {
@@ -71,19 +76,95 @@ class ProductController {
     }
   }
 
+  //getProductByPid
+  async getProductByPid(req, res) {
+    try {
+      const product = await Product.findOne({ where: { pid: req.body.pid } });
+      const productColor = await ProductColor.findAll({
+        where: { pid: req.body.pid },
+      });
+      const productSize = await ProductSize.findAll({
+        where: { pid: req.body.pid },
+      });
+      res.status(200).send({
+        product: product,
+        productColor: productColor,
+        productSize: productSize,
+      });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
   // doPut
   async updateProduct(req, res) {
     try {
-      const { pid, combo_id, collection_id, cost, inStoke } = req.body;
+      // const tmp = {
+      //   sex_id: req.body.sex_id,
+      //   cid: req.body.cid,
+      //   cdid: req.body.cdid,
+      //   combo_id: req.body.combo_id,
+      //   // image: `${IMAGE_URL}/${image}`,
+      //   collection_id: req.body.collection_id,
+      //   pname: `${req.body.pname}`,
+      //   cost: req.body.cost,
+      //   inStoke: req.body.inStoke,
+      //   quantity_sold: req.body.quantity_sold,
+      //   isDiscount: req.body.isDiscount,
+      //   discount: !isNaN(req.body.discount) ? req.body.discount : 0,
+      // };
+      // Object.keys(tmp).forEach((key) => {
+      //   if (tmp[key] === '') {
+      //     delete tmp[key];
+      //   }
+      // });
+      // console.log(tmp);
       await Product.update(
         {
-          combo_id: combo_id,
-          collection_id: collection_id,
-          cost: cost,
-          inStoke: inStoke,
+          sex_id: req.body.sex_id,
+          cid: req.body.cid,
+          cdid: req.body.cdid,
+          combo_id: req.body.combo_id,
+          image: `${IMAGE_URL}/${image}`,
+          collection_id: req.body.collection_id,
+          pname: `${req.body.pname}`,
+          cost: req.body.cost,
+          inStoke: req.body.inStoke,
+          quantity_sold: req.body.quantity_sold,
+          isDiscount: req.body.isDiscount,
+          discount: !isNaN(req.body.discount) ? req.body.discount : 0,
         },
-        { where: { pid: pid } }
+        { where: { pid: req.body.pid } }
       );
+      await ProductDetail.update(
+        {
+          description: req.body.description,
+          origin: req.body.origin,
+          texture: req.body.texture,
+          small_detail: req.body.small_detail,
+        },
+        { where: { pid: req.body.pid } }
+      );
+      const colorId = req.body.color_id;
+      const colorIdArr = colorId.toString().split(',');
+      colorIdArr.map(async (item) => {
+        await ProductColor.update(
+          {
+            color_id: parseInt(item),
+          },
+          { where: { pid: req.body.pid } }
+        );
+      });
+      const sizeId = req.body.size_id;
+      const sizeIdArr = sizeId.toString().split(',');
+      sizeIdArr.map(async (item) => {
+        await ProductSize.update(
+          {
+            size_id: parseInt(item),
+          },
+          { where: { pid: req.body.pid } }
+        );
+      });
       res.status(200).send({ message: 'Success', status: status.OK });
     } catch (error) {
       res.status(400).send(error);
