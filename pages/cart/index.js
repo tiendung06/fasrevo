@@ -107,16 +107,20 @@ const Cart = () => {
 
 function CartItem({ product, color, size, reload }) {
   const handleUpdateQuantity = (newQuantity) => {
-    axios
-      .post(updateQuantity, {
-        uid: product.uid,
-        pid: product.pid,
-        quantity: newQuantity,
-        price: product.price,
-      })
-      .then((res) => {
-        reload();
-      });
+    if (newQuantity > 0) {
+      axios
+        .post(updateQuantity, {
+          uid: product.uid,
+          pid: product.pid,
+          quantity: newQuantity,
+          price: product.price,
+        })
+        .then((res) => {
+          reload();
+        });
+    } else {
+      // gọi api xóa
+    }
   };
 
   return (

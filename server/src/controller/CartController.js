@@ -38,15 +38,10 @@ class CartController {
   async addCart(req, res) {
     try {
       const { uid, pid, color_id, size_id } = req.body;
-      const cart = await Cart.findOne({ where: { uid: uid, pid: pid } });
-      const color = await ProductColor.findOne({
-        pid: pid,
-        color_id: color_id,
+      const cart = await Cart.findOne({
+        where: { uid: uid, pid: pid, color_id, size_id },
       });
-      const size = await ProductSize.findOne({
-        pid: pid,
-        size_id: size_id,
-      });
+
       if (cart === null) {
         const product = await Product.findOne({ where: { pid: pid } });
         let price_tmp = 0;
@@ -79,11 +74,24 @@ class CartController {
             total: parseFloat(price_tmp) * parseInt(req.body.quantity),
           });
         }
-        res.status(200).send({ message: 'Success', status: status.OK });
-      } else {
         res
-          .status(400)
-          .send({ message: 'Giỏ hàng đã tồn tại', status: status.ERROR });
+          .status(200)
+          .send({ message: 'Thêm vào giỏ hàng thành công', status: status.OK });
+      } else {
+        const newQuantity = req.body.quantity + cart.quantity;
+
+        await Cart.update(
+          { quantity: newQuantity, total: cart.price * newQuantity },
+          { where: { uid: uid, pid: pid, color_id, size_id } }
+        );
+
+        res
+          .status(200)
+          .send({
+            message:
+              'Sản phẩm đã có trong giỏ và số lượng sản phẩm đã được cập nhật',
+            status: status.OK,
+          });
       }
     } catch (error) {
       res.status(400).send(error);

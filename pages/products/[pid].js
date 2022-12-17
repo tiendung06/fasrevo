@@ -64,7 +64,11 @@ const ProductDetails = () => {
           size_id: sizeId,
           quantity: quantity,
         })
-        .then((res) => console.log(res));
+        .then((res) => {
+          if (res.status === 200) {
+            alert(res.data.message);
+          }
+        });
     }
   };
 
