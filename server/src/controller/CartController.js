@@ -1,8 +1,10 @@
 import { status } from '../config/configuration.js';
 import Cart from '../model/Cart.js';
+import Color from '../model/Color.js';
 import Product from '../model/Product.js';
 import ProductColor from '../model/ProductColor.js';
 import ProductSize from '../model/ProductSize.js';
+import Size from '../model/Size.js';
 
 class CartController {
   //doGet
@@ -22,7 +24,11 @@ class CartController {
       carts.map((item) => {
         subtotal += item.total;
       });
-      res.status(200).send({ carts: carts, subtotal: subtotal });
+      const colorList = await Color.findAll();
+      const sizeList = await Size.findAll();
+      res
+        .status(200)
+        .send({ carts: carts, subtotal: subtotal, colorList, sizeList });
     } catch (error) {
       res.status(400).send(error);
     }
