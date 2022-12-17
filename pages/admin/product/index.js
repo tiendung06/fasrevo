@@ -124,7 +124,7 @@ const ProductReport = () => {
       inStoke: 20,
       quantity_sold: 0,
       isDiscount: 0,
-      discount: null,
+      discount: 0,
     },
     validationSchema: Yup.object({}),
     onSubmit: (values) => {
@@ -155,13 +155,19 @@ const ProductReport = () => {
 
     console.log({ image: formData.get('image') });
 
-    fetch(`http://localhost:3030/product/add-product`, {
+    fetch(`http://192.168.0.103:3030/product/add-product`, {
       method: 'POST',
       // headers: {
       //   'Content-Type': 'multipart/form-data',
       // },
       body: formData,
-    });
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
     console.log(formData);
   };
   return (

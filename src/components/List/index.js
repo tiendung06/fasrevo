@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../Card';
 import ReactPaginate from 'react-paginate';
+import Filter from '../Filter';
 
 const itemsPerPage = 20;
-const List = ({ productItems }) => {
+const List = ({ productItems, reload }) => {
   const [page, setPage] = useState(1);
   const [itemOffset, setItemOffset] = useState(0);
 
@@ -18,12 +19,15 @@ const List = ({ productItems }) => {
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % collection.length;
     setItemOffset(newOffset);
-    setPage(event.selected + 1);
+    const pageNumber = event.selected + 1;
+    setPage(pageNumber);
+    reload(pageNumber);
   };
 
   return (
     <div>
-      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10'>
+      <Filter></Filter>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
         {productItems &&
           currentItems.map(
             ({ pid, cost, discount, image, isDiscount, pname }, index) => (
@@ -40,20 +44,20 @@ const List = ({ productItems }) => {
           )}
       </div>
       <ReactPaginate
-        breakLabel='...'
+        breakLabel="..."
         nextLabel={
           <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-6 h-6'
+            stroke="currentColor"
+            className="w-6 h-6"
           >
             <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M8.25 4.5l7.5 7.5-7.5 7.5'
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
             />
           </svg>
         }
@@ -62,22 +66,22 @@ const List = ({ productItems }) => {
         pageCount={pageCount}
         previousLabel={
           <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-6 h-6'
+            stroke="currentColor"
+            className="w-6 h-6"
           >
             <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M15.75 19.5L8.25 12l7.5-7.5'
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
             />
           </svg>
         }
         renderOnZeroPageCount={null}
-        className='pagination'
+        className="pagination"
       />
     </div>
   );
