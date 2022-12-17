@@ -96,6 +96,17 @@ class ProductController {
     }
   }
 
+  async getProductByQuantitySold(req, res) {
+    try {
+      const products = await Product.findAll({
+        order: [[sequelize.col('quantity_sold'), 'DESC']],
+      });
+      res.status(200).send({ products: products });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
   // doPut
   async updateProduct(req, res) {
     try {

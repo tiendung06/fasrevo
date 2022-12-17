@@ -18,7 +18,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className='w-full h-screen max-h-[700px] max-w-[1920px] mx-auto banner'>
+    <div className="w-full h-screen max-h-[700px] max-w-[1920px] mx-auto banner">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         slidesPerView={'auto'}
@@ -27,18 +27,20 @@ const Banner = () => {
         pagination={{ clickable: true }}
         spaceBetween={0}
       >
-        {collection?.map(
-          ({ collection_id, collection_name, collection_image, heading }) => (
-            <SwiperSlide key={collection_id}>
-              <BannerItem
-                image={collection_image}
-                heading={heading}
-                name={collection_name}
-                id={collection_id}
-              />
-            </SwiperSlide>
-          )
-        )}
+        {collection
+          ?.slice(0, 4)
+          .map(
+            ({ collection_id, collection_name, collection_image, heading }) => (
+              <SwiperSlide key={collection_id}>
+                <BannerItem
+                  image={collection_image}
+                  heading={heading}
+                  name={collection_name}
+                  id={collection_id}
+                />
+              </SwiperSlide>
+            )
+          )}
       </Swiper>
     </div>
   );
@@ -46,17 +48,17 @@ const Banner = () => {
 
 function BannerItem({ image, heading, id, name }) {
   return (
-    <div className='w-full h-screen max-h-[700px] relative overflow-hidden bg-black'>
+    <div className="w-full h-screen max-h-[700px] relative overflow-hidden bg-black">
       <picture>
         <img
           src={image || './images/banner1.webp'}
-          alt=''
-          className='w-full h-full object-cover opacity-95'
+          alt=""
+          className="w-full h-full object-cover opacity-95"
         />
       </picture>
-      <div className='absolute bottom-1/4 lg:left-40 md:left-20 px-5 max-w-[430px]'>
-        <span className='text-white text-sm mb-3 block'>{name}</span>
-        <p className='text-white text-2xl md:text-3xl lg:text-4xl font-medium uppercase mb-5'>
+      <div className="absolute bottom-1/4 lg:left-40 md:left-20 px-5 max-w-[430px]">
+        <span className="text-white text-sm mb-3 block">{name}</span>
+        <p className="text-white text-2xl md:text-3xl lg:text-4xl font-medium uppercase mb-5">
           {heading}
         </p>
         <Link href={`/collections/${id}`}>

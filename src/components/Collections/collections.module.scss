@@ -1,4 +1,9 @@
 .collection:first-child {
-  grid-column: span 2 / span 2;
-  grid-row: span 2 / span 2;
+  @apply col-span-2 row-span-2;
+}
+
+.collection:hover {
+  img {
+    transform: scale(1.1);
+  }
 }

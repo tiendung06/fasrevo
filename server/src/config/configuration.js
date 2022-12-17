@@ -86,7 +86,7 @@ const PORT = 3030;
 
 const TOKEN_SECRET = 'fasrevo6789';
 
-const PATH = appRootPath + '\\src\\public\\images';
+const PATH = appRootPath + '/src/public/images';
 const IMAGE_URL = process.env.SERVER_HOST + '/image';
 
 const vnpay = {

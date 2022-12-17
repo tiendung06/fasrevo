@@ -131,7 +131,7 @@ const ProductDetails = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-y-10 lg:gap-5 justify-between">
           <div className="lg:col-span-2">
-            <div className="max-h-[870px]">
+            <div className="h-full max-h-[870px]">
               <picture>
                 <img
                   src={product?.image}

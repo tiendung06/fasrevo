@@ -5,6 +5,10 @@ import upload from '../middleware/handleFile.js';
 const router = express.Router();
 
 router.get('/get-all', ProductController.getAllProducts);
+router.get(
+  '/get-featured-products',
+  ProductController.getProductByQuantitySold
+);
 router.post(
   '/add-product',
   upload.single('image'),
