@@ -8,6 +8,8 @@ const search = `${domain}/search`;
 const product = `${domain}/product-detail`;
 const collection = `${domain}/collections`;
 const addProduct = `${domain}/product/add-product`;
+const getCart = `${domain}/cart/get`;
+const addCart = `${domain}/cart/add`;
 const searchItem = {
   getCollection: (page = 1, collection_id) =>
     `${search}/search-by-collection?page=${page}&collection_id=${collection_id}`,
@@ -59,4 +61,6 @@ export {
   productDetail,
   collections,
   addProduct,
+  getCart,
+  addCart,
 };
