@@ -13,7 +13,9 @@ class SearchController {
         limit: PAGE_LIMIT,
       });
 
-      const count = await Product.count();
+      const count = await Product.count({
+        where: { cid: req.query.collection_id },
+      });
 
       const totalPageNumber = Math.ceil(count / PAGE_LIMIT);
 
