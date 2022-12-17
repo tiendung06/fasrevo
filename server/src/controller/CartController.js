@@ -93,9 +93,9 @@ class CartController {
   // doPut
   async updateQuantity(req, res) {
     try {
-      const { uid, pid, quantity } = req.body;
+      const { uid, pid, quantity, price } = req.body;
       await Cart.update(
-        { quantity: quantity },
+        { quantity: quantity, total: price * quantity },
         { where: { uid: uid, pid: pid } }
       );
       res.status(200).send({ message: 'Success', status: status.OK });
