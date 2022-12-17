@@ -1,6 +1,6 @@
-import { errorConfig, PATH } from "./configuration.js";
-import multer from "multer";
-import path from "path";
+import { errorConfig, PATH } from './configuration.js';
+import multer from 'multer';
+import path from 'path';
 
 const fileFilter = function (req, file, cb) {
   // Accept images only
