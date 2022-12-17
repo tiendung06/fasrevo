@@ -7,7 +7,7 @@ import Select from '../../../src/components/Select';
 import Main from '../../../src/layout/admin/Main';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { productDetail } from '../../../src/constants/constants';
+import { addProduct, productDetail } from '../../../src/constants/constants';
 
 const tableData = [
   {
@@ -155,7 +155,7 @@ const ProductReport = () => {
 
     console.log({ image: formData.get('image') });
 
-    fetch(`http://192.168.0.103:3030/product/add-product`, {
+    fetch(addProduct, {
       method: 'POST',
       // headers: {
       //   'Content-Type': 'multipart/form-data',
