@@ -32,16 +32,10 @@ class CartController {
   async addCart(req, res) {
     try {
       const { uid, pid, color_id, size_id } = req.body;
-      const cart = await Cart.findOne({ where: { uid: uid, pid: pid } });
-      const color = await ProductColor.findOne({
-        pid: pid,
-        color_id: color_id,
+      const cart = await Cart.findOne({
+        where: { uid: uid, pid: pid, color_id: color_id, size_id: size_id },
       });
-      const size = await ProductSize.findOne({
-        pid: pid,
-        size_id: size_id,
-      });
-      if (cart === null && color === null && size === null) {
+      if (cart === null) {
         const product = await Product.findOne({ where: { pid: pid } });
         let price_tmp = 0;
         if (product.isDiscount == 1) {
@@ -87,10 +81,10 @@ class CartController {
   // doPut
   async udpateQuantity(req, res) {
     try {
-      const { uid, pid, quantity } = req.body;
+      const { uid, pid, color_id, size_id, quantity } = req.body;
       await Cart.update(
         { quantity: quantity },
-        { where: { uid: uid, pid: pid } }
+        { where: { uid: uid, pid: pid, color_id: color_id, size_id: size_id } }
       );
       res.status(200).send({ message: 'Success', status: status.OK });
     } catch (error) {
