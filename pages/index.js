@@ -7,7 +7,7 @@ import Collections from '../src/components/Collections';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { authenticate } from '../src/constants/constants';
-import { setAuthenticated } from '../redux/authSlide';
+import { setAuthenticated, setUser } from '../redux/authSlide';
 
 axios.defaults.withCredentials = true;
 
@@ -22,6 +22,7 @@ export default function Home() {
       .then((res) => {
         console.log(res.data);
         dispatch(setAuthenticated(res.data.authenticated ?? false));
+        dispatch(setUser(res.data.user));
       })
       .catch((e) => {
         console.log(e.response.data.message);
@@ -33,8 +34,8 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className='h-screen w-screen flex justify-center items-center'>
-        <div className='w-10 h-10 rounded-full border-4 border-primary_red border-t-transparent border-t-4 mx-auto animate-spin'></div>
+      <div className="h-screen w-screen flex justify-center items-center">
+        <div className="w-10 h-10 rounded-full border-4 border-primary_red border-t-transparent border-t-4 mx-auto animate-spin"></div>
       </div>
     );
   }

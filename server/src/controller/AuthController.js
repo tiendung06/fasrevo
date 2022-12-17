@@ -101,16 +101,15 @@ class AuthController {
           status: status.ERROR,
         });
       } else {
-        const token = jwt.sign({ _id: user.uid }, TOKEN_SECRET, {
-          expiresIn: 60 * 60 * 24,
-        });
+        const token = jwt.sign(
+          { _id: user.uid, email: user.email },
+          TOKEN_SECRET,
+          {
+            expiresIn: 60 * 60 * 24,
+          }
+        );
         res
           .cookie('access_token', token, {
-            httpOnly: true,
-            secure: true,
-          })
-          .cookie('uid', user.uid, {
-            maxAge: 90000,
             httpOnly: true,
             secure: true,
           })
@@ -118,6 +117,7 @@ class AuthController {
           .json({
             message: 'Logged in successfully',
             authenticated: true,
+            user,
             status: status.OK,
           });
       }
@@ -132,8 +132,13 @@ class AuthController {
   }
 
   async authenticate(req, res) {
-    s;
-    return res.status(200).json({ authenticated: req.verified ? true : false });
+    const user = await User.findOne({
+      where: { email: req.email },
+    });
+
+    return res
+      .status(200)
+      .json({ authenticated: req.verified ? true : false, user });
   }
 
   // Forgot password

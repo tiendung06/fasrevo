@@ -10,14 +10,19 @@ export const authSlide = createSlice({
     sex: null,
     phone: '',
     address: '',
+    user: null,
   },
   reducers: {
     setAuthenticated: (state, action) => {
       // console.log({ state, action });
       state.authenticated = action.payload;
     },
+    setUser: (state, action) => {
+      // console.log({ state, action });
+      state.user = action.payload;
+    },
   },
 });
 
-export const { setAuthenticated } = authSlide.actions;
+export const { setAuthenticated, setUser } = authSlide.actions;
 export default authSlide.reducer;

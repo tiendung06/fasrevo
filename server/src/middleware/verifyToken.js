@@ -13,7 +13,9 @@ const verifyToken = (req, res, next) => {
 
   try {
     const verified = jwt.verify(token, TOKEN_SECRET);
+    const email = jwt.decode(token).email;
     req.verified = verified;
+    req.email = email;
     next();
   } catch (error) {
     res.status(400);
