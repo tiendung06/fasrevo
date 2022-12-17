@@ -1,7 +1,5 @@
 .collections:last-child {
-  @media (max-width: 768px) {
-    grid-column: span 2 / span 2;
-  }
+  @apply col-span-2 md:col-span-1;
 }
 
 .collections:hover {

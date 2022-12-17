@@ -4,6 +4,12 @@ export const authSlide = createSlice({
   name: 'auth',
   initialState: {
     authenticated: false,
+    username: '',
+    email: '',
+    image: '',
+    sex: null,
+    phone: '',
+    address: '',
   },
   reducers: {
     setAuthenticated: (state, action) => {

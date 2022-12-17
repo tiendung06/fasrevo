@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { nav } from '../../constants/nav.js';
-import styles from './header.module.scss';
 import { useSelector } from 'react-redux';
+import styles from './header.module.scss';
 
 const Header = ({ transparent = false }) => {
   const [showMenuNav, setShowMenuNav] = useState(false);
@@ -154,7 +154,7 @@ const Header = ({ transparent = false }) => {
           </div>
           <div className='h-full flex items-center justify-center text-center'>
             <Link href='/'>
-              <a className='font-bold text-2xl'>fasrevo</a>
+              <a className='font-bold text-2xl'>Fasrevo</a>
             </Link>
           </div>
           <div className='flex items-center justify-end h-full text-xs font-medium'>

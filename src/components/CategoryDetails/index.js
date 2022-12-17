@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import Section from '../../layout/Section';
 import Aos from 'aos';
 import styles from './categoryDetails.module.scss';
 import 'aos/dist/aos.css';
 
-const CategoryDetails = () => {
+const CategoryDetails = ({ gender = 'male' }) => {
   useEffect(() => {
     Aos.init();
   }, []);
@@ -13,19 +12,29 @@ const CategoryDetails = () => {
   return (
     <div className='grid gap-5 grid-cols-2 md:grid-cols-3' data-aos='fade-up'>
       <CategoryDetailsItems
-        image='./images/top.webp'
+        image={`${
+          gender === 'male' ? './images/top.webp' : './images/top_women.webp'
+        }`}
         type='Top'
-        link='/men/products/top'
+        link={`${gender === 'male' ? '/men/top' : '/women/top'}`}
       />
       <CategoryDetailsItems
-        image='./images/bottom.webp'
+        image={`${
+          gender === 'male'
+            ? './images/bottom.webp'
+            : './images/bottom_women.webp'
+        }`}
         type='Bottom'
-        link='/men/products/bottom'
+        link={`${gender === 'male' ? '/men/bottom' : '/women/bottom'}`}
       />
       <CategoryDetailsItems
-        image='./images/accessory.webp'
+        image={`${
+          gender === 'male'
+            ? './images/accessory.webp'
+            : './images/accessory_women.webp'
+        }`}
         type='Accessory'
-        link='/men/products/accessory'
+        link={`${gender === 'male' ? '/men/accessory' : '/women/accessory'}`}
       />
     </div>
   );

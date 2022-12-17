@@ -94,7 +94,6 @@ const SignUp = () => {
       password: '',
       confirmPassword: '',
       phone: '',
-      province: -1,
       street: '',
     },
     validationSchema: Yup.object({
@@ -111,7 +110,14 @@ const SignUp = () => {
       phone: Yup.number().required('Số điện thoại không được để trống'),
       street: Yup.string().required('Số nhà không được để trống'),
     }),
-    onSubmit: ({ fullname, email, password, phone, address, sex }) => {
+    onSubmit: ({
+      fullname,
+      email,
+      password,
+      phone,
+      address = `${ward}, ${districts}, ${province}`,
+      sex,
+    }) => {
       handleSubmit({
         fullname,
         email,

@@ -3,6 +3,6 @@
     transform: scale(1.1);
   }
   h3 {
-    color: #d6001c;
+    @apply text-primary_red;
   }
 }

@@ -20,7 +20,7 @@ const Input = ({
         type={type}
         name={name}
         id={name}
-        className={`bg-transparent w-full h-10 px-5 outline-none border ${
+        className={`bg-transparent w-full h-10 px-5 block outline-none border ${
           touched && error ? 'border-secondary_red' : 'border-border_input'
         } text-sm text-secondary_text`}
         placeholder={placeholder}

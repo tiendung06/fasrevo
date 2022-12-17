@@ -4,31 +4,33 @@ export const nav = [
     title: 'Nam',
     path: '/men',
     subMenu: [
-      { title: 'Tất cả sản phẩm', path: '/men/all' },
+      { title: 'Tất cả sản phẩm', path: '/men' },
       {
         title: 'Top',
-        path: '/men/products/top',
+        path: '/men/top',
         subMenu: [
-          { title: 'T-Shirts', path: '/men/products/top/t-shirt' },
-          { title: 'Shirts', path: '/men/products/top/shirts' },
-          { title: 'Polo', path: '/men/products/top/polo' },
-          { title: 'Hoodie', path: '/men/products/top/hoodie' },
+          { title: 'Hoodie', path: '/men/top/hoodie' },
+          { title: 'Áo phông', path: '/men/top/top/t-shirts' },
+          { title: 'Áo sơ mi', path: '/men/top/shirts' },
+          { title: 'Áo khoác', path: '/men/top/jacket' },
         ],
       },
       {
         title: 'Bottom',
-        path: '/men/products/bottom',
+        path: '/men/bottom',
         subMenu: [
-          { title: 'Pants', path: '/men/products/bottom/pants' },
-          { title: 'Shorts', path: '/men/products/bottom/shorts' },
+          { title: 'Quần dài', path: '/men/bottom/pants' },
+          { title: 'Quần shorts', path: '/men/bottom/shorts' },
+          { title: 'Quần jean', path: '/men/bottom/jeans' },
         ],
       },
       {
         title: 'Accessory',
         path: '/men/products/accessory',
         subMenu: [
-          { title: 'Mũ', path: '/men/products/accessory/hat' },
-          { title: 'Túi', path: '/men/products/accessory/bag' },
+          { title: 'Mũ', path: '/men/accessory/hat' },
+          { title: 'Túi xách', path: '/men/accessory/bag' },
+          { title: 'Dây chuyền', path: '/men/accessory/necklace' },
         ],
       },
     ],
@@ -37,32 +39,33 @@ export const nav = [
     title: 'Nữ',
     path: '/women',
     subMenu: [
-      { title: 'Tất cả sản phẩm', path: '/men/all' },
+      { title: 'Tất cả sản phẩm', path: '/women' },
       {
         title: 'Top',
-        path: '/women/products/top',
+        path: '/women/top',
         subMenu: [
-          { title: 'T-Shirts', path: '/women/products/top/t-shirt' },
-          { title: 'Shirts', path: '/women/products/top/shirts' },
-          { title: 'Polo', path: '/women/products/top/polo' },
-          { title: 'Hoodie', path: '/women/products/top/hoodie' },
+          { title: 'Hoodie', path: '/women/top/hoodie' },
+          { title: 'Áo phông', path: '/women/top/t-shirts' },
+          { title: 'Áo sơ mi', path: '/women/top/shirts' },
+          { title: 'Áo khoác', path: '/women/top/jacket' },
         ],
       },
       {
         title: 'Bottom',
         path: '/products/bottom',
         subMenu: [
-          { title: 'Pants', path: '/products/bottom/pants' },
-          { title: 'Shorts', path: '/products/bottom/shorts' },
-          { title: 'Chân váy', path: '/products/bottom/dress' },
+          { title: 'Quần dài', path: '/women/bottom/pants' },
+          { title: 'Quần shorts', path: '/women/bottom/shorts' },
+          { title: 'Quần jean', path: '/women/bottom/jeans' },
         ],
       },
       {
         title: 'Accessory',
-        path: '/women/products/accessory',
+        path: '/women/accessory',
         subMenu: [
-          { title: 'Mũ', path: '/women/products/accessory/hat' },
-          { title: 'Túi', path: '/women/products/accessory/bag' },
+          { title: 'Mũ', path: '/women/accessory/hat' },
+          { title: 'Túi xách', path: '/women/accessory/bag' },
+          { title: 'Dây chuyền', path: '/women/accessory/necklace' },
         ],
       },
     ],
@@ -84,4 +87,127 @@ export const footerContact = [
 
 export const storeAddress = [
   { title: 'Ngõ 3, Giao Tác, Liên Hà, Đông Anh, Hà Nội' },
+];
+
+export const category = [
+  {
+    type: 'Thời trang nam',
+    href: '/men/top/hoodie',
+    title: 'Hoodie',
+    image: './images/men_hoodie.jpg',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/top/t-shirts',
+    title: 'Áo phông',
+    image: './images/men_t-shirts.jpg',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/top/shirts',
+    title: 'Áo sơ mi',
+    image: './images/men_shirts.jpg',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/top/jacket',
+    title: 'Áo khoác',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/bottom/pants',
+    title: 'Quần dài',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/bottom/jeans',
+    title: 'Quần bò',
+    image: './images/men_jeans.jpg',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/bottom/shorts',
+    title: 'Quần shorts',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/accessory/hat',
+    title: 'Mũ',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/accessory/bag',
+    title: 'Túi xách',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nam',
+    href: '/men/accessory/necklace',
+    title: 'Dây chuyền',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/top/hoodie',
+    title: 'Hoodie',
+    image: './images/women_hoodie.jpg',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/top/t-shirts',
+    title: 'Áo phông',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/top/shirts',
+    title: 'Áo sơ mi',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/top/jacket',
+    title: 'Áo khoác',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/bottom/pants',
+    title: 'Quần dài',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/bottom/jeans',
+    title: 'Quần bò',
+    image: './images/women_jeans.jpg',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/bottom/shorts',
+    title: 'Quần shorts',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/accessory/hat',
+    title: 'Mũ',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/accessory/bag',
+    title: 'Túi xách',
+    image: './images/product1.webp',
+  },
+  {
+    type: 'Thời trang nữ',
+    href: '/women/accessory/necklace',
+    title: 'Dây chuyền',
+    image: './images/product1.webp',
+  },
 ];

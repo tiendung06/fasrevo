@@ -54,7 +54,7 @@ const ProductDetails = () => {
               d='M8.25 4.5l7.5 7.5-7.5 7.5'
             />
           </svg>
-          <Link href='/collections'>
+          <Link href='/men'>
             <a className='font-medium px-2 lg:px-3 text-header'>
               Thời trang nam
             </a>
@@ -73,7 +73,7 @@ const ProductDetails = () => {
               d='M8.25 4.5l7.5 7.5-7.5 7.5'
             />
           </svg>
-          <Link href='/collections'>
+          <Link href='/men/top'>
             <a className='font-medium px-2 lg:px-3 text-header'>Top</a>
           </Link>
           <svg
@@ -90,10 +90,8 @@ const ProductDetails = () => {
               d='M8.25 4.5l7.5 7.5-7.5 7.5'
             />
           </svg>
-          <Link href='/collections'>
-            <a className='font-bold pl-2 lg:pl-3 text-primary_red'>
-              Trouser Pant
-            </a>
+          <Link href='/men/top/hoodie'>
+            <a className='font-bold pl-2 lg:pl-3 text-primary_red'>Hoodie</a>
           </Link>
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-6 gap-y-10 lg:gap-5 justify-between'>
@@ -101,7 +99,7 @@ const ProductDetails = () => {
             <div className='max-h-[870px]'>
               <picture>
                 <img
-                  src={product.image}
+                  src={product?.image}
                   alt=''
                   className='w-full h-full object-cover'
                 />
@@ -113,24 +111,24 @@ const ProductDetails = () => {
             <div className='max-w-[500px]'>
               <p className='text-xs md:text-sm text-header pb-3'>Pants</p>
               <h2 className='text-3xl md:text-4xl font-medium pb-2'>
-                {product.pname}
+                {product?.pname}
               </h2>
               <div className='flex items-center pb-5'>
                 <span
                   className={`${
-                    product.isDiscount === 1
+                    product?.isDiscount === 1
                       ? 'text-sm md:text-base line-through text-header'
                       : 'text-base md:text-lg font-medium text-primary_red'
                   }  mr-4`}
                 >
-                  {product.cost}
+                  {product?.cost}
                 </span>
                 <span className='text-base md:text-lg font-medium text-primary_red'>
-                  {product.discount}
+                  {product?.discount}
                 </span>
               </div>
               <p className='pb-5 text-sm md:text-base'>
-                {productDetails.description}
+                {productDetails?.description}
               </p>
               <div className='w-1/2 mb-5'>
                 <label htmlFor='color' className='text-sm font-medium'>
@@ -208,16 +206,16 @@ const ProductDetails = () => {
                   Chi tiết sản phẩm
                 </p>
                 <p className='text-sm md:text-base pb-1'>
-                  Mã sản phẩm: {product.pid}
+                  Mã sản phẩm: {product?.pid}
                 </p>
                 <p className='text-sm md:text-base pb-1'>
-                  Nguồn gốc: {productDetail.origin}
+                  Nguồn gốc: {productDetail?.origin}
                 </p>
                 <p className='text-sm md:text-base pb-1'>
-                  Chất liệu: {productDetail.texture}
+                  Chất liệu: {productDetail?.texture}
                 </p>
                 <p className='text-sm md:text-base pb-1'>
-                  Chi tiết nhỏ: {productDetail.small_detail}
+                  Chi tiết nhỏ: {productDetail?.small_detail}
                 </p>
               </div>
             </div>

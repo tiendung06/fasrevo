@@ -5,9 +5,9 @@ const SideBar = () => {
   return (
     <div className='bg-white shadow-sm min-h-screen h-full text-sm font-medium'>
       <Link href='/admin'>
-        <h1 className='text-center uppercase text-black font-bold text-xl px-10 py-5'>
+        <a className='text-center block uppercase text-black font-bold text-xl px-10 py-5'>
           Fasrevo
-        </h1>
+        </a>
       </Link>
       <LinkItem href='/admin'>Trang chủ</LinkItem>
       <Accordion

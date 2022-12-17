@@ -2,11 +2,19 @@ import Link from 'next/link';
 import React from 'react';
 import styles from './card.module.scss';
 
-const Card = ({ id, title, image, basePrice, specialPrice, discount }) => {
+const Card = ({
+  id,
+  title,
+  image,
+  basePrice,
+  specialPrice,
+  discount,
+  isDiscount,
+}) => {
   return (
     <Link href={`/products/${id}`}>
       <div className={`${styles.card} max-w-[480px] cursor-pointer relative`}>
-        <div className='w-full max-h-[700px] bg-slate-400 overflow-hidden'>
+        <div className='w-full max-h-[350px] bg-slate-400 overflow-hidden'>
           <picture>
             <img
               src={image}
@@ -16,29 +24,31 @@ const Card = ({ id, title, image, basePrice, specialPrice, discount }) => {
           </picture>
         </div>
         <div className='w-full'>
-          <h3 className='text-sm md:text-base text-primary text-center font-medium uppercase mt-3 md:mt-5 mb-1 transition-all'>
-            {title} {id}
+          <h3 className='text-sm md:text-base text-primary text-center font-medium mt-3 md:mt-5 mb-2 transition-all truncate'>
+            {title}
           </h3>
           <div className='flex justify-center items-center'>
-            {discount ? (
-              <span className='text-xs md:text-sm line-through mr-4 text-header'>
-                {specialPrice}
-              </span>
-            ) : (
-              ''
-            )}
             <span
-              className={`text-xs ${
-                discount
-                  ? 'text-primary_red font-medium md:text-base'
-                  : 'md:text-sm'
+              className={`${
+                isDiscount
+                  ? 'text-xs md:text-sm line-through mr-3 md:mr-4 text-header'
+                  : 'text-xs md:text-base'
+              }`}
+            >
+              {basePrice} VND
+            </span>
+            <span
+              className={`${
+                isDiscount
+                  ? 'text-primary_red font-medium text-xs md:text-base'
+                  : 'hidden'
               } `}
             >
-              {basePrice}
+              {specialPrice} VND
             </span>
           </div>
         </div>
-        {discount ? (
+        {isDiscount ? (
           <div className='w-10 h-10 bg-primary_red absolute top-0 right-5 flex items-center justify-center'>
             <span className='text-white text-sm font-medium'>{discount}%</span>
           </div>

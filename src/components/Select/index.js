@@ -9,7 +9,7 @@ const Select = ({ label, name, children, defaultValue, onChange }) => {
       <select
         name={name}
         id={name}
-        className='w-full h-10 px-5 text-sm text-secondary_text outline-none border border-border_input'
+        className='w-full h-10 px-5 block text-sm text-secondary_text outline-none border border-border_input'
         defaultValue={defaultValue}
         onChange={onChange}
       >

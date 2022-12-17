@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React from 'react';
 import Card from '../../src/components/Card';
 import CategoryDetails from '../../src/components/CategoryDetails';
-import FeaturedProduct from '../../src/components/FeaturedProduct';
 import SectionHeading from '../../src/components/SectionHeading';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
@@ -29,7 +28,7 @@ const Men = () => {
               d='M8.25 4.5l7.5 7.5-7.5 7.5'
             />
           </svg>
-          <Link href='/collections'>
+          <Link href='/men'>
             <a className='font-bold pl-2 lg:pl-3 text-primary_red'>
               Thời trang nam
             </a>

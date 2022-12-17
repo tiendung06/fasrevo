@@ -5,6 +5,7 @@ import Button from '../../../src/components/Button';
 import MainAccount from '../../../src/layout/MainAccount';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Modal from '../../../src/components/Modal';
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -72,50 +73,26 @@ const Profile = () => {
             Chỉnh sửa
           </span>
         </div>
-        <div
-          className='modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto'
+        <Modal
           id='exampleModal'
-          tabIndex='-1'
           aria-labelledby='exampleModalLabel'
-          aria-hidden='true'
+          title='Thay đổi địa chỉ'
         >
-          <div className='modal-dialog relative w-auto pointer-events-none'>
-            <div className='modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md'>
-              <div className='modal-header flex flex-shrink-0 items-center justify-between p-5 border-b border-border_input rounded-t-md'>
-                <h5
-                  className='text-base font-medium text-primary'
-                  id='exampleModalLabel'
-                >
-                  Thay đổi địa chỉ
-                </h5>
-                <button
-                  type='button'
-                  className='btn-close box-content w-4 h-4 text-primary border-none opacity-50'
-                  data-bs-dismiss='modal'
-                  aria-label='Close'
-                ></button>
-              </div>
-              <div className='modal-body relative p-5'>
-                <Select label='Chọn Tỉnh/Thành phố'></Select>
-                <Select label='Chọn Quận/Huyện'></Select>
-                <Select label='Chọn Xã/Phường'></Select>
-                <Input
-                  type='text'
-                  name='street'
-                  label='Số nhà, đường'
-                  placeholder='Nhập số nhà, đường của bạn*'
-                  onChange={formik.handleChange}
-                  value={formik.values.street}
-                  touched={formik.touched.street}
-                  error={formik.errors.street}
-                />
-              </div>
-              <div className='modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-5 border-t border-border_input rounded-b-md'>
-                <Button>Cập nhật địa chỉ</Button>
-              </div>
-            </div>
-          </div>
-        </div>
+          <Select label='Chọn Tỉnh/Thành phố'></Select>
+          <Select label='Chọn Quận/Huyện'></Select>
+          <Select label='Chọn Xã/Phường'></Select>
+          <Input
+            type='text'
+            name='street'
+            label='Số nhà, đường'
+            placeholder='Nhập số nhà, đường của bạn*'
+            onChange={formik.handleChange}
+            value={formik.values.street}
+            touched={formik.touched.street}
+            error={formik.errors.street}
+          />
+          <Button>Cập nhật địa chỉ</Button>
+        </Modal>
         {message ? (
           <div className='text-secondary_red bg-[#ffe2e2] h-10 text-center text-sm mb-5 font-medium flex items-center justify-center'>
             {message}

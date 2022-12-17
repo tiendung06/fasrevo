@@ -5,6 +5,7 @@ import styles from './cart.module.scss';
 import Button from '../../src/components/Button';
 import Input from '../../src/components/Input';
 import Select from '../../src/components/Select';
+import Link from 'next/link';
 
 const Cart = () => {
   return (
@@ -44,10 +45,6 @@ const Cart = () => {
                 <Select label='Chọn mã giảm giá' name='voucher'></Select>
                 <div className='mt-4'>
                   <div className='flex justify-between text-sm mb-5'>
-                    <span className='font-medium'>Phí giao hàng:</span>
-                    <span>0 VND</span>
-                  </div>
-                  <div className='flex justify-between text-sm mb-5'>
                     <span className='font-medium'>Giảm giá:</span>
                     <span>0 VND</span>
                   </div>
@@ -71,10 +68,6 @@ function CartItem() {
     <tr>
       <td>
         <div className='w-full h-40 flex'>
-          <input
-            className='form-check-input appearance-none h-4 w-4 border border-border_input rounded-sm bg-white checked:bg-primary_red checked:border-primary_red focus:outline-none transition duration-200 mr-2 cursor-pointer'
-            type='checkbox'
-          />
           <div className='h-full flex'>
             <picture>
               <img
@@ -85,7 +78,9 @@ function CartItem() {
             </picture>
             <div className='pl-5 flex justify-between flex-col'>
               <div>
-                <p className='font-medium text-lg pb-1'>Trouser Pant</p>
+                <Link href={'/products/123'}>
+                  <a className='font-medium text-lg pb-1 block'>Trouser Pant</a>
+                </Link>
                 <div className='flex text-sm'>
                   <span className='text-header pr-3 line-through'>
                     349.000 VND
