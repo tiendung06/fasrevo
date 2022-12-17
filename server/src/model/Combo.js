@@ -7,7 +7,6 @@ const Combo = sequelize.define(
     combo_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
     },
     combo_name: {
@@ -15,7 +14,7 @@ const Combo = sequelize.define(
       allowNull: false,
     },
   },
-  { timestamps: false },
+  { timestamps: false }
 );
 
 export default Combo;

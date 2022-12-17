@@ -1,4 +1,3 @@
-import { Op } from "sequelize";
 import { status } from "../config/configuration.js";
 import Product from "../model/Product.js";
 import ProductDetail from "../model/ProductDetail.js";

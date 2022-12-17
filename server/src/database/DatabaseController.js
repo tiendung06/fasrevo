@@ -56,8 +56,9 @@ try {
   await Size.create({ size_name: 'XL' });
   // Create Combo
   await Combo.sync({ alter: true });
-  await Combo.create({ combo_name: 'A' });
-  await Combo.create({ combo_name: 'B' });
+  await Combo.create({ combo_id: 0, combo_name: '0' });
+  await Combo.create({ combo_id: 1, combo_name: 'A' });
+  await Combo.create({ combo_id: 2, combo_name: 'B' });
   // create Collection
   await Collection.sync({ alter: true });
   await Collection.create({
@@ -88,6 +89,90 @@ try {
   await User.sync({ alter: true });
   // Create Product
   await Product.sync({ alert: true });
+  await Product.create({
+    pid: 'P1',
+    sex_id: 1,
+    cid: 1,
+    cdid: 1,
+    combo_id: 1,
+    image: 'http://localhost:3030/image/image1670817832636.png',
+    collection_id: 1,
+    pname: 'Áo hoodie form rộng trẻ trung cho nam',
+    cost: 320000,
+    inStoke: 100,
+    quantity_sold: 13,
+    isDiscount: 0,
+  });
+  await Product.create({
+    pid: 'P2',
+    sex_id: 1,
+    cid: 1,
+    cdid: 1,
+    collection_id: 1,
+    image: 'http://localhost:3030/image/image1670817832636.png',
+    pname: 'Áo hoodie nhiều nút cực cá tính',
+    cost: 220000,
+    inStoke: 160,
+    quantity_sold: 53,
+    isDiscount: 1,
+    discount: 12,
+  });
+  await Product.create({
+    pid: 'P3',
+    sex_id: 1,
+    cid: 1,
+    cdid: 1,
+    combo_id: 1,
+    image: 'http://localhost:3030/image/image1670817832636.png',
+    collection_id: 1,
+    pname: 'Áo hoodie form rộng trẻ trung cho nam',
+    cost: 320000,
+    inStoke: 100,
+    quantity_sold: 13,
+    isDiscount: 0,
+  });
+  await Product.create({
+    pid: 'P4',
+    sex_id: 1,
+    cid: 1,
+    cdid: 1,
+    combo_id: 1,
+    image: 'http://localhost:3030/image/image1670817832636.png',
+    collection_id: 1,
+    pname: 'Áo hoodie form rộng trẻ trung cho nam',
+    cost: 320000,
+    inStoke: 100,
+    quantity_sold: 13,
+    isDiscount: 0,
+  });
+  await Product.create({
+    pid: 'P5',
+    sex_id: 1,
+    cid: 1,
+    cdid: 1,
+    collection_id: 1,
+    image: 'http://localhost:3030/image/image1670817832636.png',
+    pname: 'Áo hoodie gấu phản quang lưng trẻ trung',
+    cost: 350000,
+    inStoke: 120,
+    quantity_sold: 38,
+    isDiscount: 1,
+    discount: 14,
+  });
+  await Product.create({
+    pid: 'P6',
+    sex_id: 1,
+    cid: 1,
+    cdid: 1,
+    combo_id: 1,
+    image: 'http://localhost:3030/image/image1670817832636.png',
+    collection_id: 1,
+    pname: 'Áo hoodie form rộng trẻ trung cho nam',
+    cost: 320000,
+    inStoke: 100,
+    quantity_sold: 13,
+    isDiscount: 0,
+  });
   // Create ProductImage
   await ProductImage.sync({ alert: true });
   // Create ProductDetail
