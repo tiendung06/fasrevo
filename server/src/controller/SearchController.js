@@ -1,7 +1,7 @@
-import { Op, QueryTypes } from "sequelize";
-import { PAGE_LIMIT } from "../config/configuration.js";
-import { sequelize } from "../database/mysql_db.js";
-import Product from "../model/Product.js";
+import { Op, QueryTypes } from 'sequelize';
+import { PAGE_LIMIT } from '../config/configuration.js';
+import { sequelize } from '../database/mysql_db.js';
+import Product from '../model/Product.js';
 
 class SearchController {
   // doGet: Lấy sản phẩm theo collection
@@ -12,7 +12,12 @@ class SearchController {
         offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
         limit: PAGE_LIMIT,
       });
-      res.status(200).send(products);
+
+      const count = Product.count();
+
+      const totalPageNumber = Math.ceil(count / PAGE_LIMIT);
+
+      res.status(200).send({ products, totalPageNumber });
     } catch (error) {
       res.status(400).send(error);
     }
@@ -138,14 +143,14 @@ const sortFilter = async (
   sort_by
 ) => {
   let collectionId = collection_id;
-  const collectionIdArr = collectionId.toString().split(",");
+  const collectionIdArr = collectionId.toString().split(',');
   let colorId = color_id;
-  const colorIdArr = colorId.toString().split(",");
+  const colorIdArr = colorId.toString().split(',');
   let sizeId = size_id;
-  const sizeIdArr = sizeId.toString().split(",");
+  const sizeIdArr = sizeId.toString().split(',');
 
   let products = null;
-  if (collection_id !== "" && color_id !== "" && size_id !== "") {
+  if (collection_id !== '' && color_id !== '' && size_id !== '') {
     products = await sequelize.query(
       `select distinct * from products as p
       where p.sex_id = :sex_id and p.cid = :cid and p.collection_id IN(:collection_id)
@@ -195,14 +200,14 @@ const filterProduct = async (
 ) => {
   // console.log(size_id);
   let collectionId = collection_id;
-  const collectionIdArr = collectionId.toString().split(",");
+  const collectionIdArr = collectionId.toString().split(',');
   let colorId = color_id;
-  const colorIdArr = colorId.toString().split(",");
+  const colorIdArr = colorId.toString().split(',');
   let sizeId = size_id;
-  const sizeIdArr = sizeId.toString().split(",");
+  const sizeIdArr = sizeId.toString().split(',');
 
   let products = null;
-  if (collection_id !== "" && color_id !== "" && size_id !== "") {
+  if (collection_id !== '' && color_id !== '' && size_id !== '') {
     products = await sequelize.query(
       `select distinct * from products as p
       where p.sex_id = :sex_id and p.cid = :cid and p.collection_id IN(:collection_id)
