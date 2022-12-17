@@ -14,6 +14,7 @@ const CollectionDetails = () => {
   const [collectionDetails, setCollectionDetails] = useState();
   const router = useRouter();
   const { collection_id } = router.query;
+  const [totalPageNumber, setTotalPageNumber] = useState(1);
 
   useEffect(() => {
     axios
@@ -32,7 +33,8 @@ const CollectionDetails = () => {
     axios
       .get(searchItem.getCollection(pageNumber, collection_id))
       .then((resp) => {
-        setCollection(resp.data);
+        setCollection(resp.data.products);
+        setTotalPageNumber(resp.data.totalPageNumber);
       })
       .catch((e) => {});
   };
@@ -87,6 +89,7 @@ const CollectionDetails = () => {
         <List
           productItems={collection}
           reload={(pageNumber) => init(pageNumber)}
+          totalPageNumber={totalPageNumber}
         />
       </Section>
     </Main>

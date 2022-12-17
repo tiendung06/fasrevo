@@ -3,22 +3,14 @@ import Card from '../Card';
 import ReactPaginate from 'react-paginate';
 import Filter from '../Filter';
 
-const itemsPerPage = 20;
-const List = ({ productItems, reload }) => {
+const List = ({ productItems, reload, totalPageNumber }) => {
   const [page, setPage] = useState(1);
-  const [itemOffset, setItemOffset] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [page]);
 
-  const endOffset = itemOffset + itemsPerPage;
-  const currentItems = productItems.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(productItems.length / itemsPerPage);
-
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % productItems.length;
-    setItemOffset(newOffset);
     const pageNumber = event.selected + 1;
     setPage(pageNumber);
     reload(pageNumber);
@@ -29,7 +21,7 @@ const List = ({ productItems, reload }) => {
       <Filter></Filter>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
         {productItems &&
-          currentItems.map(
+          productItems.map(
             ({ pid, cost, discount, image, isDiscount, pname }, index) => (
               <Card
                 key={pid}
@@ -63,7 +55,7 @@ const List = ({ productItems, reload }) => {
         }
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
-        pageCount={pageCount}
+        pageCount={totalPageNumber}
         previousLabel={
           <svg
             xmlns="http://www.w3.org/2000/svg"
