@@ -1,4 +1,3 @@
-// const domain = 'http://localhost:3030';
 const domain = process.env.SERVER_HOST;
 const authenticate = `${domain}/auth`;
 const login = `${domain}/auth/login`;

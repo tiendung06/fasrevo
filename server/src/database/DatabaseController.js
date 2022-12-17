@@ -63,22 +63,22 @@ try {
   await Collection.sync({ alter: true });
   await Collection.create({
     collection_name: 'Winter collection',
-    collection_image: 'http://localhost:3030/image/image1669538193645.jpg',
+    collection_image: process.env.SERVER_HOST + '/image/image1669538193645.jpg',
     heading: 'Bộ sưu tập dành cho mùa đông',
   });
   await Collection.create({
     collection_name: 'Spring collection',
-    collection_image: 'http://localhost:3030/image/image1669198193645.jpg',
+    collection_image: process.env.SERVER_HOST + '/image/image1669198193645.jpg',
     heading: 'Bộ sưu tập dành cho mùa xuân',
   });
   await Collection.create({
     collection_name: 'Summer collection',
-    collection_image: 'http://localhost:3030/image/image1669198191234.jpg',
+    collection_image: process.env.SERVER_HOST + '/image/image1669198191234.jpg',
     heading: 'Bộ sưu tập dành cho mùa hè',
   });
   await Collection.create({
     collection_name: 'Fall collection',
-    collection_image: 'http://localhost:3030/image/image1249538103645.jpg',
+    collection_image: process.env.SERVER_HOST + '/image/image1249538103645.jpg',
     heading: 'Bộ sưu tập dành cho mùa thu',
   });
   // create Role
@@ -95,7 +95,7 @@ try {
     cid: 1,
     cdid: 1,
     combo_id: 1,
-    image: 'http://localhost:3030/image/image1670817832636.png',
+    image: process.env.SERVER_HOST + '/image/image1670817832636.png',
     collection_id: 1,
     pname: 'Áo hoodie form rộng trẻ trung cho nam',
     cost: 320000,
@@ -109,7 +109,7 @@ try {
     cid: 1,
     cdid: 1,
     collection_id: 1,
-    image: 'http://localhost:3030/image/image1670817832636.png',
+    image: process.env.SERVER_HOST + '/image/image1670817832636.png',
     pname: 'Áo hoodie nhiều nút cực cá tính',
     cost: 220000,
     inStoke: 160,
@@ -123,7 +123,7 @@ try {
     cid: 1,
     cdid: 1,
     combo_id: 1,
-    image: 'http://localhost:3030/image/image1670817832636.png',
+    image: process.env.SERVER_HOST + '/image/image1670817832636.png',
     collection_id: 1,
     pname: 'Áo hoodie form rộng trẻ trung cho nam',
     cost: 320000,
@@ -137,7 +137,7 @@ try {
     cid: 1,
     cdid: 1,
     combo_id: 1,
-    image: 'http://localhost:3030/image/image1670817832636.png',
+    image: process.env.SERVER_HOST + '/image/image1670817832636.png',
     collection_id: 1,
     pname: 'Áo hoodie form rộng trẻ trung cho nam',
     cost: 320000,
@@ -151,7 +151,7 @@ try {
     cid: 1,
     cdid: 1,
     collection_id: 1,
-    image: 'http://localhost:3030/image/image1670817832636.png',
+    image: process.env.SERVER_HOST + '/image/image1670817832636.png',
     pname: 'Áo hoodie gấu phản quang lưng trẻ trung',
     cost: 350000,
     inStoke: 120,
@@ -165,7 +165,7 @@ try {
     cid: 1,
     cdid: 1,
     combo_id: 1,
-    image: 'http://localhost:3030/image/image1670817832636.png',
+    image: process.env.SERVER_HOST + '/image/image1670817832636.png',
     collection_id: 1,
     pname: 'Áo hoodie form rộng trẻ trung cho nam',
     cost: 320000,
