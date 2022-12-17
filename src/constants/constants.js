@@ -1,5 +1,5 @@
-const domain = 'http://localhost:3030';
-// const domain = 'http://192.168.0.103:3030';
+// const domain = 'http://localhost:3030';
+const domain = process.env.SERVER_HOST;
 const authenticate = `${domain}/auth`;
 const login = `${domain}/auth/login`;
 const logout = `${domain}/auth/logout`;
@@ -8,6 +8,7 @@ const demo = `${domain}/demo`;
 const search = `${domain}/search`;
 const product = `${domain}/product-detail`;
 const collection = `${domain}/collections`;
+const addProduct = `${domain}/product/add-product`;
 const searchItem = {
   getCollection: (page = 1, collection_id) =>
     `${search}/search-by-collection?page=${page}&collection_id=${collection_id}`,
@@ -58,4 +59,5 @@ export {
   searchItem,
   productDetail,
   collections,
+  addProduct,
 };

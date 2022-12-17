@@ -7,7 +7,7 @@ import Select from '../../../src/components/Select';
 import Main from '../../../src/layout/admin/Main';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { productDetail } from '../../../src/constants/constants';
+import { addProduct, productDetail } from '../../../src/constants/constants';
 
 const ProductReport = () => {
   const [product, setProduct] = useState();
@@ -65,7 +65,9 @@ const ProductReport = () => {
     formData.append('isDiscount', values.isDiscount);
     formData.append('discount', values.discount);
 
-    fetch(productDetail.addProduct(), {
+    console.log({ image: formData.get('image') });
+
+    fetch(addProduct, {
       method: 'POST',
       body: formData,
     });
