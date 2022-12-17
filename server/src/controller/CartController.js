@@ -1,8 +1,8 @@
-import { status } from "../config/configuration.js";
-import Cart from "../model/Cart.js";
-import Product from "../model/Product.js";
-import ProductColor from "../model/ProductColor.js";
-import ProductSize from "../model/ProductSize.js";
+import { status } from '../config/configuration.js';
+import Cart from '../model/Cart.js';
+import Product from '../model/Product.js';
+import ProductColor from '../model/ProductColor.js';
+import ProductSize from '../model/ProductSize.js';
 
 class CartController {
   //doGet
@@ -73,11 +73,11 @@ class CartController {
             total: parseFloat(price_tmp) * parseInt(req.body.quantity),
           });
         }
-        res.status(200).send({ message: "Success", status: status.OK });
+        res.status(200).send({ message: 'Success', status: status.OK });
       } else {
         res
           .status(400)
-          .send({ messgae: "Giỏ hàng đã tồn tại", status: status.ERROR });
+          .send({ messgae: 'Giỏ hàng đã tồn tại', status: status.ERROR });
       }
     } catch (error) {
       res.status(400).send(error);
@@ -92,7 +92,7 @@ class CartController {
         { quantity: quantity },
         { where: { uid: uid, pid: pid } }
       );
-      res.status(200).send({ message: "Success", status: status.OK });
+      res.status(200).send({ message: 'Success', status: status.OK });
     } catch (error) {
       res.status(400).send(error);
     }
