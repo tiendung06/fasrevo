@@ -1,8 +1,6 @@
 import { status } from '../config/configuration.js';
 import Cart from '../model/Cart.js';
 import Product from '../model/Product.js';
-import ProductColor from '../model/ProductColor.js';
-import ProductSize from '../model/ProductSize.js';
 
 class CartController {
   //doGet
