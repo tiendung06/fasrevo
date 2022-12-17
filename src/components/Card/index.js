@@ -14,7 +14,7 @@ const Card = ({
   return (
     <Link href={`/products/${id}`}>
       <div className={`${styles.card} max-w-[480px] cursor-pointer relative`}>
-        <div className='w-full max-h-[350px] bg-slate-400 overflow-hidden'>
+        <div className='w-full h-60 md:h-80 bg-slate-400 overflow-hidden'>
           <picture>
             <img
               src={image}
