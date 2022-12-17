@@ -1,12 +1,18 @@
 import { status } from "../config/configuration.js";
 import Cart from "../model/Cart.js";
 import Product from "../model/Product.js";
+import ProductColor from "../model/ProductColor.js";
+import ProductSize from "../model/ProductSize.js";
 
 class CartController {
   //doGet
   async getAllCart(req, res) {
-    const carts = await Cart.findAll();
-    res.status(200).send(carts);
+    try {
+      const carts = await Cart.findAll();
+      res.status(200).send(carts);
+    } catch (error) {
+      res.status(400).send(error);
+    }
   }
   //doGet
   async getCartByUid(req, res) {
@@ -27,7 +33,15 @@ class CartController {
     try {
       const { uid, pid, color_id, size_id } = req.body;
       const cart = await Cart.findOne({ where: { uid: uid, pid: pid } });
-      if (cart === null) {
+      const color = await ProductColor.findOne({
+        pid: pid,
+        color_id: color_id,
+      });
+      const size = await ProductSize.findOne({
+        pid: pid,
+        size_id: size_id,
+      });
+      if (cart === null && color === null && size === null) {
         const product = await Product.findOne({ where: { pid: pid } });
         let price_tmp = 0;
         if (product.isDiscount == 1) {
@@ -35,7 +49,6 @@ class CartController {
         } else {
           price_tmp = product.cost;
         }
-        // console.log(price);
         if (req.body.quantity === undefined) {
           await Cart.create({
             uid: uid,

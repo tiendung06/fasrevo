@@ -19,8 +19,8 @@ app.use(cookieParser());
 app.use("/image", express.static(PATH));
 
 // test upload image
-app.post("/test", upload.single("image"), (req, res) => {
-  res.send(req.file);
+app.get("/test", (req, res) => {
+  res.send("OK");
 });
 
 router(app);

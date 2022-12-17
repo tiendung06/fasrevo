@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../database/mysql_db.js";
 import Order from "./Order.js";
 
-const DeliveryStatus = sequelize.define("delivery-status", {
+const DeliveryStatus = sequelize.define("delivery_status", {
   ds_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
