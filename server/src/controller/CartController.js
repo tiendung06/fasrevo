@@ -1,8 +1,8 @@
-import { status } from "../config/configuration.js";
-import Cart from "../model/Cart.js";
-import Product from "../model/Product.js";
-import ProductColor from "../model/ProductColor.js";
-import ProductSize from "../model/ProductSize.js";
+import { status } from '../config/configuration.js';
+import Cart from '../model/Cart.js';
+import Product from '../model/Product.js';
+import ProductColor from '../model/ProductColor.js';
+import ProductSize from '../model/ProductSize.js';
 
 class CartController {
   //doGet
@@ -41,7 +41,7 @@ class CartController {
         pid: pid,
         size_id: size_id,
       });
-      if (cart === null && color === null && size === null) {
+      if (cart === null) {
         const product = await Product.findOne({ where: { pid: pid } });
         let price_tmp = 0;
         if (product.isDiscount == 1) {
@@ -66,18 +66,18 @@ class CartController {
             pid: pid,
             image: product.image.toString(),
             pname: product.pname.toString(),
-            olor_id: color_id,
+            color_id: color_id,
             size_id: size_id,
             price: parseFloat(price_tmp),
             quantity: parseInt(req.body.quantity),
             total: parseFloat(price_tmp) * parseInt(req.body.quantity),
           });
         }
-        res.status(200).send({ message: "Success", status: status.OK });
+        res.status(200).send({ message: 'Success', status: status.OK });
       } else {
         res
           .status(400)
-          .send({ messgae: "Giỏ hàng đã tồn tại", status: status.ERROR });
+          .send({ message: 'Giỏ hàng đã tồn tại', status: status.ERROR });
       }
     } catch (error) {
       res.status(400).send(error);
@@ -85,14 +85,14 @@ class CartController {
   }
 
   // doPut
-  async udpateQuantity(req, res) {
+  async updateQuantity(req, res) {
     try {
       const { uid, pid, quantity } = req.body;
       await Cart.update(
         { quantity: quantity },
         { where: { uid: uid, pid: pid } }
       );
-      res.status(200).send({ message: "Success", status: status.OK });
+      res.status(200).send({ message: 'Success', status: status.OK });
     } catch (error) {
       res.status(400).send(error);
     }

@@ -7,6 +7,7 @@ const Button = ({
   fullWidth = true,
   loading = false,
   colorRed,
+  ...props
 }) => {
   return (
     <button
@@ -16,6 +17,7 @@ const Button = ({
       } text-center text-sm md:text-base font-bold px-5 cursor-pointer ${
         colorRed ? 'bg-primary_red' : ''
       }`}
+      {...props}
     >
       {loading ? (
         <div
