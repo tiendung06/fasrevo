@@ -13,7 +13,7 @@ class SearchController {
         limit: PAGE_LIMIT,
       });
 
-      const count = Product.count();
+      const count = await Product.count();
 
       const totalPageNumber = Math.ceil(count / PAGE_LIMIT);
 
