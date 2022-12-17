@@ -1,11 +1,11 @@
-import { errorConfig, PATH } from "./configuration.js";
-import multer from "multer";
-import path from "path";
+import { errorConfig, PATH } from './configuration.js';
+import multer from 'multer';
+import path from 'path';
 
 const fileFilter = function (req, file, cb) {
   // Accept images only
   if (
-    !file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|webg|WEBG)$/)
+    !file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|webp|WEBP)$/)
   ) {
     req.fileValidationError = errorConfig.fileFilter.FILE_ERROR;
     return cb(new Error(errorConfig.fileFilter.FILE_ERROR), false);

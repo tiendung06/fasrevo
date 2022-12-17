@@ -36,7 +36,7 @@ const CollectionDetails = () => {
       })
       .catch((e) => {});
   };
-
+  console.log(collection);
   return (
     <Main>
       <Section>

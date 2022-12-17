@@ -17,7 +17,7 @@ const List = ({ productItems, reload }) => {
   const pageCount = Math.ceil(productItems.length / itemsPerPage);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % collection.length;
+    const newOffset = (event.selected * itemsPerPage) % productItems.length;
     setItemOffset(newOffset);
     const pageNumber = event.selected + 1;
     setPage(pageNumber);

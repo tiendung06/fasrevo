@@ -1,5 +1,5 @@
-import axios, { Axios } from 'axios';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Button from '../../../src/components/admin/Button';
 import Input from '../../../src/components/Input';
 import Modal from '../../../src/components/Modal';
@@ -9,109 +9,13 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { productDetail } from '../../../src/constants/constants';
 
-const tableData = [
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-  {
-    id: 'SP001',
-    name: 'Áo khoác hoodie tay dài dáng rộng họa tiết hoạt hình',
-    sex: 'Nam',
-    color: 'Đen',
-    size: 'L',
-    quantity: 76,
-    total: '249.000 VND',
-    quantity_sold: 24,
-  },
-];
 const ProductReport = () => {
+  const [product, setProduct] = useState();
+  useEffect(() => {
+    axios.get(productDetail.getAllProduct(1)).then((resp) => {
+      setProduct(resp.data);
+    });
+  }, []);
   const formik = useFormik({
     initialValues: {
       sex_id: 1,
@@ -119,12 +23,18 @@ const ProductReport = () => {
       cdid: 1,
       combo_id: 1,
       collection_id: 1,
-      pname: 'ABC',
-      cost: 2435,
-      inStoke: 20,
-      quantity_sold: 0,
+      pname: '',
+      cost: 0,
+      color_id: 1,
+      size_id: 1,
+      inStoke: 0,
       isDiscount: 0,
       discount: 0,
+      origin: '',
+      description: '',
+      texture: '',
+      small_detail: '',
+      quantity_sold: 0,
     },
     validationSchema: Yup.object({}),
     onSubmit: (values) => {
@@ -135,10 +45,10 @@ const ProductReport = () => {
   const handleAddProduct = (values) => {
     var image = document.querySelector('.image').files[0];
     upLoad(values, image);
+    console.log(values);
   };
 
   const upLoad = (values, image) => {
-    // console.log(values, image);
     var formData = new FormData();
     formData.append('sex_id', values.sex_id);
     formData.append('cid', values.cid);
@@ -146,28 +56,19 @@ const ProductReport = () => {
     formData.append('combo_id', values.combo_id);
     formData.append('image', image);
     formData.append('collection_id', values.collection_id);
+    formData.append('color_id', values.color_id);
+    formData.append('size_id', values.size_id);
     formData.append('pname', values.pname);
     formData.append('cost', values.cost);
     formData.append('inStoke', values.inStoke);
-    formData.append('quantity_sold', values.quantity_sold);
+    formData.append('quantity_sold', 0);
     formData.append('isDiscount', values.isDiscount);
     formData.append('discount', values.discount);
 
-    console.log({ image: formData.get('image') });
-
-    fetch(`http://192.168.0.103:3030/product/add-product`, {
+    fetch(productDetail.addProduct(), {
       method: 'POST',
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // },
       body: formData,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    });
     console.log(formData);
   };
   return (
@@ -184,6 +85,7 @@ const ProductReport = () => {
             name=""
             id=""
             className="border-border_input border outline-none h-10 text-sm text-header rounded-lg px-5"
+            value={formik.values.cid}
           >
             <option value="">Áo</option>
             <option value="">Quần</option>
@@ -227,27 +129,23 @@ const ProductReport = () => {
                 value={formik.values.cost}
                 onChange={formik.handleChange}
               />
-              <Select label="Màu sắc">
+              <Select label="Màu sắc" onChange={formik.handleChange}>
                 <option value="1">Hồng</option>
                 <option value="2">Đen</option>
                 <option value="3">Trắng</option>
               </Select>
-              <Select label="Kích thước">
+              <Select label="Kích thước" onChange={formik.handleChange}>
                 <option value="1">S</option>
                 <option value="2">M</option>
                 <option value="3">L</option>
                 <option value="4">XL</option>
               </Select>
-              <Select
-                label="Danh mục"
-                values={formik.values.cid}
-                onChange={formik.handleChange}
-              >
+              <Select label="Danh mục" onChange={formik.handleChange}>
                 <option value="1">Top</option>
                 <option value="2">Bottom</option>
                 <option value="3">Accessory</option>
               </Select>
-              <Select label="Chi tiết danh mục">
+              <Select label="Chi tiết danh mục" onChange={formik.handleChange}>
                 <option value="1">Hoddie</option>
                 <option value="2">Phông</option>
                 <option value="3">Sơ mi</option>
@@ -275,7 +173,7 @@ const ProductReport = () => {
                 value={formik.values.description}
                 onChange={formik.handleChange}
               />
-              <Select label="Bộ sưu tập">
+              <Select label="Bộ sưu tập" onChange={formik.handleChange}>
                 <option value="1">Bộ sưu tập mùa đông</option>
                 <option value="2">Bộ sưu tập mùa thu</option>
                 <option value="3">Bộ sưu tập mùa hè</option>
@@ -286,23 +184,23 @@ const ProductReport = () => {
                 label="Xuất xứ"
                 name="origin"
                 placeholder="Nhập xuất xứ sản phẩm"
-                value={formik.values.description}
+                value={formik.values.origin}
                 onChange={formik.handleChange}
               />
               <Input
                 type="textarea"
                 label="Chất liệu"
-                name="origin"
+                name="texture"
                 placeholder="Nhập chất liệu sản phẩm"
-                value={formik.values.description}
+                value={formik.values.texture}
                 onChange={formik.handleChange}
               />
               <Input
                 type="textarea"
                 label="Chi tiết nhỏ"
-                name="origin"
+                name="small_detail"
                 placeholder="Nhập chi tiết nhỏ (nếu có)"
-                value={formik.values.description}
+                value={formik.values.small_detail}
                 onChange={formik.handleChange}
               />
               <input type="file" className="image mb-5" />
@@ -319,8 +217,10 @@ const ProductReport = () => {
                 <th>Mã sản phẩm</th>
                 <th>Tên sản phẩm</th>
                 <th>Giới tính</th>
-                <th>Màu sắc</th>
-                <th>Kích cỡ</th>
+                <th>Danh mục</th>
+                <th>Chi tiết danh mục</th>
+                {/* <th>Màu sắc</th>
+                <th>Kích cỡ</th> */}
                 <th>Số lượng</th>
                 <th>Giá tiền</th>
                 <th>Đã bán</th>
@@ -328,25 +228,159 @@ const ProductReport = () => {
               </tr>
             </thead>
             <tbody>
-              {tableData.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.sex}</td>
-                  <td>{item.color}</td>
-                  <td>{item.size}</td>
-                  <td>{item.quantity}</td>
-                  <td>{item.total}</td>
-                  <td>{item.quantity_sold}</td>
-                  <td>
-                    <div className="flex items-center gap-x-5">
-                      <div className="">
-                        <button
-                          className="text-primary_blue"
-                          data-bs-toggle="modal"
-                          data-bs-target="#updateProduct"
-                        >
+              {product?.map(
+                (
+                  {
+                    sex_id,
+                    cid,
+                    cdid,
+                    cost,
+                    inStoke,
+                    pid,
+                    pname,
+                    quantity_sold,
+                  },
+                  index
+                ) => (
+                  <tr key={pid}>
+                    <td>{index + 1}</td>
+                    <td>{pid}</td>
+                    <td>{pname}</td>
+                    <td>{sex_id}</td>
+                    <td>{cid}</td>
+                    <td>{cdid}</td>
+                    <td>{inStoke}</td>
+                    <td>{cost}</td>
+                    <td>{quantity_sold}</td>
+                    <td>
+                      <div className="flex items-center gap-x-5">
+                        <div className="">
+                          <button
+                            className="text-primary_blue"
+                            data-bs-toggle="modal"
+                            data-bs-target="#updateProduct"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-4 h-4"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                              />
+                            </svg>
+                          </button>
+                          <Modal
+                            id="updateProduct"
+                            aria-labelledby="updateProductLabel"
+                            title="Chỉnh sửa chi tiết sản phẩm"
+                          >
+                            <form onSubmit={formik.handleSubmit}>
+                              <Input
+                                type="text"
+                                name="pname"
+                                label="Tên sản phẩm"
+                                placeholder="Nhập tên sản phẩm*"
+                                value={formik.values.pname}
+                                onChange={formik.handleChange}
+                              />
+                              <Input
+                                type="text"
+                                name="cost"
+                                label="Giá tiền"
+                                placeholder="Nhập giá tiền*"
+                                value={formik.values.cost}
+                                onChange={formik.handleChange}
+                              />
+                              <Select label="Màu sắc">
+                                <option value="1">Hồng</option>
+                                <option value="2">Đen</option>
+                                <option value="3">Trắng</option>
+                              </Select>
+                              <Select label="Kích thước">
+                                <option value="1">S</option>
+                                <option value="2">M</option>
+                                <option value="3">L</option>
+                                <option value="4">XL</option>
+                              </Select>
+                              <Select
+                                label="Danh mục"
+                                values={formik.values.cid}
+                                onChange={formik.handleChange}
+                              >
+                                <option value="1">Top</option>
+                                <option value="2">Bottom</option>
+                                <option value="3">Accessory</option>
+                              </Select>
+                              <Select label="Chi tiết danh mục">
+                                <option value="1">Hoddie</option>
+                                <option value="2">Phông</option>
+                                <option value="3">Sơ mi</option>
+                                <option value="4">Khoác</option>
+                                <option value="5">Dài</option>
+                                <option value="6">Bò</option>
+                                <option value="7">Short</option>
+                                <option value="8">Mũ</option>
+                                <option value="9">Túi xách</option>
+                                <option value="10">Dây chuyền</option>
+                              </Select>
+                              <Input
+                                type="text"
+                                label="Số lượng"
+                                name="inStoke"
+                                placeholder="Nhập số lượng"
+                                value={formik.values.inStoke}
+                                onChange={formik.handleChange}
+                              />
+                              <Input
+                                type="textarea"
+                                label="Mô tả sản phẩm"
+                                name="description"
+                                placeholder="Nhập mô tả sản phẩm"
+                                value={formik.values.description}
+                                onChange={formik.handleChange}
+                              />
+                              <Select label="Bộ sưu tập">
+                                <option value="1">Bộ sưu tập mùa đông</option>
+                                <option value="2">Bộ sưu tập mùa thu</option>
+                                <option value="3">Bộ sưu tập mùa hè</option>
+                                <option value="4">Bộ sưu tập mùa xuân</option>
+                              </Select>
+                              <Input
+                                type="textarea"
+                                label="Xuất xứ"
+                                name="origin"
+                                placeholder="Nhập xuất xứ sản phẩm"
+                                value={formik.values.description}
+                                onChange={formik.handleChange}
+                              />
+                              <Input
+                                type="textarea"
+                                label="Chất liệu"
+                                name="origin"
+                                placeholder="Nhập chất liệu sản phẩm"
+                                value={formik.values.description}
+                                onChange={formik.handleChange}
+                              />
+                              <Input
+                                type="textarea"
+                                label="Chi tiết nhỏ"
+                                name="origin"
+                                placeholder="Nhập chi tiết nhỏ (nếu có)"
+                                value={formik.values.description}
+                                onChange={formik.handleChange}
+                              />
+                              <input type="file" className="image mb-5" />
+                              <Button type="submit">Thêm sản phẩm</Button>
+                            </form>
+                          </Modal>
+                        </div>
+                        <button className="text-primary_red">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -358,135 +392,15 @@ const ProductReport = () => {
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                              d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
                             />
                           </svg>
                         </button>
-                        <Modal
-                          id="updateProduct"
-                          aria-labelledby="updateProductLabel"
-                          title="Chỉnh sửa chi tiết sản phẩm"
-                        >
-                          <form onSubmit={formik.handleSubmit}>
-                            <Input
-                              type="text"
-                              name="pname"
-                              label="Tên sản phẩm"
-                              placeholder="Nhập tên sản phẩm*"
-                              value={formik.values.pname}
-                              onChange={formik.handleChange}
-                            />
-                            <Input
-                              type="text"
-                              name="cost"
-                              label="Giá tiền"
-                              placeholder="Nhập giá tiền*"
-                              value={formik.values.cost}
-                              onChange={formik.handleChange}
-                            />
-                            <Select label="Màu sắc">
-                              <option value="1">Hồng</option>
-                              <option value="2">Đen</option>
-                              <option value="3">Trắng</option>
-                            </Select>
-                            <Select label="Kích thước">
-                              <option value="1">S</option>
-                              <option value="2">M</option>
-                              <option value="3">L</option>
-                              <option value="4">XL</option>
-                            </Select>
-                            <Select
-                              label="Danh mục"
-                              values={formik.values.cid}
-                              onChange={formik.handleChange}
-                            >
-                              <option value="1">Top</option>
-                              <option value="2">Bottom</option>
-                              <option value="3">Accessory</option>
-                            </Select>
-                            <Select label="Chi tiết danh mục">
-                              <option value="1">Hoddie</option>
-                              <option value="2">Phông</option>
-                              <option value="3">Sơ mi</option>
-                              <option value="4">Khoác</option>
-                              <option value="5">Dài</option>
-                              <option value="6">Bò</option>
-                              <option value="7">Short</option>
-                              <option value="8">Mũ</option>
-                              <option value="9">Túi xách</option>
-                              <option value="10">Dây chuyền</option>
-                            </Select>
-                            <Input
-                              type="text"
-                              label="Số lượng"
-                              name="inStoke"
-                              placeholder="Nhập số lượng"
-                              value={formik.values.inStoke}
-                              onChange={formik.handleChange}
-                            />
-                            <Input
-                              type="textarea"
-                              label="Mô tả sản phẩm"
-                              name="description"
-                              placeholder="Nhập mô tả sản phẩm"
-                              value={formik.values.description}
-                              onChange={formik.handleChange}
-                            />
-                            <Select label="Bộ sưu tập">
-                              <option value="1">Bộ sưu tập mùa đông</option>
-                              <option value="2">Bộ sưu tập mùa thu</option>
-                              <option value="3">Bộ sưu tập mùa hè</option>
-                              <option value="4">Bộ sưu tập mùa xuân</option>
-                            </Select>
-                            <Input
-                              type="textarea"
-                              label="Xuất xứ"
-                              name="origin"
-                              placeholder="Nhập xuất xứ sản phẩm"
-                              value={formik.values.description}
-                              onChange={formik.handleChange}
-                            />
-                            <Input
-                              type="textarea"
-                              label="Chất liệu"
-                              name="origin"
-                              placeholder="Nhập chất liệu sản phẩm"
-                              value={formik.values.description}
-                              onChange={formik.handleChange}
-                            />
-                            <Input
-                              type="textarea"
-                              label="Chi tiết nhỏ"
-                              name="origin"
-                              placeholder="Nhập chi tiết nhỏ (nếu có)"
-                              value={formik.values.description}
-                              onChange={formik.handleChange}
-                            />
-                            <input type="file" className="image mb-5" />
-                            <Button type="submit">Thêm sản phẩm</Button>
-                          </form>
-                        </Modal>
                       </div>
-                      <button className="text-primary_red">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </div>

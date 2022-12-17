@@ -1,5 +1,5 @@
-// const domain = 'http://localhost:3030';
-const domain = 'http://192.168.0.103:3030';
+const domain = 'http://localhost:3030';
+// const domain = 'http://192.168.0.103:3030';
 const authenticate = `${domain}/auth`;
 const login = `${domain}/auth/login`;
 const logout = `${domain}/auth/logout`;
@@ -41,7 +41,8 @@ const searchItem = {
 };
 const productDetail = {
   getProductDetail: (pid) => `${product}/get-pid?pid=${pid}`,
-  addProduct: () => `${product}/add-product`,
+  getAllProduct: () => `${domain}/product/get-all?page=1`,
+  addProduct: () => `${domain}/product/add-product`,
 };
 const collections = {
   getAllCollections: () => `${collection}/get-collections`,

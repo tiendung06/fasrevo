@@ -29,8 +29,6 @@ class ProductController {
       );
       const ranCode = randomCode(6);
       const image = req.file.filename;
-      console.log(req.body);
-      // console.log(req.file);
       await Product.create({
         pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
         sex_id: req.body.sex_id,
@@ -46,52 +44,26 @@ class ProductController {
         isDiscount: req.body.isDiscount,
         discount: !isNaN(req.body.discount) ? req.body.discount : 0,
       });
-      // await Product.create({
-      //   sex_id: sex_id,
-      //   cid: cid,
-      //   cdid: cdid,
-      //   combo_id: combo_id,
-      //   collection_id: collection_id,
-      //   pid: `P${ranCode}${sex_id}${cid}`,
-      //   image: `${IMAGE_URL}/${image}`,
-      //   pname: `${cdname.cdname.toString()}: ${pname}`,
-      //   cost: cost,
-      //   inStoke: inStoke,
-      //   quantity_sold: quantity_sold,
-      //   isDiscount: isDiscount,
-      //   discount: discount,
-      // });
-      // await sequelize.query(
-      //   `insert into products (sex_id, cid, cdid, combo_id, collection_id, pid, image, pname, cost, inStoke, quantity_sold, isDiscount, discount, createdAt, updatedAt)
-      //   values(${sex_id}, ${cid}, ${cdid}, ${combo_id}, ${collection_id}, 'P${ranCode}${sex_id}${cid}', '${IMAGE_URL}/${image}', '${pname}', ${cost}, ${inStoke}, ${quantity_sold}, ${isDiscount}, ${
-      //     discount ? discount : null
-      //   }, ${new Date.now()}, ${new Date.now()})`,
-      //   { type: QueryTypes.INSERT }
-      // );
-      // await ProductDetail.create({ pid: `P${ranCode}${sex_id}${cid}` });
-      // const colorIdArr = color_id.toString().split(",");
-      // colorIdArr.map(async (item) => {
-      //   await ProductColor.create({
-      //     pid: `P${ranCode}${sex_id}${cid}`,
-      //     color_id: parseInt(item),
-      //   });
-      // });
-      // const sizeIdArr = size_id.toString().split(",");
-      // sizeIdArr.map(async (item) => {
-      //   await ProductSize.create({
-      //     pid: `P${ranCode}${sex_id}${cid}`,
-      //     size_id: parseInt(item),
-      //   });
-      // });
-      // await ProductDetail.update(
-      //   {
-      //     description: description,
-      //     origin: origin,
-      //     texture: texture,
-      //     small_detail: small_detail,
-      //   },
-      //   { where: { pid: `P${ranCode}${sex_id}${cid}` } }
-      // );
+      await ProductDetail.create({
+        pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
+      });
+      await ProductColor.create({
+        pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
+        color_id: req.body.color_id,
+      });
+      await ProductSize.create({
+        pid: `P${ranCode}${req.body.sex_id}${req.body.cid}`,
+        size_id: req.body.size_id,
+      });
+      await ProductDetail.update(
+        {
+          description: req.body.description,
+          origin: req.body.origin,
+          texture: req.body.texture,
+          small_detail: req.body.small_detail,
+        },
+        { where: { pid: `P${ranCode}${req.body.sex_id}${req.body.cid}` } }
+      );
       res.status(200).send({ message: 'Success', status: status.OK });
     } catch (error) {
       console.log(error);
