@@ -4,6 +4,8 @@ import Button from '../../../src/components/Button';
 import MainAccount from '../../../src/layout/MainAccount';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { userEditPassword } from '../../../src/constants/constants';
 
 const ChangePassword = () => {
   const [loading, setLoading] = useState(false);
@@ -22,43 +24,60 @@ const ChangePassword = () => {
         .required('Xác nhận mật khẩu mới không được để trống')
         .oneOf([Yup.ref('newPassword')], 'Xác nhận mật khẩu không đúng'),
     }),
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      handleChangePassword(values);
+    },
   });
 
+  const handleChangePassword = async (values) => {
+    try {
+      setLoading(true);
+      await axios.put(`${userEditPassword}`, values).then((response) => {
+        if (response.data.status === 0) {
+          setMessage(response.data.message);
+        }
+      });
+    } catch ({ response }) {
+      console.log(response);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <MainAccount heading='Đổi mật khẩu'>
-      <form onSubmit={formik.handleSubmit} className='max-w-[500px]'>
+    <MainAccount heading="Đổi mật khẩu">
+      <form onSubmit={formik.handleSubmit} className="max-w-[500px]">
         <Input
-          type='password'
-          name='currentPassword'
-          label='Mật khẩu hiện tại'
-          placeholder='Nhập mật khẩu hiện tại*'
+          type="password"
+          name="currentPassword"
+          label="Mật khẩu hiện tại"
+          placeholder="Nhập mật khẩu hiện tại*"
           value={formik.values.currentPassword}
           touched={formik.touched.currentPassword}
           error={formik.errors.currentPassword}
           onChange={formik.handleChange}
         />
         <Input
-          type='password'
-          name='newPassword'
-          label='Mật khẩu mới'
-          placeholder='Nhập mật khẩu mới*'
+          type="password"
+          name="newPassword"
+          label="Mật khẩu mới"
+          placeholder="Nhập mật khẩu mới*"
           value={formik.values.newPassword}
           touched={formik.touched.newPassword}
           error={formik.errors.newPassword}
           onChange={formik.handleChange}
         />
         <Input
-          type='password'
-          name='confirmNewPassword'
-          label='Xác nhận mật khẩu mới'
-          placeholder='Xác nhận mật khẩu mới*'
+          type="password"
+          name="confirmNewPassword"
+          label="Xác nhận mật khẩu mới"
+          placeholder="Xác nhận mật khẩu mới*"
           value={formik.values.confirmNewPassword}
           touched={formik.touched.confirmNewPassword}
           error={formik.errors.confirmNewPassword}
           onChange={formik.handleChange}
         />
-        <Button type='submit' loading={loading}>
+        <Button type="submit" loading={loading}>
           Đổi mật khẩu
         </Button>
       </form>

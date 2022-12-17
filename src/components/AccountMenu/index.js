@@ -28,8 +28,6 @@ const AccountMenu = () => {
     }
   }
 
-  console.log(user);
-
   return (
     <div>
       <div className="w-full flex justify-center">
