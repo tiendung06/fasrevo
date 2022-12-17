@@ -33,11 +33,11 @@ const ProductDetails = () => {
         setColorList(res.data.colorList);
         setSizeList(res.data.sizeList);
 
-        if (res.data.productColor) {
+        if (res.data.productColor && res.data.productColor.length > 0) {
           setColorId(res.data.productColor[0].color_id);
         }
 
-        if (res.data.productSize) {
+        if (res.data.productSize && res.data.productSize.length > 0) {
           setSizeId(res.data.productSize[0].size_id);
         }
       });
