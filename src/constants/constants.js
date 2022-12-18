@@ -48,6 +48,7 @@ const searchItem = {
 const productDetail = {
   getProductDetail: (pid) => `${productDetails}/get-pid?pid=${pid}`,
   getAllProduct: () => `${serverDomain}/product/get-all?page=1`,
+  getAllProductDetails: () => `${serverDomain}/product/get-all-details?page=1`,
   addProduct: () => `${serverDomain}/product/add-product`,
 };
 const collections = {

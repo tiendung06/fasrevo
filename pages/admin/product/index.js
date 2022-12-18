@@ -13,11 +13,14 @@ import Checkbox from '../../../src/components/Checkbox';
 const ProductReport = () => {
   const [product, setProduct] = useState();
 
-  const [currentModalId, setCurrentModalId] = useState();
+  const [productDetails, setProductDetails] = useState([]);
 
   useEffect(() => {
     axios.get(productDetail.getAllProduct(1)).then((resp) => {
       setProduct(resp.data);
+    });
+    axios.get(productDetail.getAllProductDetails(1)).then((resp) => {
+      setProductDetails(resp.data);
     });
   }, []);
   const formik = useFormik({
@@ -46,13 +49,45 @@ const ProductReport = () => {
     },
   });
 
+  const updateProductFormik = useFormik({
+    initialValues: {
+      sex_id: 1,
+      cid: 1,
+      cdid: 1,
+      combo_id: 1,
+      collection_id: 1,
+      pname: '',
+      cost: 0,
+      color_id: 1,
+      size_id: 1,
+      inStoke: 0,
+      isDiscount: 0,
+      discount: 0,
+      origin: '',
+      description: '',
+      texture: '',
+      small_detail: '',
+      quantity_sold: 0,
+    },
+    validationSchema: Yup.object({}),
+    onSubmit: (values) => {
+      handleUpdateProduct(values);
+    },
+  });
+
   const handleAddProduct = (values) => {
     var image = document.querySelector('.image').files[0];
     upLoad(values, image);
     console.log(values);
   };
 
-  const upLoad = (values, image) => {
+  const handleUpdateProduct = (values) => {
+    var image = document.querySelector('.image').files[0];
+    upLoad(values, image, true);
+    console.log(values);
+  };
+
+  const upLoad = (values, image, isUpdate = false) => {
     var formData = new FormData();
     formData.append('sex_id', values.sex_id);
     formData.append('cid', values.cid);
@@ -75,14 +110,23 @@ const ProductReport = () => {
 
     console.log({ image: formData.get('image') });
 
-    axios.post(addProduct, formData).then((res) => {
-      if (res.status === 200 && res.data.status === 1) {
-        console.log(res.data);
-        document.querySelector(`#modal-${currentModalId}-close-button`).click();
-        setCurrentModalId(undefined);
-      }
-    });
-    console.log(formData);
+    const modalId = isUpdate ? 'updateProduct' : 'exampleModal';
+
+    if (isUpdate) {
+      axios.put(addProduct, formData).then((res) => {
+        if (res.status === 200 && res.data.status === 1) {
+          console.log(res.data);
+          document.querySelector(`#modal-${modalId}-close-button`).click();
+        }
+      });
+    } else {
+      axios.post(addProduct, formData).then((res) => {
+        if (res.status === 200 && res.data.status === 1) {
+          console.log(res.data);
+          document.querySelector(`#modal-${modalId}-close-button`).click();
+        }
+      });
+    }
   };
   return (
     <Main heading="Quản lý sản phẩm">
@@ -124,13 +168,7 @@ const ProductReport = () => {
             aria-labelledby="exampleModalLabel"
             title="Thêm sản phẩm"
           >
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setCurrentModalId('exampleModal');
-                formik.handleSubmit();
-              }}
-            >
+            <form onSubmit={formik.handleSubmit}>
               <Input
                 type="text"
                 name="pname"
@@ -290,20 +328,18 @@ const ProductReport = () => {
               </tr>
             </thead>
             <tbody>
-              {product?.map(
-                (
-                  {
-                    sex_id,
-                    cid,
-                    cdid,
-                    cost,
-                    inStoke,
-                    pid,
-                    pname,
-                    quantity_sold,
-                  },
-                  index
-                ) => (
+              {product?.map((product, index) => {
+                const {
+                  sex_id,
+                  cid,
+                  cdid,
+                  cost,
+                  inStoke,
+                  pid,
+                  pname,
+                  quantity_sold,
+                } = product;
+                return (
                   <tr key={pid}>
                     <td>{index + 1}</td>
                     <td>{pid}</td>
@@ -321,6 +357,19 @@ const ProductReport = () => {
                             className="text-primary_blue"
                             data-bs-toggle="modal"
                             data-bs-target="#updateProduct"
+                            onClick={() => {
+                              const details = productDetails.find(
+                                (pd) => pd.pid === pid
+                              );
+
+                              updateProductFormik.setValues({
+                                ...product,
+                                description: details.description,
+                                origin: details.origin,
+                                small_detail: details.small_detail,
+                                texture: details.texture,
+                              });
+                            }}
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -342,33 +391,27 @@ const ProductReport = () => {
                             aria-labelledby="updateProductLabel"
                             title="Chỉnh sửa chi tiết sản phẩm"
                           >
-                            <form
-                              onSubmit={(e) => {
-                                e.preventDefault();
-                                setCurrentModalId('updateProduct');
-                                formik.handleSubmit();
-                              }}
-                            >
+                            <form onSubmit={updateProductFormik.handleSubmit}>
                               <Input
                                 type="text"
                                 name="pname"
                                 label="Tên sản phẩm"
                                 placeholder="Nhập tên sản phẩm*"
-                                value={formik.values.pname}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.pname}
+                                onChange={updateProductFormik.handleChange}
                               />
                               <Input
                                 type="text"
                                 name="cost"
                                 label="Giá tiền"
                                 placeholder="Nhập giá tiền*"
-                                value={formik.values.cost}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.cost}
+                                onChange={updateProductFormik.handleChange}
                               />
                               <Select
                                 label="Màu sắc"
-                                value={formik.values.color_id}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.color_id}
+                                onChange={updateProductFormik.handleChange}
                               >
                                 <option value={1}>Hồng</option>
                                 <option value={2}>Đen</option>
@@ -376,8 +419,8 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Kích thước"
-                                value={formik.values.size_id}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.size_id}
+                                onChange={updateProductFormik.handleChange}
                               >
                                 <option value={1}>S</option>
                                 <option value={2}>M</option>
@@ -386,8 +429,8 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Danh mục"
-                                values={formik.values.cid}
-                                onChange={formik.handleChange}
+                                values={updateProductFormik.values.cid}
+                                onChange={updateProductFormik.handleChange}
                               >
                                 <option value="1">Top</option>
                                 <option value="2">Bottom</option>
@@ -395,8 +438,8 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Chi tiết danh mục"
-                                values={formik.values.cdid}
-                                onChange={formik.handleChange}
+                                values={updateProductFormik.values.cdid}
+                                onChange={updateProductFormik.handleChange}
                               >
                                 <option value={1}>Hoddie</option>
                                 <option value={2}>Phông</option>
@@ -414,21 +457,23 @@ const ProductReport = () => {
                                 label="Số lượng"
                                 name="inStoke"
                                 placeholder="Nhập số lượng"
-                                value={formik.values.inStoke}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.inStoke}
+                                onChange={updateProductFormik.handleChange}
                               />
                               <Input
                                 type="textarea"
                                 label="Mô tả sản phẩm"
                                 name="description"
                                 placeholder="Nhập mô tả sản phẩm"
-                                value={formik.values.description}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.description}
+                                onChange={updateProductFormik.handleChange}
                               />
                               <Select
                                 label="Bộ sưu tập"
-                                values={formik.values.collection_id}
-                                onChange={formik.handleChange}
+                                values={
+                                  updateProductFormik.values.collection_id
+                                }
+                                onChange={updateProductFormik.handleChange}
                               >
                                 <option value={1}>Bộ sưu tập mùa đông</option>
                                 <option value={2}>Bộ sưu tập mùa thu</option>
@@ -440,24 +485,24 @@ const ProductReport = () => {
                                 label="Xuất xứ"
                                 name="origin"
                                 placeholder="Nhập xuất xứ sản phẩm"
-                                value={formik.values.description}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.description}
+                                onChange={updateProductFormik.handleChange}
                               />
                               <Input
                                 type="textarea"
                                 label="Chất liệu"
                                 name="origin"
                                 placeholder="Nhập chất liệu sản phẩm"
-                                value={formik.values.description}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.description}
+                                onChange={updateProductFormik.handleChange}
                               />
                               <Input
                                 type="textarea"
                                 label="Chi tiết nhỏ"
                                 name="origin"
                                 placeholder="Nhập chi tiết nhỏ (nếu có)"
-                                value={formik.values.description}
-                                onChange={formik.handleChange}
+                                value={updateProductFormik.values.description}
+                                onChange={updateProductFormik.handleChange}
                               />
                               <input type="file" className="image mb-5" />
                               <Button type="submit">Thêm sản phẩm</Button>
@@ -483,8 +528,8 @@ const ProductReport = () => {
                       </div>
                     </td>
                   </tr>
-                )
-              )}
+                );
+              })}
             </tbody>
           </table>
         </div>

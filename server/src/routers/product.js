@@ -5,6 +5,7 @@ import upload from '../middleware/handleFile.js';
 const router = express.Router();
 
 router.get('/get-all', ProductController.getAllProducts);
+router.get('/get-all-details', ProductController.getAllProductDetails);
 router.get(
   '/get-featured-products',
   ProductController.getProductByQuantitySold

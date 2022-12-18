@@ -21,6 +21,17 @@ class ProductController {
       res.status(400).send(error);
     }
   }
+  async getAllProductDetails(req, res) {
+    try {
+      const productDetails = await ProductDetail.findAll({
+        offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
+        limit: PAGE_LIMIT,
+      });
+      res.status(200).send(productDetails);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
   // doPost
   async addProduct(req, res) {
     try {
