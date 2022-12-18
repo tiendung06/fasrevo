@@ -11,6 +11,9 @@ import { addProduct, productDetail } from '../../../src/constants/constants';
 
 const ProductReport = () => {
   const [product, setProduct] = useState();
+
+  const [currentModalId, setCurrentModalId] = useState();
+
   useEffect(() => {
     axios.get(productDetail.getAllProduct(1)).then((resp) => {
       setProduct(resp.data);
@@ -67,7 +70,13 @@ const ProductReport = () => {
 
     console.log({ image: formData.get('image') });
 
-    axios.post(addProduct, formData);
+    axios.post(addProduct, formData).then((res) => {
+      if (res.status === 200 && res.data.status === 1) {
+        console.log(res.data);
+        document.querySelector(`#modal-${currentModalId}-close-button`).click();
+        setCurrentModalId(undefined);
+      }
+    });
     console.log(formData);
   };
   return (
@@ -110,7 +119,13 @@ const ProductReport = () => {
             aria-labelledby="exampleModalLabel"
             title="Thêm sản phẩm"
           >
-            <form onSubmit={formik.handleSubmit}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setCurrentModalId('exampleModal');
+                formik.handleSubmit();
+              }}
+            >
               <Input
                 type="text"
                 name="pname"
@@ -303,7 +318,13 @@ const ProductReport = () => {
                             aria-labelledby="updateProductLabel"
                             title="Chỉnh sửa chi tiết sản phẩm"
                           >
-                            <form onSubmit={formik.handleSubmit}>
+                            <form
+                              onSubmit={(e) => {
+                                e.preventDefault();
+                                setCurrentModalId('updateProduct');
+                                formik.handleSubmit();
+                              }}
+                            >
                               <Input
                                 type="text"
                                 name="pname"
