@@ -7,7 +7,11 @@ import Select from '../../../src/components/Select';
 import Main from '../../../src/layout/admin/Main';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { addProduct, productDetail } from '../../../src/constants/constants';
+import {
+  addProduct,
+  productDetail,
+  updateProduct,
+} from '../../../src/constants/constants';
 import Checkbox from '../../../src/components/Checkbox';
 
 const ProductReport = () => {
@@ -113,7 +117,7 @@ const ProductReport = () => {
     const modalId = isUpdate ? 'updateProduct' : 'exampleModal';
 
     if (isUpdate) {
-      axios.put(addProduct, formData).then((res) => {
+      axios.put(updateProduct, formData).then((res) => {
         if (res.status === 200 && res.data.status === 1) {
           console.log(res.data);
           document.querySelector(`#modal-${modalId}-close-button`).click();

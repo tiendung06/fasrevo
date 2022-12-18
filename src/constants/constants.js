@@ -9,6 +9,7 @@ const productDetails = `${serverDomain}/product-detail`;
 const product = `${serverDomain}/product`;
 const collection = `${serverDomain}/collections`;
 const addProduct = `${serverDomain}/product/add-product`;
+const updateProduct = `${serverDomain}/product/update-product`;
 const userEditPassword = `${serverDomain}/user/update-pass-email`;
 const getCart = `${serverDomain}/cart/get`;
 const addCart = `${serverDomain}/cart/add`;
@@ -75,4 +76,5 @@ export {
   addCart,
   featured_product,
   updateQuantity,
+  updateProduct,
 };
