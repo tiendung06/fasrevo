@@ -14,7 +14,7 @@ import Button from '../../src/components/Button/index.js';
 const SignIn = () => {
   const [message, setMessage] = useState();
   const [loading, setLoading] = useState(false);
-  const authenticated = useSelector((state) => state.auth.authenticated);
+  const { authenticated, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
   const handleSubmit = async (values) => {
@@ -36,8 +36,12 @@ const SignIn = () => {
   };
 
   if (typeof window !== 'undefined') {
-    if (authenticated) {
-      router.push('/account/my-order');
+    if (authenticated && user) {
+      if (user.role === 1) {
+        router.push('/admin');
+      } else {
+        router.push('/account/my-order');
+      }
     }
   }
   const formik = useFormik({

@@ -1,13 +1,32 @@
+import axios from 'axios';
+import { useRouter } from 'next/router';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setAuthenticated, setUser } from '../../../../redux/authSlide';
+import { logout } from '../../../constants/constants';
 
 const Header = () => {
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+
+  const handleSignOut = () => {
+    if (typeof window !== 'undefined') {
+      axios.get(logout).then((res) => {
+        dispatch(setAuthenticated(false));
+        dispatch(setUser(null));
+        router.push('/');
+      });
+    }
+  };
+
   return (
-    <header className='w-full h-20 bg-white shadow-sm'>
-      <div className='flex justify-end items-center h-full px-5'>
+    <header className="w-full h-20 bg-white shadow-sm">
+      <div className="flex justify-end items-center h-full px-5">
         <div>
-          <div className='dropdown relative'>
+          <div className="dropdown relative">
             <button
-              className='
+              className="
           dropdown-toggle
           px-6
           py-2.5
@@ -20,31 +39,31 @@ const Header = () => {
           flex
           items-center
           whitespace-nowrap
-        '
-              type='button'
-              id='dropdownMenuButton1'
-              data-bs-toggle='dropdown'
-              aria-expanded='false'
+        "
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
               Admin
               <svg
-                aria-hidden='true'
-                focusable='false'
-                data-prefix='fas'
-                data-icon='caret-down'
-                className='w-2 ml-2'
-                role='img'
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 320 512'
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="caret-down"
+                className="w-2 ml-2"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
               >
                 <path
-                  fill='currentColor'
-                  d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'
+                  fill="currentColor"
+                  d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
                 ></path>
               </svg>
             </button>
             <ul
-              className='
+              className="
           dropdown-menu
           min-w-max
           absolute
@@ -62,12 +81,12 @@ const Header = () => {
           m-0
           bg-clip-padding
           border-none
-        '
-              aria-labelledby='dropdownMenuButton1'
+        "
+              aria-labelledby="dropdownMenuButton1"
             >
-              <li>
+              <li onClick={handleSignOut}>
                 <a
-                  className='
+                  className="
               dropdown-item
               text-sm
               py-2
@@ -79,8 +98,8 @@ const Header = () => {
               bg-transparent
               text-primary_red
               hover:bg-gray-100
-            '
-                  href='#'
+            "
+                  href="#"
                 >
                   Đăng xuất
                 </a>
