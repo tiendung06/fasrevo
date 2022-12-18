@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import store from '../redux/configureStore';
+import Auth from '../src';
 import '../styles/globals.scss';
 
-function MyApp({ Component, pageProps }) {
+function MyApp(props) {
   useEffect(() => {
     const use = async () => {
       (await import('tw-elements')).default;
@@ -12,7 +13,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <Auth {...props} />
     </Provider>
   );
 }

@@ -2,7 +2,7 @@ import appRootPath from 'app-root-path';
 
 // TienDzung
 const mySqlConfig = {
-  host: '192.168.0.109',
+  host: 'localhost',
   port: 3306,
   user: 'root',
   password: '123456',
