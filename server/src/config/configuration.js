@@ -2,7 +2,7 @@ import appRootPath from 'app-root-path';
 
 // TienDzung
 const mySqlConfig = {
-  host: 'localhost',
+  host: '192.168.0.109',
   port: 3306,
   user: 'root',
   password: '123456',
@@ -87,7 +87,7 @@ const PORT = 3030;
 const TOKEN_SECRET = 'fasrevo6789';
 
 const PATH = appRootPath + '/src/public/images';
-const IMAGE_URL = process.env.SERVER_HOST + '/image';
+const IMAGE_URL = '/image';
 
 const vnpay = {
   VNP_TMNCODE: 'YE3SQLHZ',

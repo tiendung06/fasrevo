@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 import SectionHeading from '../SectionHeading';
 import axios from 'axios';
 import { featured_product } from '../../constants/constants';
+import { getImageUrl } from '../../helpers';
 
 const FeaturedProduct = () => {
   const [featuredProduct, setFeaturedProduct] = useState();
@@ -35,7 +36,7 @@ const FeaturedProduct = () => {
                 key={pid}
                 id={pid}
                 title={pname}
-                image={image}
+                image={getImageUrl(image)}
                 basePrice={cost}
                 discount={isDiscount}
                 specialPrice={discount}

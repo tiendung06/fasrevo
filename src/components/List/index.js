@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../Card';
 import ReactPaginate from 'react-paginate';
 import Filter from '../Filter';
+import { getImageUrl } from '../../helpers';
 
 const List = ({ productItems, reload, totalPageNumber }) => {
   const [page, setPage] = useState(1);
@@ -27,7 +28,7 @@ const List = ({ productItems, reload, totalPageNumber }) => {
                 key={pid}
                 id={pid}
                 title={pname}
-                image={image}
+                image={getImageUrl(image)}
                 basePrice={cost}
                 discount={isDiscount}
                 specialPrice={discount}

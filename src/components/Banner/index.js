@@ -8,6 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import axios from 'axios';
 import { collections } from '../../constants/constants';
+import { getImageUrl } from '../../helpers';
 
 const Banner = () => {
   const [collection, setCollection] = useState();
@@ -51,7 +52,7 @@ function BannerItem({ image, heading, id, name }) {
     <div className="w-full h-screen max-h-[700px] relative overflow-hidden bg-black">
       <picture>
         <img
-          src={image || './images/banner1.webp'}
+          src={getImageUrl(image) || './images/banner1.webp'}
           alt=""
           className="w-full h-full object-cover opacity-95"
         />
