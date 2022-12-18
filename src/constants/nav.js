@@ -26,7 +26,7 @@ export const nav = [
       },
       {
         title: 'Accessory',
-        path: '/men/products/accessory',
+        path: '/men/accessory',
         subMenu: [
           { title: 'Mũ', path: '/men/accessory/hat' },
           { title: 'Túi xách', path: '/men/accessory/bag' },

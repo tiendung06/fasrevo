@@ -67,12 +67,12 @@ const Accessory = () => {
             />
           </svg>
           <Link href="/collections">
-            <a className="font-bold pl-2 lg:pl-3 text-primary_red">Bottom</a>
+            <a className="font-bold pl-2 lg:pl-3 text-primary_red">Accessory</a>
           </Link>
         </div>
-        <SectionHeading>Bottom</SectionHeading>
+        <SectionHeading>Accessory</SectionHeading>
         <List
-          productItems={bottom}
+          productItems={accessory}
           reload={(pageNumber) => init(pageNumber)}
           totalPageNumber={totalPageNumber}
         />

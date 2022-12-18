@@ -10,10 +10,11 @@ import axios from 'axios';
 import { getCart, updateQuantity } from '../../src/constants/constants';
 import { useSelector } from 'react-redux';
 import { getImageUrl } from '../../src/helpers';
+import { useRouter } from 'next/router';
 
 const Cart = () => {
-  const user = useSelector((state) => state.auth.user);
-
+  const { authenticated, user } = useSelector((state) => state.auth);
+  const router = useRouter();
   const [products, setProducts] = useState([]);
 
   const [subtotal, setSubtotal] = useState(0);
@@ -39,6 +40,12 @@ const Cart = () => {
       init();
     }
   }, [user]);
+
+  if (typeof window !== 'undefined') {
+    if (!authenticated) {
+      router.push('/sign-in');
+    }
+  }
 
   return (
     <Main heading="Giỏ hàng">
