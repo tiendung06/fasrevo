@@ -8,8 +8,8 @@ import Link from 'next/link';
 import List from '../../../src/components/List';
 import { searchItem } from '../../../src/constants/constants';
 
-const Top = () => {
-  const [top, setTop] = useState([]);
+const Accessory = () => {
+  const [accessory, setAccessory] = useState([]);
   const [totalPageNumber, setTotalPageNumber] = useState(1);
 
   useEffect(() => {
@@ -18,16 +18,16 @@ const Top = () => {
 
   const init = (pageNumber = 1) => {
     axios
-      .get(searchItem.getSearchByCid(pageNumber, 1))
+      .get(searchItem.getSearchByCid(pageNumber, 2))
       .then((resp) => {
-        setTop(resp.data);
+        setAccessory(resp.data);
         setTotalPageNumber(resp.data.totalPageNumber);
       })
       .catch((e) => {});
   };
 
   return (
-    <Main heading="Thời trang nam | Top">
+    <Main heading="Thời trang nam | Bottom">
       <Section>
         <div className="flex items-center pt-10 pb-5 text-xs md:text-sm">
           <Link href="/">
@@ -67,12 +67,12 @@ const Top = () => {
             />
           </svg>
           <Link href="/collections">
-            <a className="font-bold pl-2 lg:pl-3 text-primary_red">Top</a>
+            <a className="font-bold pl-2 lg:pl-3 text-primary_red">Bottom</a>
           </Link>
         </div>
-        <SectionHeading>Top</SectionHeading>
+        <SectionHeading>Bottom</SectionHeading>
         <List
-          productItems={top}
+          productItems={bottom}
           reload={(pageNumber) => init(pageNumber)}
           totalPageNumber={totalPageNumber}
         />
@@ -81,4 +81,4 @@ const Top = () => {
   );
 };
 
-export default Top;
+export default Accessory;

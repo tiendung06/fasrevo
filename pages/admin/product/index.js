@@ -67,10 +67,7 @@ const ProductReport = () => {
 
     console.log({ image: formData.get('image') });
 
-    fetch(addProduct, {
-      method: 'POST',
-      body: formData,
-    });
+    axios.post(addProduct, formData);
     console.log(formData);
   };
   return (

@@ -21,7 +21,6 @@ const Bottom = () => {
       .get(searchItem.getSearchByCid(pageNumber, 2))
       .then((resp) => {
         setBottom(resp.data);
-        console.log(resp.data);
         setTotalPageNumber(resp.data.totalPageNumber);
       })
       .catch((e) => {});
@@ -48,7 +47,7 @@ const Bottom = () => {
               d="M8.25 4.5l7.5 7.5-7.5 7.5"
             />
           </svg>
-          <Link href="/collections">
+          <Link href="/men">
             <a className="font-medium px-2 lg:px-3 text-header">
               Thời trang nam
             </a>
