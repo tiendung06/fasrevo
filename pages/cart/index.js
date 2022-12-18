@@ -8,9 +8,10 @@ import Select from '../../src/components/Select';
 import Link from 'next/link';
 import axios from 'axios';
 import { getCart, updateQuantity } from '../../src/constants/constants';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getImageUrl } from '../../src/helpers';
 import { useRouter } from 'next/router';
+import { setCartQuantity } from '../../redux/cartSlide';
 
 const Cart = () => {
   const { authenticated, user } = useSelector((state) => state.auth);
@@ -22,11 +23,12 @@ const Cart = () => {
   const [colorList, setColorList] = useState([]);
 
   const [sizeList, setSizeList] = useState([]);
-
+  const { cart } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const init = () => {
     axios.post(getCart, { uid: user.uid }).then((res) => {
       setProducts(res.data.carts);
-
+      dispatch(setCartQuantity(res.data.carts.length));
       setSubtotal(res.data.subtotal);
 
       setColorList(res.data.colorList);
@@ -34,7 +36,7 @@ const Cart = () => {
       setSizeList(res.data.sizeList);
     });
   };
-
+  console.log(cart);
   useEffect(() => {
     if (user) {
       init();

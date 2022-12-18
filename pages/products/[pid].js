@@ -7,7 +7,7 @@ import Section from '../../src/layout/Section';
 import Button from '../../src/components/Button';
 import { addCart, productDetail } from '../../src/constants/constants';
 import { useSelector } from 'react-redux';
-import { getImageUrl } from '../../src/helpers';
+import { getImageUrl, getPrice } from '../../src/helpers';
 
 const ProductDetails = () => {
   const [product, setProduct] = useState();
@@ -161,11 +161,15 @@ const ProductDetails = () => {
                       : 'text-base md:text-lg font-medium text-primary_red'
                   }  mr-4`}
                 >
-                  {product?.cost}
+                  {getPrice(
+                    product?.discount,
+                    product?.cost,
+                    product?.isDiscount
+                  )}
                 </span>
-                <span className="text-base md:text-lg font-medium text-primary_red">
+                {/* <span className="text-base md:text-lg font-medium text-primary_red">
                   {product?.discount}
-                </span>
+                </span> */}
               </div>
               <p className="pb-5 text-sm md:text-base">
                 {productDetails?.description}
@@ -263,13 +267,13 @@ const ProductDetails = () => {
                   Mã sản phẩm: {product?.pid}
                 </p>
                 <p className="text-sm md:text-base pb-1">
-                  Nguồn gốc: {productDetail?.origin}
+                  Nguồn gốc: {productDetails?.origin}
                 </p>
                 <p className="text-sm md:text-base pb-1">
-                  Chất liệu: {productDetail?.texture}
+                  Chất liệu: {productDetails?.texture}
                 </p>
                 <p className="text-sm md:text-base pb-1">
-                  Chi tiết nhỏ: {productDetail?.small_detail}
+                  Chi tiết nhỏ: {productDetails?.small_detail}
                 </p>
               </div>
             </div>

@@ -8,6 +8,7 @@ import Main from '../../../src/layout/admin/Main';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { addProduct, productDetail } from '../../../src/constants/constants';
+import Checkbox from '../../../src/components/Checkbox';
 
 const ProductReport = () => {
   const [product, setProduct] = useState();
@@ -66,7 +67,11 @@ const ProductReport = () => {
     formData.append('inStoke', values.inStoke);
     formData.append('quantity_sold', 0);
     formData.append('isDiscount', values.isDiscount);
-    formData.append('discount', values.discount);
+    formData.append('discount', values.isDiscount === 1 ? values.discount : 0);
+    formData.append('origin', values.origin);
+    formData.append('texture', values.texture);
+    formData.append('description', values.description);
+    formData.append('small_detail', values.small_detail);
 
     console.log({ image: formData.get('image') });
 
@@ -142,6 +147,25 @@ const ProductReport = () => {
                 value={formik.values.cost}
                 onChange={formik.handleChange}
               />
+
+              <Checkbox
+                name={'isDiscount'}
+                label={'Giảm giá'}
+                values={formik.values.isDiscount}
+                onChange={(e) => {
+                  formik.setFieldValue('isDiscount', e.target.checked ? 1 : 0);
+                }}
+              />
+              {Boolean(formik.values.isDiscount) && (
+                <Input
+                  type="text"
+                  name="discount"
+                  label="Giảm giá"
+                  placeholder="Nhập phần trăm giảm giá*"
+                  value={formik.values.discount}
+                  onChange={formik.handleChange}
+                />
+              )}
               <Select
                 label="Màu sắc"
                 name="color_id"

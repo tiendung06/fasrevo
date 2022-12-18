@@ -5,3 +5,7 @@ export const getImageUrl = (image) => {
     ? image
     : serverDomain + image;
 };
+
+export const getPrice = (discount, cost, isDiscount) => {
+  return Boolean(isDiscount) ? cost * ((100 - discount) / 100) : cost;
+};
