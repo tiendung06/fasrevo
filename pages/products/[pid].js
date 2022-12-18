@@ -7,6 +7,7 @@ import Section from '../../src/layout/Section';
 import Button from '../../src/components/Button';
 import { addCart, productDetail } from '../../src/constants/constants';
 import { useSelector } from 'react-redux';
+import { getImageUrl } from '../../src/helpers';
 
 const ProductDetails = () => {
   const [product, setProduct] = useState();
@@ -138,7 +139,7 @@ const ProductDetails = () => {
             <div className="h-full max-h-[870px]">
               <picture>
                 <img
-                  src={product?.image}
+                  src={getImageUrl(product?.image)}
                   alt=""
                   className="w-full h-full object-cover"
                 />

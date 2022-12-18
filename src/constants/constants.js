@@ -1,19 +1,19 @@
-const domain = process.env.SERVER_HOST;
-const authenticate = `${domain}/auth`;
-const login = `${domain}/auth/login`;
-const logout = `${domain}/auth/logout`;
-const register = `${domain}/auth/register`;
-const demo = `${domain}/demo`;
-const search = `${domain}/search`;
-const productDetails = `${domain}/product-detail`;
-const product = `${domain}/product`;
-const collection = `${domain}/collections`;
-const addProduct = `${domain}/product/add-product`;
-const userEditPassword = `${domain}/user/update-pass-email`;
-const getCart = `${domain}/cart/get`;
-const addCart = `${domain}/cart/add`;
-const featured_product = `${domain}/product/get-featured-products?page=1`;
-const updateQuantity = `${domain}/cart/update-quantity`;
+const serverDomain = process.env.SERVER_HOST;
+const authenticate = `${serverDomain}/auth`;
+const login = `${serverDomain}/auth/login`;
+const logout = `${serverDomain}/auth/logout`;
+const register = `${serverDomain}/auth/register`;
+const demo = `${serverDomain}/demo`;
+const search = `${serverDomain}/search`;
+const productDetails = `${serverDomain}/product-detail`;
+const product = `${serverDomain}/product`;
+const collection = `${serverDomain}/collections`;
+const addProduct = `${serverDomain}/product/add-product`;
+const userEditPassword = `${serverDomain}/user/update-pass-email`;
+const getCart = `${serverDomain}/cart/get`;
+const addCart = `${serverDomain}/cart/add`;
+const featured_product = `${serverDomain}/product/get-featured-products?page=1`;
+const updateQuantity = `${serverDomain}/cart/update-quantity`;
 const searchItem = {
   getCollection: (page = 1, collection_id) =>
     `${search}/search-by-collection?page=${page}&collection_id=${collection_id}`,
@@ -47,8 +47,8 @@ const searchItem = {
 };
 const productDetail = {
   getProductDetail: (pid) => `${productDetails}/get-pid?pid=${pid}`,
-  getAllProduct: () => `${domain}/product/get-all?page=1`,
-  addProduct: () => `${domain}/product/add-product`,
+  getAllProduct: () => `${serverDomain}/product/get-all?page=1`,
+  addProduct: () => `${serverDomain}/product/add-product`,
 };
 const collections = {
   getAllCollections: () => `${collection}/get-collections`,
@@ -59,6 +59,7 @@ const products = {
   getProductsByCid: (page = 1, cid) => `${product}/get-cid?cid=${cid}&page=1`,
 };
 export {
+  serverDomain,
   login,
   demo,
   register,

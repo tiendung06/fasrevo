@@ -2,6 +2,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { collections } from '../../constants/constants';
+import { getImageUrl } from '../../helpers';
 import Section from '../../layout/Section';
 import SectionHeading from '../SectionHeading';
 import styles from './collections.module.scss';
@@ -29,7 +30,7 @@ const Collections = () => {
                 <div className="h-full overflow-hidden">
                   <picture>
                     <img
-                      src={collection_image}
+                      src={getImageUrl(collection_image)}
                       alt={collection_name}
                       className="w-full h-full object-cover transition-all"
                     />

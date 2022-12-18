@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Aos from 'aos';
 import styles from './categoryDetails.module.scss';
 import 'aos/dist/aos.css';
+import { getImageUrl } from '../../helpers';
 
 const CategoryDetails = ({ gender = 'male' }) => {
   useEffect(() => {
@@ -10,12 +11,12 @@ const CategoryDetails = ({ gender = 'male' }) => {
   }, []);
 
   return (
-    <div className='grid gap-5 grid-cols-2 md:grid-cols-3' data-aos='fade-up'>
+    <div className="grid gap-5 grid-cols-2 md:grid-cols-3" data-aos="fade-up">
       <CategoryDetailsItems
         image={`${
           gender === 'male' ? './images/top.webp' : './images/top_women.webp'
         }`}
-        type='Top'
+        type="Top"
         link={`${gender === 'male' ? '/men/top' : '/women/top'}`}
       />
       <CategoryDetailsItems
@@ -24,7 +25,7 @@ const CategoryDetails = ({ gender = 'male' }) => {
             ? './images/bottom.webp'
             : './images/bottom_women.webp'
         }`}
-        type='Bottom'
+        type="Bottom"
         link={`${gender === 'male' ? '/men/bottom' : '/women/bottom'}`}
       />
       <CategoryDetailsItems
@@ -33,7 +34,7 @@ const CategoryDetails = ({ gender = 'male' }) => {
             ? './images/accessory.webp'
             : './images/accessory_women.webp'
         }`}
-        type='Accessory'
+        type="Accessory"
         link={`${gender === 'male' ? '/men/accessory' : '/women/accessory'}`}
       />
     </div>
@@ -48,13 +49,13 @@ function CategoryDetailsItems({ link, image, type }) {
       >
         <picture>
           <img
-            src={image}
-            alt=''
-            className='w-full h-full object-cover opacity-80 transition-all'
+            src={getImageUrl(image)}
+            alt=""
+            className="w-full h-full object-cover opacity-80 transition-all"
           />
         </picture>
-        <div className='absolute top-0 bottom-0 right-0 left-0 w-full h-full flex items-center justify-center'>
-          <span className='text-white text-3xl lg:text-4xl font-bold uppercase'>
+        <div className="absolute top-0 bottom-0 right-0 left-0 w-full h-full flex items-center justify-center">
+          <span className="text-white text-3xl lg:text-4xl font-bold uppercase">
             {type}
           </span>
         </div>

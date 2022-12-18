@@ -5,6 +5,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthenticated, setUser } from '../../../redux/authSlide';
 import { logout } from '../../constants/constants';
+import { getImageUrl } from '../../helpers';
 
 const AccountMenu = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const AccountMenu = () => {
       <div className="w-full flex justify-center">
         <picture>
           <img
-            src={user?.image || '../images/product1.webp'}
+            src={getImageUrl(user?.image) || '../images/product1.webp'}
             alt=""
             className="w-[100px] h-[100px] lg:w-[200px] lg:h-[200px] object-cover rounded-full shadow-lg"
           />

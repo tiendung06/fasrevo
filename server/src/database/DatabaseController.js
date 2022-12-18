@@ -19,6 +19,7 @@ import Report from '../model/Report.js';
 import DeliveryStatus from '../model/DeliveryStatus.js';
 import ProductColor from '../model/ProductColor.js';
 import ProductSize from '../model/ProductSize.js';
+import { IMAGE_URL } from '../config/configuration.js';
 
 try {
   await sequelize.authenticate();
@@ -63,22 +64,22 @@ try {
   await Collection.sync({ alter: true });
   await Collection.create({
     collection_name: 'Winter collection',
-    collection_image: process.env.SERVER_HOST + '/image/image1669538193645.jpg',
+    collection_image: IMAGE_URL + '/image1669538193645.jpg',
     heading: 'Bộ sưu tập dành cho mùa đông',
   });
   await Collection.create({
     collection_name: 'Spring collection',
-    collection_image: process.env.SERVER_HOST + '/image/image1669198193645.jpg',
+    collection_image: IMAGE_URL + '/image1669198193645.jpg',
     heading: 'Bộ sưu tập dành cho mùa xuân',
   });
   await Collection.create({
     collection_name: 'Summer collection',
-    collection_image: process.env.SERVER_HOST + '/image/image1669198191234.jpg',
+    collection_image: IMAGE_URL + '/image1669198191234.jpg',
     heading: 'Bộ sưu tập dành cho mùa hè',
   });
   await Collection.create({
     collection_name: 'Fall collection',
-    collection_image: process.env.SERVER_HOST + '/image/image1249538103645.jpg',
+    collection_image: IMAGE_URL + '/image1249538103645.jpg',
     heading: 'Bộ sưu tập dành cho mùa thu',
   });
   // create Role

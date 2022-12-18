@@ -9,6 +9,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { getCart, updateQuantity } from '../../src/constants/constants';
 import { useSelector } from 'react-redux';
+import { getImageUrl } from '../../src/helpers';
 
 const Cart = () => {
   const user = useSelector((state) => state.auth.user);
@@ -130,7 +131,7 @@ function CartItem({ product, color, size, reload }) {
           <div className="h-full flex">
             <picture>
               <img
-                src={product.image}
+                src={getImageUrl(product.image)}
                 alt=""
                 className="w-full min-w-[100px] h-full object-cover"
               />

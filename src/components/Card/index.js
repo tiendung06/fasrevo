@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { getImageUrl } from '../../helpers';
 import styles from './card.module.scss';
 
 const Card = ({
@@ -17,7 +18,7 @@ const Card = ({
         <div className="w-full h-60 md:h-80 bg-slate-400 overflow-hidden">
           <picture>
             <img
-              src={image}
+              src={getImageUrl(image)}
               alt={title}
               className="object-cover w-full h-full transition-all"
             />
