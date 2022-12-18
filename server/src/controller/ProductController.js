@@ -107,6 +107,17 @@ class ProductController {
     }
   }
 
+  async getProductByCid(req, res) {
+    try {
+      const products = await Product.findAll({
+        where: { cid: req.body.cid },
+      });
+      res.status(200).send({ products: products });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
   // doPut
   async updateProduct(req, res) {
     try {

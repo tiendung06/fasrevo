@@ -5,7 +5,8 @@ const logout = `${domain}/auth/logout`;
 const register = `${domain}/auth/register`;
 const demo = `${domain}/demo`;
 const search = `${domain}/search`;
-const product = `${domain}/product-detail`;
+const productDetails = `${domain}/product-detail`;
+const product = `${domain}/product`;
 const collection = `${domain}/collections`;
 const addProduct = `${domain}/product/add-product`;
 const userEditPassword = `${domain}/user/update-pass-email`;
@@ -45,7 +46,7 @@ const searchItem = {
     `${search}/filter?page=${page}&sex_id=${sex_id}&cid=${cid}&cdid=${cdid}&collection_id=${collection_id}&color_id=${color_id}&size_id=${size_id}`,
 };
 const productDetail = {
-  getProductDetail: (pid) => `${product}/get-pid?pid=${pid}`,
+  getProductDetail: (pid) => `${productDetails}/get-pid?pid=${pid}`,
   getAllProduct: () => `${domain}/product/get-all?page=1`,
   addProduct: () => `${domain}/product/add-product`,
 };
@@ -53,6 +54,9 @@ const collections = {
   getAllCollections: () => `${collection}/get-collections`,
   getCollectionDetails: (collection_id) =>
     `${collection}/get-collection-details?collection_id=${collection_id}`,
+};
+const products = {
+  getProductsByCid: (page = 1, cid) => `${product}/get-cid?cid=${cid}&page=1`,
 };
 export {
   login,

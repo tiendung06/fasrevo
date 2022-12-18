@@ -87,7 +87,6 @@ const ProductReport = () => {
             name=""
             id=""
             className="border-border_input border outline-none h-10 text-sm text-header rounded-lg px-5"
-            value={formik.values.cid}
           >
             <option value="">Áo</option>
             <option value="">Quần</option>
@@ -131,33 +130,53 @@ const ProductReport = () => {
                 value={formik.values.cost}
                 onChange={formik.handleChange}
               />
-              <Select label="Màu sắc" onChange={formik.handleChange}>
-                <option value="1">Hồng</option>
-                <option value="2">Đen</option>
-                <option value="3">Trắng</option>
+              <Select
+                label="Màu sắc"
+                name="color_id"
+                value={formik.values.color_id}
+                onChange={formik.handleChange}
+              >
+                <option value={1}>Hồng</option>
+                <option value={2}>Đen</option>
+                <option value={3}>Trắng</option>
               </Select>
-              <Select label="Kích thước" onChange={formik.handleChange}>
-                <option value="1">S</option>
-                <option value="2">M</option>
-                <option value="3">L</option>
-                <option value="4">XL</option>
+              <Select
+                label="Kích thước"
+                name="size_id"
+                value={formik.values.size_id}
+                onChange={formik.handleChange}
+              >
+                <option value={1}>S</option>
+                <option value={2}>M</option>
+                <option value={3}>L</option>
+                <option value={4}>XL</option>
               </Select>
-              <Select label="Danh mục" onChange={formik.handleChange}>
-                <option value="1">Top</option>
-                <option value="2">Bottom</option>
-                <option value="3">Accessory</option>
+              <Select
+                label="Danh mục"
+                name="cid"
+                value={formik.values.cid}
+                onChange={formik.handleChange}
+              >
+                <option value={1}>Top</option>
+                <option value={2}>Bottom</option>
+                <option value={3}>Accessory</option>
               </Select>
-              <Select label="Chi tiết danh mục" onChange={formik.handleChange}>
-                <option value="1">Hoddie</option>
-                <option value="2">Phông</option>
-                <option value="3">Sơ mi</option>
-                <option value="4">Khoác</option>
-                <option value="5">Dài</option>
-                <option value="6">Bò</option>
-                <option value="7">Short</option>
-                <option value="8">Mũ</option>
-                <option value="9">Túi xách</option>
-                <option value="10">Dây chuyền</option>
+              <Select
+                label="Chi tiết danh mục"
+                name="cdid"
+                value={formik.values.cdid}
+                onChange={formik.handleChange}
+              >
+                <option value={1}>Hoddie</option>
+                <option value={2}>Phông</option>
+                <option value={3}>Sơ mi</option>
+                <option value={4}>Khoác</option>
+                <option value={5}>Dài</option>
+                <option value={6}>Bò</option>
+                <option value={7}>Short</option>
+                <option value={8}>Mũ</option>
+                <option value={9}>Túi xách</option>
+                <option value={'10'}>Dây chuyền</option>
               </Select>
               <Input
                 type="text"
@@ -175,11 +194,16 @@ const ProductReport = () => {
                 value={formik.values.description}
                 onChange={formik.handleChange}
               />
-              <Select label="Bộ sưu tập" onChange={formik.handleChange}>
-                <option value="1">Bộ sưu tập mùa đông</option>
-                <option value="2">Bộ sưu tập mùa thu</option>
-                <option value="3">Bộ sưu tập mùa hè</option>
-                <option value="4">Bộ sưu tập mùa xuân</option>
+              <Select
+                label="Bộ sưu tập"
+                name="collection_id"
+                value={formik.values.collection_id}
+                onChange={formik.handleChange}
+              >
+                <option value={1}>Bộ sưu tập mùa đông</option>
+                <option value={2}>Bộ sưu tập mùa thu</option>
+                <option value={3}>Bộ sưu tập mùa hè</option>
+                <option value={4}>Bộ sưu tập mùa xuân</option>
               </Select>
               <Input
                 type="textarea"
@@ -299,16 +323,24 @@ const ProductReport = () => {
                                 value={formik.values.cost}
                                 onChange={formik.handleChange}
                               />
-                              <Select label="Màu sắc">
-                                <option value="1">Hồng</option>
-                                <option value="2">Đen</option>
-                                <option value="3">Trắng</option>
+                              <Select
+                                label="Màu sắc"
+                                value={formik.values.color_id}
+                                onChange={formik.handleChange}
+                              >
+                                <option value={1}>Hồng</option>
+                                <option value={2}>Đen</option>
+                                <option value={3}>Trắng</option>
                               </Select>
-                              <Select label="Kích thước">
-                                <option value="1">S</option>
-                                <option value="2">M</option>
-                                <option value="3">L</option>
-                                <option value="4">XL</option>
+                              <Select
+                                label="Kích thước"
+                                value={formik.values.size_id}
+                                onChange={formik.handleChange}
+                              >
+                                <option value={1}>S</option>
+                                <option value={2}>M</option>
+                                <option value={3}>L</option>
+                                <option value={4}>XL</option>
                               </Select>
                               <Select
                                 label="Danh mục"
@@ -319,17 +351,21 @@ const ProductReport = () => {
                                 <option value="2">Bottom</option>
                                 <option value="3">Accessory</option>
                               </Select>
-                              <Select label="Chi tiết danh mục">
-                                <option value="1">Hoddie</option>
-                                <option value="2">Phông</option>
-                                <option value="3">Sơ mi</option>
-                                <option value="4">Khoác</option>
-                                <option value="5">Dài</option>
-                                <option value="6">Bò</option>
-                                <option value="7">Short</option>
-                                <option value="8">Mũ</option>
-                                <option value="9">Túi xách</option>
-                                <option value="10">Dây chuyền</option>
+                              <Select
+                                label="Chi tiết danh mục"
+                                values={formik.values.cdid}
+                                onChange={formik.handleChange}
+                              >
+                                <option value={1}>Hoddie</option>
+                                <option value={2}>Phông</option>
+                                <option value={3}>Sơ mi</option>
+                                <option value={4}>Khoác</option>
+                                <option value={5}>Dài</option>
+                                <option value={6}>Bò</option>
+                                <option value={7}>Short</option>
+                                <option value={8}>Mũ</option>
+                                <option value={9}>Túi xách</option>
+                                <option value={10}>Dây chuyền</option>
                               </Select>
                               <Input
                                 type="text"
@@ -347,11 +383,15 @@ const ProductReport = () => {
                                 value={formik.values.description}
                                 onChange={formik.handleChange}
                               />
-                              <Select label="Bộ sưu tập">
-                                <option value="1">Bộ sưu tập mùa đông</option>
-                                <option value="2">Bộ sưu tập mùa thu</option>
-                                <option value="3">Bộ sưu tập mùa hè</option>
-                                <option value="4">Bộ sưu tập mùa xuân</option>
+                              <Select
+                                label="Bộ sưu tập"
+                                values={formik.values.collection_id}
+                                onChange={formik.handleChange}
+                              >
+                                <option value={1}>Bộ sưu tập mùa đông</option>
+                                <option value={2}>Bộ sưu tập mùa thu</option>
+                                <option value={3}>Bộ sưu tập mùa hè</option>
+                                <option value={4}>Bộ sưu tập mùa xuân</option>
                               </Select>
                               <Input
                                 type="textarea"

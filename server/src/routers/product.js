@@ -9,6 +9,7 @@ router.get(
   '/get-featured-products',
   ProductController.getProductByQuantitySold
 );
+router.get('/get-cid', ProductController.getProductByCid);
 router.post(
   '/add-product',
   upload.single('image'),
