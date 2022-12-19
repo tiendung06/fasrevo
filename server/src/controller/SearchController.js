@@ -47,7 +47,13 @@ class SearchController {
         offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
         limit: PAGE_LIMIT,
       });
-      res.status(200).send(products);
+
+      const count = await Product.count({
+        where: { cid: req.query.cid },
+      });
+
+      const totalPageNumber = Math.ceil(count / PAGE_LIMIT);
+      res.status(200).send({ products, totalPageNumber });
     } catch (error) {
       res.status(400).send(error);
     }

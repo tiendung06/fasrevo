@@ -18,9 +18,9 @@ const Accessory = () => {
 
   const init = (pageNumber = 1) => {
     axios
-      .get(searchItem.getSearchByCid(pageNumber, 2))
+      .get(searchItem.getSearchByCid(pageNumber, 3))
       .then((resp) => {
-        setAccessory(resp.data);
+        setAccessory(resp.data.products);
         setTotalPageNumber(resp.data.totalPageNumber);
       })
       .catch((e) => {});

@@ -20,7 +20,7 @@ const List = ({ productItems, reload, totalPageNumber }) => {
   return (
     <div>
       <Filter></Filter>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10 mb-10">
         {productItems &&
           productItems.map(
             ({ pid, cost, discount, image, isDiscount, pname }, index) => (
@@ -45,7 +45,7 @@ const List = ({ productItems, reload, totalPageNumber }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-4 h-4"
           >
             <path
               strokeLinecap="round"
@@ -64,7 +64,7 @@ const List = ({ productItems, reload, totalPageNumber }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-4 h-4"
           >
             <path
               strokeLinecap="round"

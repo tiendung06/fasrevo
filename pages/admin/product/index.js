@@ -489,27 +489,27 @@ const ProductReport = () => {
                                 label="Xuất xứ"
                                 name="origin"
                                 placeholder="Nhập xuất xứ sản phẩm"
-                                value={updateProductFormik.values.description}
+                                value={updateProductFormik.values.origin}
                                 onChange={updateProductFormik.handleChange}
                               />
                               <Input
                                 type="textarea"
                                 label="Chất liệu"
-                                name="origin"
+                                name="texture"
                                 placeholder="Nhập chất liệu sản phẩm"
-                                value={updateProductFormik.values.description}
+                                value={updateProductFormik.values.texture}
                                 onChange={updateProductFormik.handleChange}
                               />
                               <Input
                                 type="textarea"
                                 label="Chi tiết nhỏ"
-                                name="origin"
+                                name="small_detail"
                                 placeholder="Nhập chi tiết nhỏ (nếu có)"
-                                value={updateProductFormik.values.description}
+                                value={updateProductFormik.values.small_detail}
                                 onChange={updateProductFormik.handleChange}
                               />
                               <input type="file" className="image mb-5" />
-                              <Button type="submit">Thêm sản phẩm</Button>
+                              <Button type="submit">Cập nhật sản phẩm</Button>
                             </form>
                           </Modal>
                         </div>

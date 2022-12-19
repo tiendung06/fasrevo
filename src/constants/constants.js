@@ -6,7 +6,6 @@ const register = `${serverDomain}/auth/register`;
 const demo = `${serverDomain}/demo`;
 const search = `${serverDomain}/search`;
 const productDetails = `${serverDomain}/product-detail`;
-const product = `${serverDomain}/product`;
 const collection = `${serverDomain}/collections`;
 const addProduct = `${serverDomain}/product/add-product`;
 const updateProduct = `${serverDomain}/product/update-product`;
@@ -15,6 +14,7 @@ const getCart = `${serverDomain}/cart/get`;
 const addCart = `${serverDomain}/cart/add`;
 const featured_product = `${serverDomain}/product/get-featured-products?page=1`;
 const updateQuantity = `${serverDomain}/cart/update-quantity`;
+const getUser = `${serverDomain}/user/get-all`;
 const searchItem = {
   getCollection: (page = 1, collection_id) =>
     `${search}/search-by-collection?page=${page}&collection_id=${collection_id}`,
@@ -57,9 +57,6 @@ const collections = {
   getCollectionDetails: (collection_id) =>
     `${collection}/get-collection-details?collection_id=${collection_id}`,
 };
-const products = {
-  getProductsByCid: (page = 1, cid) => `${product}/get-cid?cid=${cid}&page=1`,
-};
 export {
   serverDomain,
   login,
@@ -77,4 +74,5 @@ export {
   featured_product,
   updateQuantity,
   updateProduct,
+  getUser,
 };

@@ -1,18 +1,14 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../database/mysql_db.js";
-import Role from "./Role.js";
-import Sex from "./Sex.js";
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../database/mysql_db.js';
+import Role from './Role.js';
+import Sex from './Sex.js';
 
-const User = sequelize.define("user", {
+const User = sequelize.define('user', {
   uid: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false,
-  },
-  image: {
-    type: DataTypes.TEXT,
-    allowNull: true,
   },
   // Họ và tên
   fullname: {
@@ -49,7 +45,7 @@ const User = sequelize.define("user", {
     allowNull: false,
     references: {
       model: Sex,
-      key: "sex_id",
+      key: 'sex_id',
     },
   },
   // quyền
@@ -58,7 +54,7 @@ const User = sequelize.define("user", {
     defaultValue: 0,
     references: {
       model: Role,
-      key: "role_id",
+      key: 'role_id',
     },
   },
 });

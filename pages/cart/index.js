@@ -23,7 +23,7 @@ const Cart = () => {
   const [colorList, setColorList] = useState([]);
 
   const [sizeList, setSizeList] = useState([]);
-  const { cart } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const init = () => {
     axios.post(getCart, { uid: user.uid }).then((res) => {
@@ -36,7 +36,7 @@ const Cart = () => {
       setSizeList(res.data.sizeList);
     });
   };
-  console.log(cart);
+
   useEffect(() => {
     if (user) {
       init();

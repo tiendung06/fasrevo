@@ -6,7 +6,9 @@ class UserController {
   //doGet
   async getAllUser(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({
+        where: { role: req.params.role == 1 },
+      });
       res.status(200).send({ users: users, status: status.OK });
     } catch (error) {
       res.status(400).send({ message: error, status: status.ERROR });

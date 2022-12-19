@@ -20,7 +20,7 @@ const Top = () => {
     axios
       .get(searchItem.getSearchByCid(pageNumber, 1))
       .then((resp) => {
-        setTop(resp.data);
+        setTop(resp.data.products);
         setTotalPageNumber(resp.data.totalPageNumber);
       })
       .catch((e) => {});
@@ -66,7 +66,7 @@ const Top = () => {
               d="M8.25 4.5l7.5 7.5-7.5 7.5"
             />
           </svg>
-          <Link href="/collections">
+          <Link href="/men/top">
             <a className="font-bold pl-2 lg:pl-3 text-primary_red">Top</a>
           </Link>
         </div>
