@@ -104,7 +104,10 @@ const SignUp = () => {
     if (formik.values.province > 0) {
       axios
         .get(
-          `https://vapi.vnappmob.com/api/province/district/${formik.values.province}`
+          `https://vapi.vnappmob.com/api/province/district/${formik.values.province}`,
+          {
+            withCredentials: false,
+          }
         )
         .then((resp) => {
           setArrayDistricts(resp.data.results);
@@ -116,7 +119,10 @@ const SignUp = () => {
     if (formik.values.district > 0) {
       axios
         .get(
-          `https://vapi.vnappmob.com/api/province/ward/${formik.values.district}`
+          `https://vapi.vnappmob.com/api/province/ward/${formik.values.district}`,
+          {
+            withCredentials: false,
+          }
         )
         .then((resp) => {
           setArrayWard(resp.data.results);

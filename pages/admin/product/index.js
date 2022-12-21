@@ -311,7 +311,13 @@ const ProductReport = () => {
               <Button type="submit">Thêm sản phẩm</Button>
             </form>
           </Modal>
-          <Button>Xuất báo cáo</Button>
+          <Button
+            onClick={() => {
+              alert('Tính năng hiện không khả dụng');
+            }}
+          >
+            Xuất báo cáo
+          </Button>
         </div>
         <div className="w-full overflow-x-auto">
           <table className="w-full my-5 shadow-sm">

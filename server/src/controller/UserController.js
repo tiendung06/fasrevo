@@ -31,7 +31,7 @@ class UserController {
         fullname: req.body.fullname,
         phone: req.body.phone,
         address: req.body.address,
-        image: req.file.filename,
+        // image: req.file.filename,
         sex: req.body.sex,
       });
       res

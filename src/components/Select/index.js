@@ -1,6 +1,15 @@
 import React from 'react';
 
-const Select = ({ label, name, children, defaultValue, onChange, value }) => {
+const Select = ({
+  label,
+  name,
+  children,
+  defaultValue,
+  onChange,
+  value,
+  touched,
+  error,
+}) => {
   return (
     <div className="w-full mb-5">
       <label htmlFor={name} className="text-sm font-medium">
@@ -16,6 +25,9 @@ const Select = ({ label, name, children, defaultValue, onChange, value }) => {
       >
         {children}
       </select>
+      {touched && error ? (
+        <div className="text-sm text-secondary_red">{error}</div>
+      ) : null}
     </div>
   );
 };

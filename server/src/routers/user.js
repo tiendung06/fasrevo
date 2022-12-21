@@ -10,7 +10,7 @@ router.get('/get-uid/:uid', verifyToken, UserController.getUserByUid);
 router.put(
   '/update/:uid',
   verifyToken,
-  upload.single('image'),
+  // upload.single('image'),
   UserController.updateUserByUid
 );
 router.put('/update-pass-email', UserController.updatePassByEmail);
