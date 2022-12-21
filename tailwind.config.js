@@ -21,6 +21,7 @@ module.exports = {
         border_input: '#0000001f',
         primary_blue: '#2563eb',
         admin_background: '#f2f4fc',
+        primary_green: '#56b846',
       },
     },
   },

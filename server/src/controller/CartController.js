@@ -85,14 +85,21 @@ class CartController {
           { where: { uid: uid, pid: pid, color_id, size_id } }
         );
 
-        res
-          .status(200)
-          .send({
-            message:
-              'Sản phẩm đã có trong giỏ và số lượng sản phẩm đã được cập nhật',
-            status: status.OK,
-          });
+        res.status(200).send({
+          message:
+            'Sản phẩm đã có trong giỏ và số lượng sản phẩm đã được cập nhật',
+          status: status.OK,
+        });
       }
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
+  async deleteCart(req, res) {
+    try {
+      await Cart.destroy({ where: { uid: req.body.uid, pid: req.body.pid } });
+      res.status(200).send({ message: 'Success', status: status.OK });
     } catch (error) {
       res.status(400).send(error);
     }

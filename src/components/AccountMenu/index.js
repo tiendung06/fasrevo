@@ -34,7 +34,7 @@ const AccountMenu = () => {
       <div className="w-full flex justify-center">
         <picture>
           <img
-            src={getImageUrl(user?.image) || '../images/product1.webp'}
+            src={user?.image ? getImageUrl(user?.image) : '../images/error.jpg'}
             alt=""
             className="w-[100px] h-[100px] lg:w-[200px] lg:h-[200px] object-cover rounded-full shadow-lg"
           />

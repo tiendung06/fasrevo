@@ -66,6 +66,9 @@ const Profile = () => {
       })
       .then((resp) => {
         setArrayProvince(resp.data.results);
+      })
+      .catch(({ response }) => {
+        console.log(response);
       });
   }, []);
 
@@ -77,6 +80,9 @@ const Profile = () => {
         )
         .then((resp) => {
           setArrayDistricts(resp.data.results);
+        })
+        .catch(({ response }) => {
+          console.log(response);
         });
     }
   }, [formik.values.province]);
@@ -89,6 +95,9 @@ const Profile = () => {
         )
         .then((resp) => {
           setArrayWard(resp.data.results);
+        })
+        .catch(({ response }) => {
+          console.log(response);
         });
     }
   }, [formik.values.district]);

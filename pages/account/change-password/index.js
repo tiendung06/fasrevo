@@ -1,82 +1,97 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../../src/components/Input';
 import Button from '../../../src/components/Button';
 import MainAccount from '../../../src/layout/MainAccount';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { userEditPassword } from '../../../src/constants/constants';
+import { users } from '../../../src/constants/constants';
+import { useSelector } from 'react-redux';
 
 const ChangePassword = () => {
+  const { user } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
-  const formik = useFormik({
-    initialValues: {
-      currentPassword: '',
-      newPassword: '',
-      confirmNewPassword: '',
-    },
-    validationSchema: Yup.object({
-      currentPassword: Yup.string().required(
-        'Mật khẩu hiện tại không được để trống'
-      ),
-      newPassword: Yup.string().required('Mật khẩu mới không được để trống'),
-      confirmNewPassword: Yup.string()
-        .required('Xác nhận mật khẩu mới không được để trống')
-        .oneOf([Yup.ref('newPassword')], 'Xác nhận mật khẩu không đúng'),
-    }),
-    onSubmit: (values) => {
-      handleChangePassword(values);
-    },
-  });
+  const [message, setMessage] = useState();
+  const [status, setStatus] = useState();
 
   const handleChangePassword = async (values) => {
     try {
       setLoading(true);
-      await axios.put(`${userEditPassword}`, values).then((response) => {
-        if (response.data.status === 0) {
-          setMessage(response.data.message);
-        }
+      await axios.put(`${users.updatePassword()}`, values).then((response) => {
+        setMessage(response.data.message);
+        setStatus(response.data.status);
       });
     } catch ({ response }) {
-      console.log(response);
+      setMessage(response.data.message);
+      setStatus(response.data.status);
     } finally {
       setLoading(false);
     }
   };
+
+  const formik = useFormik({
+    initialValues: {
+      password: '',
+      passwordNew: '',
+      confirmPasswordNew: '',
+      email: user?.email,
+    },
+    validationSchema: Yup.object({
+      password: Yup.string().required('Mật khẩu hiện tại không được để trống'),
+      passwordNew: Yup.string().required('Mật khẩu mới không được để trống'),
+      confirmPasswordNew: Yup.string()
+        .required('Xác nhận mật khẩu mới không được để trống')
+        .oneOf([Yup.ref('passwordNew')], 'Xác nhận mật khẩu không đúng'),
+    }),
+    onSubmit: ({ email, password, passwordNew }) => {
+      handleChangePassword({ email, password, passwordNew });
+    },
+  });
 
   return (
     <MainAccount heading="Đổi mật khẩu">
       <form onSubmit={formik.handleSubmit} className="max-w-[500px]">
         <Input
           type="password"
-          name="currentPassword"
+          name="password"
           label="Mật khẩu hiện tại"
           placeholder="Nhập mật khẩu hiện tại*"
-          value={formik.values.currentPassword}
-          touched={formik.touched.currentPassword}
-          error={formik.errors.currentPassword}
+          value={formik.values.password}
+          touched={formik.touched.password}
+          error={formik.errors.password}
           onChange={formik.handleChange}
         />
         <Input
           type="password"
-          name="newPassword"
+          name="passwordNew"
           label="Mật khẩu mới"
           placeholder="Nhập mật khẩu mới*"
-          value={formik.values.newPassword}
-          touched={formik.touched.newPassword}
-          error={formik.errors.newPassword}
+          value={formik.values.passwordNew}
+          touched={formik.touched.passwordNew}
+          error={formik.errors.passwordNew}
           onChange={formik.handleChange}
         />
         <Input
           type="password"
-          name="confirmNewPassword"
+          name="confirmPasswordNew"
           label="Xác nhận mật khẩu mới"
           placeholder="Xác nhận mật khẩu mới*"
-          value={formik.values.confirmNewPassword}
-          touched={formik.touched.confirmNewPassword}
-          error={formik.errors.confirmNewPassword}
+          value={formik.values.confirmPasswordNew}
+          touched={formik.touched.confirmPasswordNew}
+          error={formik.errors.confirmPasswordNew}
           onChange={formik.handleChange}
         />
+        {message ? (
+          <div
+            className={`${
+              status === 0
+                ? 'text-secondary_red bg-[#ffe2e2]'
+                : 'text-primary_green bg-[#b5fCa9]'
+            } h-10 text-center text-sm mb-5 font-medium flex items-center justify-center`}
+          >
+            {message}
+          </div>
+        ) : null}
         <Button type="submit" loading={loading}>
           Đổi mật khẩu
         </Button>

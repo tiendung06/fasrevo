@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import Aos from 'aos';
 import styles from './categoryDetails.module.scss';
-import 'aos/dist/aos.css';
 import { getImageUrl } from '../../helpers';
 
 const CategoryDetails = ({ gender = 'male' }) => {
-  useEffect(() => {
-    Aos.init();
-  }, []);
-
   return (
-    <div className="grid gap-5 grid-cols-2 md:grid-cols-3" data-aos="fade-up">
+    <div className="grid gap-5 grid-cols-2 md:grid-cols-3">
       <CategoryDetailsItems
         image={`${
           gender === 'male' ? './images/top.webp' : './images/top_women.webp'

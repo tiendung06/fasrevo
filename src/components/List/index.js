@@ -23,15 +23,15 @@ const List = ({ productItems, reload, totalPageNumber }) => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10 mb-10">
         {productItems &&
           productItems.map(
-            ({ pid, cost, discount, image, isDiscount, pname }, index) => (
+            ({ pid, cost, discount, image, isDiscount, pname }) => (
               <Card
                 key={pid}
                 id={pid}
                 title={pname}
                 image={getImageUrl(image)}
                 basePrice={cost}
-                discount={isDiscount}
-                specialPrice={discount}
+                isDiscount={isDiscount}
+                discount={discount}
               />
             )
           )}

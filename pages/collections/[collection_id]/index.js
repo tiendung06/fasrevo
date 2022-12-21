@@ -40,7 +40,7 @@ const CollectionDetails = () => {
   };
   console.log(collection);
   return (
-    <Main>
+    <Main heading={collectionDetails?.collection_name}>
       <Section>
         <div className="flex items-center pt-10 pb-5 text-xs md:text-sm">
           <Link href="/">

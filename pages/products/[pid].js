@@ -7,7 +7,8 @@ import Section from '../../src/layout/Section';
 import Button from '../../src/components/Button';
 import { addCart, productDetail } from '../../src/constants/constants';
 import { useSelector } from 'react-redux';
-import { getImageUrl, getPrice } from '../../src/helpers';
+import { getImageUrl, getPrice, formatMoney } from '../../src/helpers';
+import Breadcrumb from '../../src/components/Breadcrumb';
 
 const ProductDetails = () => {
   const [product, setProduct] = useState();
@@ -74,66 +75,9 @@ const ProductDetails = () => {
   };
 
   return (
-    <Main>
+    <Main heading={product?.pname}>
       <Section>
-        <div className="flex items-center pt-10 pb-5 text-xs md:text-sm">
-          <Link href="/">
-            <a className="font-medium text-header pr-2 lg:pr-3">Trang chủ</a>
-          </Link>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-3 h-3 text-header"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-          </svg>
-          <Link href="/men">
-            <a className="font-medium px-2 lg:px-3 text-header">
-              Thời trang nam
-            </a>
-          </Link>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-3 h-3 text-header"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-          </svg>
-          <Link href="/men/top">
-            <a className="font-medium px-2 lg:px-3 text-header">Top</a>
-          </Link>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-3 h-3 text-header"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-          </svg>
-          <Link href="/men/top/hoodie">
-            <a className="font-bold pl-2 lg:pl-3 text-primary_red">Hoodie</a>
-          </Link>
-        </div>
+        <Breadcrumb product={product} />
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-y-10 lg:gap-5 justify-between">
           <div className="lg:col-span-2">
             <div className="h-full max-h-[870px]">
@@ -149,7 +93,6 @@ const ProductDetails = () => {
           <div className="hidden md:block invisible"></div>
           <div className="lg:col-span-3">
             <div className="max-w-[500px]">
-              <p className="text-xs md:text-sm text-header pb-3">Pants</p>
               <h2 className="text-3xl md:text-4xl font-medium pb-2">
                 {product?.pname}
               </h2>
@@ -161,15 +104,21 @@ const ProductDetails = () => {
                       : 'text-base md:text-lg font-medium text-primary_red'
                   }  mr-4`}
                 >
-                  {getPrice(
-                    product?.discount,
-                    product?.cost,
-                    product?.isDiscount
+                  {formatMoney(product?.cost)}
+                </span>
+                <span
+                  className={`${
+                    product?.isDiscount ? '' : 'hidden'
+                  } text-base md:text-lg font-medium text-primary_red`}
+                >
+                  {formatMoney(
+                    getPrice(
+                      product?.discount,
+                      product?.cost,
+                      product?.isDiscount
+                    )
                   )}
                 </span>
-                {/* <span className="text-base md:text-lg font-medium text-primary_red">
-                  {product?.discount}
-                </span> */}
               </div>
               <p className="pb-5 text-sm md:text-base">
                 {productDetails?.description}

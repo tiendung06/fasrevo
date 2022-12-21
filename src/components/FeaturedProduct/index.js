@@ -38,8 +38,8 @@ const FeaturedProduct = () => {
                 title={pname}
                 image={getImageUrl(image)}
                 basePrice={cost}
-                discount={isDiscount}
-                specialPrice={discount}
+                isDiscount={isDiscount}
+                discount={discount}
               />
             </SwiperSlide>
           ))}

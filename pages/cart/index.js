@@ -7,9 +7,13 @@ import Input from '../../src/components/Input';
 import Select from '../../src/components/Select';
 import Link from 'next/link';
 import axios from 'axios';
-import { getCart, updateQuantity } from '../../src/constants/constants';
+import {
+  deleteItemCart,
+  getCart,
+  updateQuantity,
+} from '../../src/constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { getImageUrl } from '../../src/helpers';
+import { formatMoney, getImageUrl } from '../../src/helpers';
 import { useRouter } from 'next/router';
 import { setCartQuantity } from '../../redux/cartSlide';
 
@@ -102,7 +106,9 @@ const Cart = () => {
                   </div>
                   <div className="flex justify-between mb-5">
                     <span className="font-bold text-xl">Tổng tiền:</span>
-                    <span className="font-bold text-xl">{subtotal} VND</span>
+                    <span className="font-bold text-xl">
+                      {formatMoney(subtotal)}
+                    </span>
                   </div>
                   <Button>Mua hàng</Button>
                 </div>
@@ -133,6 +139,17 @@ function CartItem({ product, color, size, reload }) {
     }
   };
 
+  const handleDelete = () => {
+    axios
+      .post(deleteItemCart, {
+        uid: product.uid,
+        pid: product.pid,
+      })
+      .then((res) => {
+        reload();
+      });
+  };
+
   return (
     <tr>
       <td>
@@ -153,15 +170,17 @@ function CartItem({ product, color, size, reload }) {
                   </a>
                 </Link>
                 <div className="flex text-sm">
-                  <span className="text-header pr-3 line-through">
-                    {product.price}
+                  <span className="text-primary">
+                    {formatMoney(product.price)}
                   </span>
-                  <span className="text-primary">{product.price} VND</span>
                 </div>
                 <span className="flex text-sm text-primary">Màu: {color}</span>
                 <span className="flex text-sm text-primary">Size: {size}</span>
               </div>
-              <button className="text-primary_red font-medium underline text-left">
+              <button
+                className="text-primary_red font-medium underline text-left"
+                onClick={handleDelete}
+              >
                 Xóa bỏ
               </button>
             </div>
@@ -211,7 +230,7 @@ function CartItem({ product, color, size, reload }) {
       </td>
       <td>
         <span className="font-medium text-primary_red">
-          {product.total} VND
+          {formatMoney(product.total)}
         </span>
       </td>
     </tr>

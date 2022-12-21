@@ -9,12 +9,15 @@ const productDetails = `${serverDomain}/product-detail`;
 const collection = `${serverDomain}/collections`;
 const addProduct = `${serverDomain}/product/add-product`;
 const updateProduct = `${serverDomain}/product/update-product`;
-const userEditPassword = `${serverDomain}/user/update-pass-email`;
 const getCart = `${serverDomain}/cart/get`;
 const addCart = `${serverDomain}/cart/add`;
 const featured_product = `${serverDomain}/product/get-featured-products?page=1`;
 const updateQuantity = `${serverDomain}/cart/update-quantity`;
+const deleteItemCart = `${serverDomain}/cart/delete`;
 const getUser = `${serverDomain}/user/get-all`;
+const users = {
+  updatePassword: () => `${serverDomain}/user/update-pass-email`,
+};
 const searchItem = {
   getCollection: (page = 1, collection_id) =>
     `${search}/search-by-collection?page=${page}&collection_id=${collection_id}`,
@@ -25,10 +28,10 @@ const searchItem = {
     `${search}/search-by-collection?page=${page}&&collection_id=${collection_id}`,
   getSearchBySex: (page = 1, sex_id) =>
     `${search}/search-by-sex?page=${page}&sex_id=${sex_id}`,
-  getSearchByCid: (page = 1, cid) =>
-    `${search}/search-by-cid?page=${page}&cid=${cid}`,
-  getSearchByCdid: (page = 1, cdid) =>
-    `${search}/search-by-cdid?page=${page}&cdid=${cdid}`,
+  getSearchByCid: (page = 1, cid, sex_id) =>
+    `${search}/search-by-cid?page=${page}&cid=${cid}&sex_id=${sex_id}`,
+  getSearchByCdid: (page = 1, cdid, sex_id) =>
+    `${search}/search-by-cdid?page=${page}&cdid=${cdid}&sex_id=${sex_id}`,
   getSearchByName: (page = 1, pname = '') =>
     `${search}/search-by-name?page=${page}&pname=${pname}`,
   getSort: (
@@ -68,11 +71,12 @@ export {
   productDetail,
   collections,
   addProduct,
-  userEditPassword,
   getCart,
   addCart,
   featured_product,
   updateQuantity,
   updateProduct,
   getUser,
+  users,
+  deleteItemCart,
 };

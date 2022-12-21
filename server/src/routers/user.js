@@ -13,6 +13,6 @@ router.put(
   upload.single('image'),
   UserController.updateUserByUid
 );
-router.put('/update-pass-email', verifyToken, UserController.updatePassByEmail);
+router.put('/update-pass-email', UserController.updatePassByEmail);
 
 export default router;

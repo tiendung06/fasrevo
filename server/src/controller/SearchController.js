@@ -29,11 +29,15 @@ class SearchController {
   async getProductBySex(req, res) {
     try {
       const products = await Product.findAll({
-        where: { cid: req.query.sex_id },
+        where: { sex_id: req.query.sex_id },
         offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
         limit: PAGE_LIMIT,
       });
-      res.status(200).send(products);
+      const count = await Product.count({
+        where: { sex_id: req.query.sex_id },
+      });
+      const totalPageNumber = Math.ceil(count / PAGE_LIMIT);
+      res.status(200).send({ products, totalPageNumber });
     } catch (error) {
       res.status(400).send(error);
     }
@@ -43,7 +47,7 @@ class SearchController {
   async getProductByCid(req, res) {
     try {
       const products = await Product.findAll({
-        where: { cid: req.query.cid },
+        where: { cid: req.query.cid, sex_id: req.query.sex_id },
         offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
         limit: PAGE_LIMIT,
       });
@@ -63,11 +67,16 @@ class SearchController {
   async getProductByCdid(req, res) {
     try {
       const products = await Product.findAll({
-        where: { cid: req.query.cdid },
+        where: { cdid: req.query.cdid },
         offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
         limit: PAGE_LIMIT,
       });
-      res.status(200).send(products);
+      const count = await Product.count({
+        where: { cdid: req.query.cdid },
+      });
+
+      const totalPageNumber = Math.ceil(count / PAGE_LIMIT);
+      res.status(200).send({ products, totalPageNumber });
     } catch (error) {
       res.status(400).send(error);
     }
