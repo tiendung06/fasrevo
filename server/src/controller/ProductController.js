@@ -32,6 +32,21 @@ class ProductController {
       res.status(400).send(error);
     }
   }
+  async getAllProductColorsAndSizes(req, res) {
+    try {
+      const productColors = await ProductColor.findAll({
+        offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
+        limit: PAGE_LIMIT,
+      });
+      const productSizes = await ProductSize.findAll({
+        offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
+        limit: PAGE_LIMIT,
+      });
+      res.status(200).send({ productColors, productSizes });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
   // doPost
   async addProduct(req, res) {
     try {

@@ -7,6 +7,10 @@ const router = express.Router();
 router.get('/get-all', ProductController.getAllProducts);
 router.get('/get-all-details', ProductController.getAllProductDetails);
 router.get(
+  '/get-all-colors-and-sizes',
+  ProductController.getAllProductColorsAndSizes
+);
+router.get(
   '/get-featured-products',
   ProductController.getProductByQuantitySold
 );

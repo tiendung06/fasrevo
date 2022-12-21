@@ -19,12 +19,20 @@ const ProductReport = () => {
 
   const [productDetails, setProductDetails] = useState([]);
 
+  const [productColors, setProductColors] = useState([]);
+
+  const [productSizes, setProductSizes] = useState([]);
+
   useEffect(() => {
     axios.get(productDetail.getAllProduct(1)).then((resp) => {
       setProduct(resp.data);
     });
     axios.get(productDetail.getAllProductDetails(1)).then((resp) => {
       setProductDetails(resp.data);
+    });
+    axios.get(productDetail.getAllProductColorsAndSizes(1)).then((resp) => {
+      setProductColors(resp.data.productColors);
+      setProductSizes(resp.data.productSizes);
     });
   }, []);
   const formik = useFormik({
@@ -80,13 +88,13 @@ const ProductReport = () => {
   });
 
   const handleAddProduct = (values) => {
-    var image = document.querySelector('.image').files[0];
+    var image = document.querySelector('#exampleModal .image').files[0];
     upLoad(values, image);
     console.log(values);
   };
 
   const handleUpdateProduct = (values) => {
-    var image = document.querySelector('.image').files[0];
+    var image = document.querySelector('#updateProduct .image').files[0];
     upLoad(values, image, true);
     console.log(values);
   };
@@ -372,12 +380,22 @@ const ProductReport = () => {
                                 (pd) => pd.pid === pid
                               );
 
+                              const productColor = productColors.find(
+                                (pc) => pc.pid === pid
+                              );
+
+                              const productSize = productSizes.find(
+                                (ps) => ps.pid === pid
+                              );
+
                               updateProductFormik.setValues({
                                 ...product,
                                 description: details.description,
                                 origin: details.origin,
                                 small_detail: details.small_detail,
                                 texture: details.texture,
+                                color_id: productColor.color_id,
+                                size_id: productSize.size_id,
                               });
                             }}
                           >
