@@ -147,33 +147,13 @@ class ProductController {
   // doPut
   async updateProduct(req, res) {
     try {
-      // const tmp = {
-      //   sex_id: req.body.sex_id,
-      //   cid: req.body.cid,
-      //   cdid: req.body.cdid,
-      //   combo_id: req.body.combo_id,
-      //   // image: `${IMAGE_URL}/${image}`,
-      //   collection_id: req.body.collection_id,
-      //   pname: `${req.body.pname}`,
-      //   cost: req.body.cost,
-      //   inStoke: req.body.inStoke,
-      //   quantity_sold: req.body.quantity_sold,
-      //   isDiscount: req.body.isDiscount,
-      //   discount: !isNaN(req.body.discount) ? req.body.discount : 0,
-      // };
-      // Object.keys(tmp).forEach((key) => {
-      //   if (tmp[key] === '') {
-      //     delete tmp[key];
-      //   }
-      // });
-      // console.log(tmp);
       await Product.update(
         {
           sex_id: req.body.sex_id,
           cid: req.body.cid,
           cdid: req.body.cdid,
           combo_id: req.body.combo_id,
-          image: `${IMAGE_URL}/${image}`,
+          image: `${IMAGE_URL}/${req.file.filename}`,
           collection_id: req.body.collection_id,
           pname: `${req.body.pname}`,
           cost: req.body.cost,
@@ -193,26 +173,26 @@ class ProductController {
         },
         { where: { pid: req.body.pid } }
       );
-      const colorId = req.body.color_id;
-      const colorIdArr = colorId.toString().split(',');
-      colorIdArr.map(async (item) => {
-        await ProductColor.update(
-          {
-            color_id: parseInt(item),
-          },
-          { where: { pid: req.body.pid } }
-        );
-      });
-      const sizeId = req.body.size_id;
-      const sizeIdArr = sizeId.toString().split(',');
-      sizeIdArr.map(async (item) => {
-        await ProductSize.update(
-          {
-            size_id: parseInt(item),
-          },
-          { where: { pid: req.body.pid } }
-        );
-      });
+      // const colorId = req.body.color_id;
+      // const colorIdArr = colorId.toString().split(',');
+      // colorIdArr.map(async (item) => {
+      //   await ProductColor.update(
+      //     {
+      //       color_id: parseInt(item),
+      //     },
+      //     { where: { pid: req.body.pid } }
+      //   );
+      // });
+      // const sizeId = req.body.size_id;
+      // const sizeIdArr = sizeId.toString().split(',');
+      // sizeIdArr.map(async (item) => {
+      //   await ProductSize.update(
+      //     {
+      //       size_id: parseInt(item),
+      //     },
+      //     { where: { pid: req.body.pid } }
+      //   );
+      // });
       res.status(200).send({ message: 'Success', status: status.OK });
     } catch (error) {
       res.status(400).send(error);
