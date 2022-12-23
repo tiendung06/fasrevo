@@ -36,6 +36,16 @@ class OrderController {
     }
   }
 
+  //doGet
+  async getAllOrder(req, res) {
+    try {
+      const orders = await Order.findAll();
+      res.status(200).send(orders);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
   // doDelete
 }
 
