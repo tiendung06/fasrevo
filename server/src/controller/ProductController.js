@@ -162,7 +162,7 @@ class ProductController {
           isDiscount: req.body.isDiscount,
           discount: !isNaN(req.body.discount) ? req.body.discount : 0,
         },
-        { where: { pid: req.body.pid } }
+        { where: { pid: req.params.pid } }
       );
       await ProductDetail.update(
         {
@@ -171,7 +171,7 @@ class ProductController {
           texture: req.body.texture,
           small_detail: req.body.small_detail,
         },
-        { where: { pid: req.body.pid } }
+        { where: { pid: req.params.pid } }
       );
       // const colorId = req.body.color_id;
       // const colorIdArr = colorId.toString().split(',');
@@ -202,9 +202,10 @@ class ProductController {
   // doDelete
   async deleteProduct(req, res) {
     try {
-      await ProductColor.destroy({ where: { pid: req.body.pid } });
-      await ProductSize.destroy({ where: { pid: req.body.pid } });
-      await Product.destroy({ where: { pid: req.body.pid } });
+      await ProductColor.destroy({ where: { pid: req.params.pid } });
+      await ProductSize.destroy({ where: { pid: req.params.pid } });
+      await ProductDetail.destroy({ where: { pid: req.params.pid } });
+      await Product.destroy({ where: { pid: req.params.pid } });
       res.status(200).send({ message: 'Success', status: status.OK });
     } catch (error) {
       res.status(400).send(error);

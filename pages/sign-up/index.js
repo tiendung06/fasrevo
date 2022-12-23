@@ -47,18 +47,28 @@ const SignUp = () => {
       district: '',
       province: '',
     },
+
     validationSchema: Yup.object({
       fullname: Yup.string().required('Tên người dùng không được để trống'),
       email: Yup.string()
         .email('Email không hợp lệ')
         .required('Email không được để trống'),
       password: Yup.string()
-        .min(6, 'Mật khẩu phải từ 6 ký tự')
+        .min(6, 'Mật khẩu phải từ 6 ký tự trở lên')
+        .max(255, 'Mật khẩu phải từ 255 ký tự trở xuống')
         .required('Mật khẩu không được để trống'),
       confirmPassword: Yup.string()
         .required('Mật khẩu nhập lại không được để trống')
         .oneOf([Yup.ref('password')], 'Mật khẩu nhập lại không đúng'),
-      phone: Yup.string().required('Số điện thoại không được để trống'),
+      phone: Yup.string()
+        .min(10, 'Số điện thoại không hơp lệ')
+        .max(11, 'Số điện thoại không hơp lệ')
+        .matches(
+          /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+          'Số điện thoại không hơp lệ'
+        )
+        .typeError('Số điện thoại không hơp lệ')
+        .required('Số điện thoại không được để trống'),
       street: Yup.string().required('Số nhà không được để trống'),
       ward: Yup.string().required('Vui lòng chọn xã phường'),
       district: Yup.string().required('Vui lòng chọn quận huyện'),

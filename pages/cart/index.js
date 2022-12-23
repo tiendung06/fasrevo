@@ -3,11 +3,11 @@ import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
 import styles from './cart.module.scss';
 import Button from '../../src/components/Button';
-import Input from '../../src/components/Input';
 import Select from '../../src/components/Select';
 import Link from 'next/link';
 import axios from 'axios';
 import {
+  addOrder,
   deleteItemCart,
   getCart,
   updateQuantity,
@@ -21,7 +21,7 @@ const Cart = () => {
   const { authenticated, user } = useSelector((state) => state.auth);
   const router = useRouter();
   const [products, setProducts] = useState([]);
-
+  const [message, setMessage] = useState();
   const [subtotal, setSubtotal] = useState(0);
 
   const [colorList, setColorList] = useState([]);
@@ -34,9 +34,7 @@ const Cart = () => {
       setProducts(res.data.carts);
       dispatch(setCartQuantity(res.data.carts.length));
       setSubtotal(res.data.subtotal);
-
       setColorList(res.data.colorList);
-
       setSizeList(res.data.sizeList);
     });
   };
@@ -52,6 +50,27 @@ const Cart = () => {
       router.push('/sign-in');
     }
   }
+
+  const handleBuy = () => {
+    const orderId = [];
+    const quantityItem = [];
+    products?.map(({ pid, quantity }) => {
+      orderId.push(pid);
+      quantityItem.push(quantity);
+    });
+    axios
+      .post(addOrder, {
+        uid: user.uid,
+        pid: orderId.join(','),
+        total: subtotal,
+        quantity: quantityItem.join(','),
+        message: message,
+      })
+      .then((res) => {
+        if (res.data.status === 1) {
+        }
+      });
+  };
 
   return (
     <Main heading="Giỏ hàng">
@@ -92,12 +111,22 @@ const Cart = () => {
                 </div>
               </div>
               <div className="w-full col-span-4 lg:col-span-1">
-                <Input
-                  type="textarea"
-                  name="note"
-                  label="Ghi chú đơn hàng"
-                  placeholder="Ghi chú đơn hàng"
-                />
+                <div className="w-full mb-5">
+                  <label htmlFor="note" className="text-sm font-medium">
+                    Ghi chú đơn hàng
+                  </label>
+                  <input
+                    type="textarea"
+                    name="note"
+                    id="note"
+                    className={`bg-transparent w-full min-h-10 px-5 block outline-none border border-border_input text-sm text-secondary_text`}
+                    placeholder="Ghi chú đơn hàng"
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                    }}
+                  />
+                </div>
                 <Select label="Chọn mã giảm giá" name="voucher"></Select>
                 <div className="mt-4">
                   <div className="flex justify-between text-sm mb-5">
@@ -110,7 +139,7 @@ const Cart = () => {
                       {formatMoney(subtotal)}
                     </span>
                   </div>
-                  <Button>Mua hàng</Button>
+                  <Button onClick={handleBuy}>Mua hàng</Button>
                 </div>
               </div>
             </div>

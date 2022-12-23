@@ -21,9 +21,11 @@ router.post(
   ProductController.addProduct
 );
 router.put(
-  '/update-product',
+  '/update-product/:pid',
   upload.single('image'),
   ProductController.updateProduct
 );
+
+router.delete('/delete-product/:pid', ProductController.deleteProduct);
 
 export default router;

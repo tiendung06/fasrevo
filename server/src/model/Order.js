@@ -1,8 +1,8 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../database/mysql_db.js";
-import User from "./User.js";
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../database/mysql_db.js';
+import User from './User.js';
 
-const Order = sequelize.define("order", {
+const Order = sequelize.define('order', {
   order_id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -14,10 +14,14 @@ const Order = sequelize.define("order", {
     allowNull: false,
     references: {
       model: User,
-      key: "uid",
+      key: 'uid',
     },
   },
   pid: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  quantity: {
     type: DataTypes.STRING,
     allowNull: false,
   },

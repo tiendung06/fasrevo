@@ -15,6 +15,8 @@ const featured_product = `${serverDomain}/product/get-featured-products?page=1`;
 const updateQuantity = `${serverDomain}/cart/update-quantity`;
 const deleteItemCart = `${serverDomain}/cart/delete`;
 const getUser = `${serverDomain}/user/get-all`;
+const deleteProduct = `${serverDomain}/product/delete-product`;
+const addOrder = `${serverDomain}/order/add-order`;
 const users = {
   updatePassword: () => `${serverDomain}/user/update-pass-email`,
 };
@@ -81,4 +83,6 @@ export {
   getUser,
   users,
   deleteItemCart,
+  deleteProduct,
+  addOrder,
 };

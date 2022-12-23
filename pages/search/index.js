@@ -26,7 +26,7 @@ const Search = () => {
 
   useEffect(() => {
     if (filterDebounce) {
-      setUrl(searchItem.getSearchByName(page, filterDebounce));
+      setUrl(searchItem.getSearchByName(page, filterDebounce.trim()));
     }
   }, [filterDebounce, page]);
 
@@ -62,29 +62,29 @@ const Search = () => {
       <Section>
         <div className={`${styles.search} w-full h-full py-10`}>
           <SectionHeading>Tìm kiếm</SectionHeading>
-          <div className='w-full mb-10'>
+          <div className="w-full mb-10">
             <input
-              type='text'
-              className='w-full h-10 text-header outline-none border-b border-b-[rgb(0,0,0,0.12)] mb-3'
-              placeholder='Nhập từ khóa tìm kiếm'
+              type="text"
+              className="w-full h-10 text-header outline-none border-b border-b-[rgb(0,0,0,0.12)] mb-3"
+              placeholder="Nhập từ khóa tìm kiếm"
               onChange={handleSearchChange}
               value={filter}
             />
             {item.length > 0 ? (
-              <span className='text-sm'>{item.length} kết quả</span>
+              <span className="text-sm">{item.length} kết quả</span>
             ) : null}
           </div>
           {filter !== '' && item.length === 0 ? (
-            <div className=''>
-              <h2 className='text-2xl font-bold text-center mb-5'>
+            <div className="">
+              <h2 className="text-2xl font-bold text-center mb-5">
                 Không có kết quả
               </h2>
-              <p className='text-center'>
+              <p className="text-center">
                 Không tìm thấy kết quả tìm kiếm cho &ldquo;{filter}&rdquo;
               </p>
             </div>
           ) : (
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10'>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
               {item &&
                 currentItems.map(
                   (
@@ -105,22 +105,22 @@ const Search = () => {
             </div>
           )}
         </div>
-        <div className=' w-full select-none'>
+        <div className=" w-full select-none">
           <ReactPaginate
-            breakLabel='...'
+            breakLabel="..."
             nextLabel={
               <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-4 h-4'
+                stroke="currentColor"
+                className="w-4 h-4"
               >
                 <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M8.25 4.5l7.5 7.5-7.5 7.5'
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
                 />
               </svg>
             }
@@ -129,22 +129,22 @@ const Search = () => {
             pageCount={pageCount}
             previousLabel={
               <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-4 h-4'
+                stroke="currentColor"
+                className="w-4 h-4"
               >
                 <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M15.75 19.5L8.25 12l7.5-7.5'
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
                 />
               </svg>
             }
             renderOnZeroPageCount={null}
-            className='pagination'
+            className="pagination"
           />
         </div>
       </Section>

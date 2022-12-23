@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
   addProduct,
+  deleteProduct,
   productDetail,
   updateProduct,
 } from '../../../src/constants/constants';
@@ -16,7 +17,7 @@ import Checkbox from '../../../src/components/Checkbox';
 
 const ProductReport = () => {
   const [product, setProduct] = useState();
-
+  const [pid, setPid] = useState();
   const [productDetails, setProductDetails] = useState([]);
 
   const [productColors, setProductColors] = useState([]);
@@ -99,6 +100,10 @@ const ProductReport = () => {
     console.log(values);
   };
 
+  const handleDeleteProduct = (pid) => {
+    axios.delete(`${deleteProduct}/${pid}`).then((resp) => {});
+  };
+
   const upLoad = (values, image, isUpdate = false) => {
     var formData = new FormData();
     formData.append('sex_id', values.sex_id);
@@ -125,7 +130,7 @@ const ProductReport = () => {
     const modalId = isUpdate ? 'updateProduct' : 'exampleModal';
 
     if (isUpdate) {
-      axios.put(updateProduct, formData).then((res) => {
+      axios.put(`${updateProduct}/${pid}`, formData).then((res) => {
         if (res.status === 200 && res.data.status === 1) {
           console.log(res.data);
           document.querySelector(`#modal-${modalId}-close-button`).click();
@@ -379,7 +384,7 @@ const ProductReport = () => {
                               const details = productDetails.find(
                                 (pd) => pd.pid === pid
                               );
-
+                              setPid(pid);
                               const productColor = productColors.find(
                                 (pc) => pc.pid === pid
                               );
@@ -537,7 +542,13 @@ const ProductReport = () => {
                             </form>
                           </Modal>
                         </div>
-                        <button className="text-primary_red">
+                        <button
+                          className="text-primary_red"
+                          onClick={() => {
+                            setPid(pid);
+                            handleDeleteProduct(pid);
+                          }}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

@@ -9,6 +9,7 @@ import searchRouter from './search.js';
 import productImageRouter from './product-image.js';
 import productDetailRouter from './product-detail.js';
 import cartRouter from './cart.js';
+import orderRouter from './order.js';
 
 const router = (app) => {
   app.use('/auth', authRouter);
@@ -22,6 +23,7 @@ const router = (app) => {
   app.use('/product-images', productImageRouter);
   app.use('/product-detail', productDetailRouter);
   app.use('/cart', cartRouter);
+  app.use('/order', orderRouter);
 };
 
 export default router;
