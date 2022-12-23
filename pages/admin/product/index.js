@@ -14,6 +14,7 @@ import {
   updateProduct,
 } from '../../../src/constants/constants';
 import Checkbox from '../../../src/components/Checkbox';
+import { getImageUrl } from '../../../src/helpers';
 
 const ProductReport = () => {
   const [product, setProduct] = useState();
@@ -23,6 +24,10 @@ const ProductReport = () => {
   const [productColors, setProductColors] = useState([]);
 
   const [productSizes, setProductSizes] = useState([]);
+
+  const [currentImage, setCurrentImage] = useState();
+
+  const [currentImageBase64, setCurrentImageBase64] = useState();
 
   useEffect(() => {
     axios.get(productDetail.getAllProduct(1)).then((resp) => {
@@ -95,8 +100,11 @@ const ProductReport = () => {
   };
 
   const handleUpdateProduct = (values) => {
-    var image = document.querySelector('#updateProduct .image').files[0];
+    var image =
+      currentImage ?? document.querySelector('#updateProduct .image').files[0];
+
     upLoad(values, image, true);
+
     console.log(values);
   };
 
@@ -145,6 +153,16 @@ const ProductReport = () => {
       });
     }
   };
+
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+
   return (
     <Main heading="Quản lý sản phẩm">
       <>
@@ -402,6 +420,24 @@ const ProductReport = () => {
                                 color_id: productColor.color_id,
                                 size_id: productSize.size_id,
                               });
+
+                              const imageUrl = getImageUrl(product.image);
+
+                              fetch(imageUrl)
+                                .then((res) => res.blob())
+                                .then((res) => {
+                                  const file = new File(
+                                    [res],
+                                    product.image.split('/').reverse()[0],
+                                    { type: res.type }
+                                  );
+
+                                  setCurrentImage(file);
+
+                                  getBase64(file).then((data) =>
+                                    setCurrentImageBase64(data)
+                                  );
+                                });
                             }}
                           >
                             <svg
@@ -474,7 +510,7 @@ const ProductReport = () => {
                                 values={updateProductFormik.values.cdid}
                                 onChange={updateProductFormik.handleChange}
                               >
-                                <option value={1}>Hoddie</option>
+                                <option value={1}>Hoodie</option>
                                 <option value={2}>Phông</option>
                                 <option value={3}>Sơ mi</option>
                                 <option value={4}>Khoác</option>
@@ -537,7 +573,31 @@ const ProductReport = () => {
                                 value={updateProductFormik.values.small_detail}
                                 onChange={updateProductFormik.handleChange}
                               />
-                              <input type="file" className="image mb-5" />
+                              {!(currentImage && currentImageBase64) ? (
+                                <input type="file" className="image mb-5" />
+                              ) : (
+                                <div style={{ position: 'relative' }}>
+                                  <img
+                                    src={currentImageBase64}
+                                    alt={product.id}
+                                    style={{ marginBottom: 10 }}
+                                  />
+                                  <button
+                                    type="button"
+                                    className="btn-close box-content w-4 h-4 text-primary border-none opacity-50"
+                                    aria-label="Close"
+                                    style={{
+                                      position: 'absolute',
+                                      top: 10,
+                                      right: 10,
+                                    }}
+                                    onClick={() => {
+                                      setCurrentImage(undefined);
+                                      setCurrentImageBase64(undefined);
+                                    }}
+                                  ></button>
+                                </div>
+                              )}
                               <Button type="submit">Cập nhật sản phẩm</Button>
                             </form>
                           </Modal>

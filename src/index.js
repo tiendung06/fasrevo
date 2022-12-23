@@ -27,7 +27,8 @@ const Auth = ({ Component, pageProps }) => {
           dispatch(setUser(res.data.user));
         })
         .catch((e) => {
-          console.log(e);
+          console.log(e.message);
+          router.push('/');
         })
         .finally(() => {
           setLoading(false);
