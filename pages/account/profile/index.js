@@ -34,16 +34,24 @@ const Profile = () => {
   // };
 
   const formik = useFormik({
-    initialValues: {
-      fullname: `${user?.fullname}`,
-      phone: `${user?.phone}`,
-      sex: `${user?.sex_id}`,
-      address: `${user?.address}`,
-    },
+    initialValues: user
+      ? {
+          fullname: user.fullname,
+          phone: user.phone,
+          sex: user.sex,
+          address: user.address,
+        }
+      : {
+          fullname: '',
+          phone: '',
+          sex: '',
+          address: '',
+        },
+    enableReinitialize: true,
     validationSchema: Yup.object({
       fullname: Yup.string().required('Tên người dùng không được để trống'),
-      phone: Yup.number().required('Số điện thoại không được để trống'),
-      street: Yup.string().required('Số nhà không được để trống'),
+      phone: Yup.string().required('Số điện thoại không được để trống'),
+      address: Yup.string().required('Số nhà không được để trống'),
     }),
     onSubmit: (values) => {
       // handleSubmit(values);
@@ -187,13 +195,7 @@ const Profile = () => {
             {message}
           </div>
         ) : null}
-        <Button
-          type="submit"
-          loading={loading}
-          onClick={() => {
-            alert('Tính năng hiện không khả dụng');
-          }}
-        >
+        <Button type="submit" loading={loading}>
           Cập nhật thông tin
         </Button>
       </form>

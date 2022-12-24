@@ -23,11 +23,11 @@ const AccountMenu = () => {
     }
   };
 
-  if (typeof window !== 'undefined') {
-    if (!authenticated) {
-      router.push('/');
-    }
-  }
+  // if (typeof window !== 'undefined') {
+  //   if (!authenticated) {
+  //     router.push('/');
+  //   }
+  // }
 
   return (
     <div>
