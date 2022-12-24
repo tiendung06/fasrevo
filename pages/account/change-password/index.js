@@ -43,8 +43,13 @@ const ChangePassword = () => {
         .required('Xác nhận mật khẩu mới không được để trống')
         .oneOf([Yup.ref('passwordNew')], 'Xác nhận mật khẩu không đúng'),
     }),
-    onSubmit: ({ email, password, passwordNew }) => {
+    onSubmit: ({ email, password, passwordNew }, actions) => {
       handleChangePassword({ email, password, passwordNew });
+      actions.resetForm({
+        password: '',
+        passwordNew: '',
+        confirmPasswordNew: '',
+      });
     },
   });
 

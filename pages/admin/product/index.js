@@ -30,6 +30,10 @@ const ProductReport = () => {
   const [currentImageBase64, setCurrentImageBase64] = useState();
 
   useEffect(() => {
+    init();
+  }, []);
+
+  const init = () => {
     axios.get(productDetail.getAllProduct(1)).then((resp) => {
       setProduct(resp.data);
     });
@@ -40,7 +44,8 @@ const ProductReport = () => {
       setProductColors(resp.data.productColors);
       setProductSizes(resp.data.productSizes);
     });
-  }, []);
+  };
+
   const formik = useFormik({
     initialValues: {
       sex_id: 1,
@@ -62,8 +67,27 @@ const ProductReport = () => {
       quantity_sold: 0,
     },
     validationSchema: Yup.object({}),
-    onSubmit: (values) => {
+    onSubmit: (values, actions) => {
       handleAddProduct(values);
+      actions.resetForm({
+        sex_id: 1,
+        cid: 1,
+        cdid: 1,
+        combo_id: 1,
+        collection_id: 1,
+        pname: '',
+        cost: 0,
+        color_id: 1,
+        size_id: 1,
+        inStoke: 0,
+        isDiscount: 0,
+        discount: 0,
+        origin: '',
+        description: '',
+        texture: '',
+        small_detail: '',
+        quantity_sold: 0,
+      });
     },
   });
 
@@ -109,7 +133,11 @@ const ProductReport = () => {
   };
 
   const handleDeleteProduct = (pid) => {
-    axios.delete(`${deleteProduct}/${pid}`).then((resp) => {});
+    if (confirm('Xác nhận xóa sản phẩm?') == true) {
+      axios.delete(`${deleteProduct}/${pid}`).then((resp) => {
+        init();
+      });
+    }
   };
 
   const upLoad = (values, image, isUpdate = false) => {
@@ -142,6 +170,7 @@ const ProductReport = () => {
         if (res.status === 200 && res.data.status === 1) {
           console.log(res.data);
           document.querySelector(`#modal-${modalId}-close-button`).click();
+          init();
         }
       });
     } else {
@@ -149,6 +178,7 @@ const ProductReport = () => {
         if (res.status === 200 && res.data.status === 1) {
           console.log(res.data);
           document.querySelector(`#modal-${modalId}-close-button`).click();
+          init();
         }
       });
     }
@@ -212,6 +242,15 @@ const ProductReport = () => {
                 value={formik.values.pname}
                 onChange={formik.handleChange}
               />
+              <Select
+                label="Giới tính"
+                name="sex_id"
+                value={formik.values.sex_id}
+                onChange={formik.handleChange}
+              >
+                <option value={1}>Nam</option>
+                <option value={0}>Nữ</option>
+              </Select>
               <Input
                 type="text"
                 name="cost"
@@ -220,7 +259,6 @@ const ProductReport = () => {
                 value={formik.values.cost}
                 onChange={formik.handleChange}
               />
-
               <Checkbox
                 name={'isDiscount'}
                 label={'Giảm giá'}
@@ -385,7 +423,7 @@ const ProductReport = () => {
                     <td>{index + 1}</td>
                     <td>{pid}</td>
                     <td>{pname}</td>
-                    <td>{sex_id}</td>
+                    <td>{sex_id === 0 ? 'Nữ' : 'Nam'}</td>
                     <td>{cid}</td>
                     <td>{cdid}</td>
                     <td>{inStoke}</td>
@@ -469,6 +507,15 @@ const ProductReport = () => {
                                 value={updateProductFormik.values.pname}
                                 onChange={updateProductFormik.handleChange}
                               />
+                              <Select
+                                label="Giới tính"
+                                name="sex_id"
+                                value={updateProductFormik.values.sex_id}
+                                onChange={updateProductFormik.handleChange}
+                              >
+                                <option value={1}>Nam</option>
+                                <option value={0}>Nữ</option>
+                              </Select>
                               <Input
                                 type="text"
                                 name="cost"
@@ -576,21 +623,18 @@ const ProductReport = () => {
                               {!(currentImage && currentImageBase64) ? (
                                 <input type="file" className="image mb-5" />
                               ) : (
-                                <div style={{ position: 'relative' }}>
-                                  <img
-                                    src={currentImageBase64}
-                                    alt={product.id}
-                                    style={{ marginBottom: 10 }}
-                                  />
+                                <div className="relative w-40">
+                                  <picture>
+                                    <img
+                                      src={currentImageBase64}
+                                      alt={product.id}
+                                      className="mb-5"
+                                    />
+                                  </picture>
                                   <button
                                     type="button"
-                                    className="btn-close box-content w-4 h-4 text-primary border-none opacity-50"
+                                    className="btn-close box-content text-white absolute top-2 right-2 w-4 h-4 border-none opacity-50"
                                     aria-label="Close"
-                                    style={{
-                                      position: 'absolute',
-                                      top: 10,
-                                      right: 10,
-                                    }}
                                     onClick={() => {
                                       setCurrentImage(undefined);
                                       setCurrentImageBase64(undefined);

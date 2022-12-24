@@ -46,13 +46,13 @@ const Profile = () => {
       street: Yup.string().required('Số nhà không được để trống'),
     }),
     onSubmit: (values) => {
-      // handleSubmit(values);
-      console.log(values);
+      handleSubmit(values);
     },
   });
 
   const handleSubmit = (values) => {
     console.log(values);
+    console.log(123);
   };
 
   // const changeAddress = useFormik({
@@ -173,11 +173,8 @@ const Profile = () => {
           <span className="font-medium text-sm">Địa chỉ: {address}</span>
           <span
             className="text-sm font-medium text-primary_blue underline cursor-pointer"
-            // data-bs-toggle="modal"
-            // data-bs-target="#exampleModal"
-            onClick={() => {
-              alert('Tính năng hiện không khả dụng');
-            }}
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
           >
             Chỉnh sửa
           </span>
@@ -187,13 +184,7 @@ const Profile = () => {
             {message}
           </div>
         ) : null}
-        <Button
-          type="submit"
-          loading={loading}
-          onClick={() => {
-            alert('Tính năng hiện không khả dụng');
-          }}
-        >
+        <Button type="submit" loading={loading}>
           Cập nhật thông tin
         </Button>
       </form>

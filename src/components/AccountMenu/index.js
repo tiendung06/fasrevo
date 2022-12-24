@@ -45,7 +45,7 @@ const AccountMenu = () => {
       </p>
       <div className="mt-5 lg:mt-10">
         <ItemMenu href="/account/my-order">Đơn hàng của tôi</ItemMenu>
-        <ItemMenu href="/account/profile">Hồ sơ cá nhân</ItemMenu>
+        <ItemMenu href="/account/profile">Thông tin cá nhân</ItemMenu>
         <ItemMenu href="/account/change-password">Đổi mật khẩu</ItemMenu>
         <ItemMenu href="/account/voucher">Kho voucher</ItemMenu>
         <button

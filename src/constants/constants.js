@@ -17,6 +17,7 @@ const deleteItemCart = `${serverDomain}/cart/delete`;
 const getUser = `${serverDomain}/user/get-all`;
 const deleteProduct = `${serverDomain}/product/delete-product`;
 const addOrder = `${serverDomain}/order/add-order`;
+const order = `${serverDomain}/order`;
 const users = {
   updatePassword: () => `${serverDomain}/user/update-pass-email`,
 };
@@ -64,6 +65,9 @@ const collections = {
   getCollectionDetails: (collection_id) =>
     `${collection}/get-collection-details?collection_id=${collection_id}`,
 };
+const getOrder = {
+  getOrderByUid: (uid) => `${order}/get-order-by-uid?uid=${uid}`,
+};
 export {
   serverDomain,
   login,
@@ -85,4 +89,5 @@ export {
   deleteItemCart,
   deleteProduct,
   addOrder,
+  getOrder,
 };

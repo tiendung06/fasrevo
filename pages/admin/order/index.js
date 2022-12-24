@@ -1,5 +1,7 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Button from '../../../src/components/admin/Button';
+import { getOrder } from '../../../src/constants/constants';
 import Main from '../../../src/layout/admin/Main';
 
 const tableData = [
@@ -116,6 +118,18 @@ const tableData = [
 ];
 
 const Order = () => {
+  const [order, setOrder] = useState([]);
+  useEffect(() => {
+    init();
+  }, []);
+
+  const init = () => {
+    axios.get(getOrder).then((resp) => {
+      setOrder(resp.data);
+      console.log(resp.data);
+    });
+  };
+
   return (
     <Main heading="Quản lý đơn hàng">
       <>

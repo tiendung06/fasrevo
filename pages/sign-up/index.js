@@ -14,6 +14,7 @@ const SignUp = () => {
   const [arrayDistricts, setArrayDistricts] = useState([]);
   const [arrayWard, setArrayWard] = useState([]);
   const [message, setMessage] = useState();
+  const [status, setStatus] = useState();
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -21,14 +22,17 @@ const SignUp = () => {
     try {
       setLoading(true);
       await axios.post(`${register}`, values).then((response) => {
-        if (response.data.status === 0) {
+        if (response.data.status === 1) {
           setMessage(response.data.message);
-        } else {
-          router.push('/sign-in');
+          setStatus(response.data.status);
+          setTimeout(() => {
+            router.push('/sign-in');
+          }, 1000);
         }
       });
     } catch ({ response }) {
-      console.log(response);
+      setMessage(response.data.message);
+      setStatus(response.data.status);
     } finally {
       setLoading(false);
     }
@@ -74,7 +78,7 @@ const SignUp = () => {
       district: Yup.string().required('Vui lòng chọn quận huyện'),
       province: Yup.string().required('Vui lòng chọn tỉnh thành phố'),
     }),
-    onSubmit: ({ fullname, email, password, phone, sex }) => {
+    onSubmit: ({ fullname, email, password, phone, sex }, actions) => {
       const currentProvince = arrayProvince.find(
         (p) => p.province_id === formik.values.province
       );
@@ -305,7 +309,13 @@ const SignUp = () => {
               error={formik.errors.street}
             />
             {message ? (
-              <div className="text-secondary_red bg-[#ffe2e2] h-10 text-center text-sm mb-5 font-medium flex items-center justify-center">
+              <div
+                className={`${
+                  status === 0
+                    ? 'text-secondary_red bg-[#ffe2e2]'
+                    : 'text-primary_green bg-[#b5fCa9]'
+                } h-10 text-center text-sm mb-5 font-medium flex items-center justify-center`}
+              >
                 {message}
               </div>
             ) : null}
