@@ -1,5 +1,5 @@
 import { QueryTypes } from 'sequelize';
-import { status } from '../config/configuration.js';
+import { PAGE_LIMIT, status } from '../config/configuration.js';
 import { sequelize } from '../database/mysql_db.js';
 import Order from '../model/Order.js';
 
@@ -39,7 +39,10 @@ class OrderController {
   //doGet
   async getAllOrder(req, res) {
     try {
-      const orders = await Order.findAll();
+      const orders = await Order.findAll({
+        offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
+        limit: PAGE_LIMIT,
+      });
       res.status(200).send(orders);
     } catch (error) {
       res.status(400).send(error);

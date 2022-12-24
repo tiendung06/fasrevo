@@ -67,6 +67,7 @@ const collections = {
 };
 const getOrder = {
   getOrderByUid: (uid) => `${order}/get-order-by-uid?uid=${uid}`,
+  getAllOrder: () => `${order}/get-all-order?page=1`,
 };
 export {
   serverDomain,

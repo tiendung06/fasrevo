@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Button from '../../../src/components/admin/Button';
-import { getOrder } from '../../../src/constants/constants';
+import { getOrder, productDetail } from '../../../src/constants/constants';
 import Main from '../../../src/layout/admin/Main';
 
 const tableData = [
@@ -118,17 +118,38 @@ const tableData = [
 ];
 
 const Order = () => {
-  const [order, setOrder] = useState([]);
+  const [orders, setOrders] = useState([]);
+
+  const [products, setProducts] = useState([]);
+
   useEffect(() => {
     init();
   }, []);
 
   const init = () => {
-    axios.get(getOrder).then((resp) => {
-      setOrder(resp.data);
+    axios.get(getOrder.getAllOrder(1)).then((resp) => {
+      setOrders(resp.data);
       console.log(resp.data);
     });
+    axios.get(productDetail.getAllProduct(1)).then((resp) => {
+      setProducts(resp.data);
+    });
   };
+
+  const data = useMemo(
+    () =>
+      orders.map((order) => {
+        const pidList = order.pid.split(',');
+
+        return {
+          ...order,
+          products: products.filter((p) => pidList.includes(p.pid)),
+        };
+      }),
+    [orders, products]
+  );
+
+  console.log({ data });
 
   return (
     <Main heading="Quản lý đơn hàng">
