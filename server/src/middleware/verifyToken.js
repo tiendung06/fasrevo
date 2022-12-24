@@ -18,7 +18,8 @@ const verifyToken = (req, res, next) => {
     req.email = email;
     next();
   } catch (error) {
-    res.status(400);
+    res.status(401);
+    return res.send({ message: 'Unauthorized' });
   }
 };
 
