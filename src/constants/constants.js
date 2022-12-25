@@ -68,6 +68,8 @@ const collections = {
 const getOrder = {
   getOrderByUid: (uid) => `${order}/get-order-by-uid?uid=${uid}`,
   getAllOrder: () => `${order}/get-all-order?page=1`,
+  deleteOrder: () => `${order}/delete-order`,
+  updateOrder: () => `${order}/update-order`,
 };
 export {
   serverDomain,

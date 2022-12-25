@@ -36,7 +36,7 @@ const Order = sequelize.define('order', {
   // -1 Chua thanh toan, 0 thanh toan 1 nua, 1 thanh toan ok
   status: {
     type: DataTypes.INTEGER,
-    defaultValue: -1,
+    defaultValue: 0,
   },
 });
 

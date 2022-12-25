@@ -12,7 +12,24 @@ import {
 } from '../../../src/constants/constants';
 import { formatMoney, getImageUrl, getPrice } from '../../../src/helpers';
 import Main from '../../../src/layout/admin/Main';
-
+const statusOrder = [
+  {
+    id: 0,
+    name: 'Đơn hàng đang được chuẩn bị',
+  },
+  {
+    id: 1,
+    name: 'Đang giao hàng',
+  },
+  {
+    id: 1,
+    name: 'Giao hàng thành công',
+  },
+  {
+    id: 2,
+    name: 'Đã hủy hàng',
+  },
+];
 const Order = () => {
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
@@ -50,13 +67,31 @@ const Order = () => {
   console.log(data);
   const formik = useFormik({
     initialValues: {
+      uid: '',
+      order_id: '',
       message: '',
       status: '',
     },
     onSubmit: (values) => {
-      console.log(values);
+      updateOrder(values);
     },
   });
+
+  const handleDelete = (uid, order_id) => {
+    if (confirm('Xác nhận xóa đơn hàng?') == true) {
+      axios
+        .post(`${getOrder.deleteOrder()}`, { uid: uid, order_id: order_id })
+        .then((resp) => {
+          init();
+        });
+    }
+  };
+
+  const updateOrder = (values) => {
+    axios.put(`${getOrder.updateOrder()}`, values).then((resp) => {
+      init();
+    });
+  };
 
   return (
     <Main heading="Quản lý đơn hàng">
@@ -114,13 +149,13 @@ const Order = () => {
                   <td>{index + 1}</td>
                   <td>{item.order_id}</td>
                   <td>{item.users?.fullname}</td>
-                  <td>{item.users?.sex}</td>
+                  <td>{item.users?.sex === 1 ? 'Nam' : 'Nữ'}</td>
                   <td>{item.users?.phone}</td>
                   <td>{item.users?.email}</td>
                   <td>{item.users?.address}</td>
                   <td>{item.createdAt}</td>
                   <td>{formatMoney(item.total)}</td>
-                  <td>{item.status}</td>
+                  <td>{statusOrder[item.status].name}</td>
                   <td>
                     <div className="flex items-center gap-x-5">
                       <button
@@ -129,6 +164,8 @@ const Order = () => {
                         data-bs-target={`#orderDetails-${item.order_id}`}
                         onClick={() => {
                           formik.setValues({
+                            uid: item.users?.uid,
+                            order_id: item.order_id,
                             message: item.message,
                             status: item.status,
                           });
@@ -184,12 +221,12 @@ const Order = () => {
                             value={formik.values.status}
                             onChange={formik.handleChange}
                           >
-                            <option value={-1}>
+                            <option value={0}>
                               Đơn hàng đang được chuẩn bị
                             </option>
                             <option value={1}>Đang giao hàng</option>
                             <option value={2}>Giao hàng thành công</option>
-                            <option value={0}>Hủy hàng</option>
+                            <option value={3}>Hủy hàng</option>
                           </Select>
                           <div className="w-full mb-5">
                             Thời gian đặt hàng: {item.createdAt}
@@ -253,19 +290,13 @@ const Order = () => {
                           <div className="w-full mb-5 font-medium text-base">
                             Tổng tiền thanh toán: {formatMoney(item.total)}
                           </div>
-                          <Button
-                            onClick={() => {
-                              alert('Tính năng không khả dụng');
-                            }}
-                          >
-                            Cập nhật đơn hàng
-                          </Button>
+                          <Button type="submit">Cập nhật đơn hàng</Button>
                         </form>
                       </Modal>
                       <button
                         className="text-primary_red"
                         onClick={() => {
-                          alert('Tính năng hiện không khả dụng');
+                          handleDelete(item.users.uid, item.order_id);
                         }}
                       >
                         <svg

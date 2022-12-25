@@ -451,12 +451,12 @@ const ProductReport = () => {
 
                               updateProductFormik.setValues({
                                 ...product,
-                                description: details.description,
-                                origin: details.origin,
-                                small_detail: details.small_detail,
-                                texture: details.texture,
-                                color_id: productColor.color_id,
-                                size_id: productSize.size_id,
+                                description: details?.description,
+                                origin: details?.origin,
+                                small_detail: details?.small_detail,
+                                texture: details?.texture,
+                                color_id: productColor?.color_id,
+                                size_id: productSize?.size_id,
                               });
 
                               const imageUrl = getImageUrl(product.image);
@@ -526,6 +526,7 @@ const ProductReport = () => {
                               />
                               <Select
                                 label="Màu sắc"
+                                name="color"
                                 value={updateProductFormik.values.color_id}
                                 onChange={updateProductFormik.handleChange}
                               >
@@ -535,6 +536,7 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Kích thước"
+                                name="size"
                                 value={updateProductFormik.values.size_id}
                                 onChange={updateProductFormik.handleChange}
                               >
@@ -545,6 +547,7 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Danh mục"
+                                name="cid"
                                 values={updateProductFormik.values.cid}
                                 onChange={updateProductFormik.handleChange}
                               >
@@ -554,6 +557,7 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Chi tiết danh mục"
+                                name="cdid"
                                 values={updateProductFormik.values.cdid}
                                 onChange={updateProductFormik.handleChange}
                               >
@@ -585,6 +589,7 @@ const ProductReport = () => {
                                 onChange={updateProductFormik.handleChange}
                               />
                               <Select
+                                name="collection"
                                 label="Bộ sưu tập"
                                 values={
                                   updateProductFormik.values.collection_id

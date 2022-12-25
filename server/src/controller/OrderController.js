@@ -41,6 +41,7 @@ class OrderController {
     try {
       const orders = await Order.findAll({
         offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
+        order: [[sequelize.col('createdAt'), 'DESC']],
         limit: PAGE_LIMIT,
       });
       res.status(200).send(orders);
@@ -65,6 +66,22 @@ class OrderController {
         where: { uid: req.body.uid, order_id: req.body.order_id },
       });
       res.status(200).send({ message: 'Success', status: status.OK });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
+  async updateOrder(req, res) {
+    try {
+      await Order.update(
+        { message: req.body.message, status: req.body.status },
+        {
+          where: { uid: req.body.uid, order_id: req.body.order_id },
+        }
+      );
+      res
+        .status(200)
+        .send({ message: 'Cập nhật đơn hàng thành công', status: status.OK });
     } catch (error) {
       res.status(400).send(error);
     }
