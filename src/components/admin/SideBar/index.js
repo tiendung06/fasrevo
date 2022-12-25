@@ -3,37 +3,34 @@ import Link from 'next/link';
 
 const SideBar = () => {
   return (
-    <div className='bg-white shadow-sm min-h-screen h-full text-sm font-medium'>
-      <Link href='/admin'>
-        <a className='text-center block uppercase text-black font-bold text-xl px-10 py-5'>
+    <div className="bg-white shadow-sm min-h-screen h-full text-sm font-medium">
+      <Link href="/admin">
+        <a className="text-center block uppercase text-black font-bold text-xl px-10 py-5">
           Fasrevo
         </a>
       </Link>
-      <LinkItem href='/admin'>Trang chủ</LinkItem>
+      <LinkItem href="/admin">Trang chủ</LinkItem>
       <Accordion
-        title='Quản lý khách hàng'
-        id='customer'
-        headingId='customerHeading'
+        title="Quản lý khách hàng"
+        id="customer"
+        headingId="customerHeading"
       >
-        <LinkItem href='/admin/customer'>Tổng quan khách hàng</LinkItem>
-        <LinkItem href='/admin/point'>Quản lý tích điểm</LinkItem>
+        <LinkItem href="/admin/customer">Tổng quan khách hàng</LinkItem>
+        <LinkItem href="/admin/point">Quản lý tích điểm</LinkItem>
       </Accordion>
-      <Accordion title='Quản lý bán hàng' id='order' headingId='orderHeading'>
-        <LinkItem href='/admin/order'>Quản lý đơn hàng</LinkItem>
-        <LinkItem href='/admin/product'>Quản lý sản phẩm</LinkItem>
-        <LinkItem href='/admin/voucher'>
-          Quản lý chương trình khuyến mại
-        </LinkItem>
+      <Accordion title="Quản lý bán hàng" id="order" headingId="orderHeading">
+        <LinkItem href="/admin/order">Quản lý đơn hàng</LinkItem>
+        <LinkItem href="/admin/product">Quản lý sản phẩm</LinkItem>
       </Accordion>
-      <LinkItem href='/admin/inventory'>Quản lý tồn kho</LinkItem>
-      <Accordion title='Thống kê báo cáo' id='report' headingId='reportHeading'>
-        <LinkItem href='/admin/report'>Báo cáo tổng quan</LinkItem>
-        <LinkItem href='/admin/sale-report'>Báo cáo bán hàng</LinkItem>
-        <LinkItem href='/admin/product-report'>
+      <LinkItem href="/admin/inventory">Quản lý tồn kho</LinkItem>
+      <Accordion title="Thống kê báo cáo" id="report" headingId="reportHeading">
+        <LinkItem href="/admin/report">Báo cáo tổng quan</LinkItem>
+        <LinkItem href="/admin/sale-report">Báo cáo bán hàng</LinkItem>
+        <LinkItem href="/admin/product-report">
           Báo cáo bán hàng theo sản phẩm
         </LinkItem>
-        <LinkItem href='/admin/customer-report'>Báo cáo khách hàng</LinkItem>
-        <LinkItem href='/admin/instoke-report'>Báo cáo tồn kho</LinkItem>
+        <LinkItem href="/admin/customer-report">Báo cáo khách hàng</LinkItem>
+        <LinkItem href="/admin/instoke-report">Báo cáo tồn kho</LinkItem>
       </Accordion>
     </div>
   );
@@ -41,10 +38,10 @@ const SideBar = () => {
 
 function Accordion({ children, title, id, headingId }) {
   return (
-    <div className='accordion' id='accordionExample'>
-      <h2 className='accordion-header mb-0' id={headingId}>
+    <div className="accordion" id="accordionExample">
+      <h2 className="accordion-header mb-0" id={headingId}>
         <button
-          className='
+          className="
         accordion-button
         relative
         flex
@@ -57,11 +54,11 @@ function Accordion({ children, title, id, headingId }) {
         rounded-none
         transition
         focus:outline-none
-      '
-          type='button'
-          data-bs-toggle='collapse'
+      "
+          type="button"
+          data-bs-toggle="collapse"
           data-bs-target={`#${id}`}
-          aria-expanded='false'
+          aria-expanded="false"
           aria-controls={id}
         >
           {title}
@@ -69,11 +66,11 @@ function Accordion({ children, title, id, headingId }) {
       </h2>
       <div
         id={id}
-        className='accordion-collapse collapse show'
+        className="accordion-collapse collapse show"
         aria-labelledby={headingId}
-        data-bs-parent='#accordionExample'
+        data-bs-parent="#accordionExample"
       >
-        <div className='accordion-body px-5 border-b font-normal'>
+        <div className="accordion-body px-5 border-b font-normal">
           {children}
         </div>
       </div>
@@ -84,7 +81,7 @@ function Accordion({ children, title, id, headingId }) {
 function LinkItem({ children, href }) {
   return (
     <Link href={href}>
-      <div className='flex items-center w-full h-[60px] text-black px-5 hover:text-primary_blue cursor-pointer'>
+      <div className="flex items-center w-full h-[60px] text-black px-5 hover:text-primary_blue cursor-pointer">
         <a>{children}</a>
       </div>
     </Link>
