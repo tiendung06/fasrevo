@@ -123,7 +123,7 @@ const Order = () => {
                       <button
                         className="text-primary_blue"
                         data-bs-toggle="modal"
-                        data-bs-target="#orderDetails"
+                        data-bs-target={`#orderDetails-${item.order_id}`}
                         onClick={() => {
                           formik.setValues({
                             message: item.message,
@@ -147,22 +147,22 @@ const Order = () => {
                         </svg>
                       </button>
                       <Modal
-                        id="orderDetails"
+                        id={`orderDetails-${item.order_id}`}
                         aria-labelledby="updateProductLabel"
                         title="Thông tin chi tiết đơn hàng"
                       >
                         <form onSubmit={formik.handleSubmit}>
                           <div className="w-full mb-5">
-                            Tên khách hàng: {item.users.fullname}
+                            Tên khách hàng: {item.users?.fullname}
                           </div>
                           <div className="w-full mb-5">
-                            Email: {item.users.email}
+                            Email: {item.users?.email}
                           </div>
                           <div className="w-full mb-5">
-                            Số điện thoại: {item.users.phone}
+                            Số điện thoại: {item.users?.phone}
                           </div>
                           <div className="w-full mb-5">
-                            Địa chỉ: {item.users.address}
+                            Địa chỉ: {item.users?.address}
                           </div>
                           <Input
                             type="textarea"
@@ -200,12 +200,14 @@ const Order = () => {
                               isDiscount,
                               discount,
                             }) => {
-                              <div className="flex" key={pid}>
-                                <picture>
-                                  <img src={getImageUrl(image)} alt={pname} />
-                                </picture>
-                                <p>{pname}</p>
-                              </div>;
+                              return (
+                                <div className="flex" key={pid}>
+                                  <picture>
+                                    <img src={getImageUrl(image)} alt={pname} />
+                                  </picture>
+                                  <p>{pname}</p>
+                                </div>
+                              );
                             }
                           )}
                           <div className="w-full mb-5 font-medium text-base">
