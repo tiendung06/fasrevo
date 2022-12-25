@@ -10,7 +10,7 @@ import {
   getUser,
   productDetail,
 } from '../../../src/constants/constants';
-import { formatMoney, getImageUrl } from '../../../src/helpers';
+import { formatMoney, getImageUrl, getPrice } from '../../../src/helpers';
 import Main from '../../../src/layout/admin/Main';
 
 const Order = () => {
@@ -52,6 +52,9 @@ const Order = () => {
     initialValues: {
       message: '',
       status: '',
+    },
+    onSubmit: (values) => {
+      console.log(values);
     },
   });
 
@@ -159,6 +162,9 @@ const Order = () => {
                             Email: {item.users?.email}
                           </div>
                           <div className="w-full mb-5">
+                            Giới tính: {item.users?.sex === 1 ? 'Nam' : 'Nữ'}
+                          </div>
+                          <div className="w-full mb-5">
                             Số điện thoại: {item.users?.phone}
                           </div>
                           <div className="w-full mb-5">
@@ -188,7 +194,7 @@ const Order = () => {
                           <div className="w-full mb-5">
                             Thời gian đặt hàng: {item.createdAt}
                           </div>
-                          <div className="w-full font-medium">
+                          <div className="w-full font-medium mb-3">
                             Chi tiết sản phẩm
                           </div>
                           {item.products.map(
@@ -201,11 +207,45 @@ const Order = () => {
                               discount,
                             }) => {
                               return (
-                                <div className="flex" key={pid}>
+                                <div
+                                  className="flex h-40 w-full mb-5"
+                                  key={pid}
+                                >
                                   <picture>
-                                    <img src={getImageUrl(image)} alt={pname} />
+                                    <img
+                                      src={getImageUrl(image)}
+                                      alt={pname}
+                                      className="h-full w-[100px] object-cover"
+                                    />
                                   </picture>
-                                  <p>{pname}</p>
+                                  <div className="pl-3">
+                                    <p className="text-xs text-header">{pid}</p>
+                                    <p className="break-words text-base">
+                                      {pname}
+                                    </p>
+                                    <div className="flex items-center pt-2">
+                                      <span
+                                        className={`${
+                                          isDiscount === 1
+                                            ? 'text-xs md:text-sm line-through mr-3 md:mr-4 text-header'
+                                            : 'text-xs md:text-base'
+                                        }`}
+                                      >
+                                        {formatMoney(cost)}
+                                      </span>
+                                      <span
+                                        className={`${
+                                          isDiscount
+                                            ? 'text-primary_red font-medium text-xs md:text-base'
+                                            : 'hidden'
+                                        } `}
+                                      >
+                                        {formatMoney(
+                                          getPrice(discount, cost, isDiscount)
+                                        )}
+                                      </span>
+                                    </div>
+                                  </div>
                                 </div>
                               );
                             }
@@ -213,7 +253,13 @@ const Order = () => {
                           <div className="w-full mb-5 font-medium text-base">
                             Tổng tiền thanh toán: {formatMoney(item.total)}
                           </div>
-                          <Button type="submit">Cập nhật đơn hàng</Button>
+                          <Button
+                            onClick={() => {
+                              alert('Tính năng không khả dụng');
+                            }}
+                          >
+                            Cập nhật đơn hàng
+                          </Button>
                         </form>
                       </Modal>
                       <button
