@@ -528,7 +528,12 @@ const ProductReport = () => {
                                 label="Màu sắc"
                                 name="color"
                                 value={updateProductFormik.values.color_id}
-                                onChange={updateProductFormik.handleChange}
+                                onChange={(e) => {
+                                  updateProductFormik.setFieldValue(
+                                    'color_id',
+                                    parseInt(e.target.value)
+                                  );
+                                }}
                               >
                                 <option value={1}>Hồng</option>
                                 <option value={2}>Đen</option>
@@ -538,7 +543,12 @@ const ProductReport = () => {
                                 label="Kích thước"
                                 name="size"
                                 value={updateProductFormik.values.size_id}
-                                onChange={updateProductFormik.handleChange}
+                                onChange={(e) => {
+                                  updateProductFormik.setFieldValue(
+                                    'size_id',
+                                    parseInt(e.target.value)
+                                  );
+                                }}
                               >
                                 <option value={1}>S</option>
                                 <option value={2}>M</option>
