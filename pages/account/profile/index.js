@@ -12,26 +12,12 @@ import axios from 'axios';
 const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
+  const [status, setStatus] = useState();
   const { user } = useSelector((state) => state.auth);
   const [address, setAddress] = useState(user?.address);
   const [arrayProvince, setArrayProvince] = useState([]);
   const [arrayDistricts, setArrayDistricts] = useState([]);
   const [arrayWard, setArrayWard] = useState([]);
-
-  // const handleSubmit = async (values) => {
-  //   try {
-  //     setLoading(true);
-  //     await axios
-  //       .put(`http://localhost:3030/user/update/${user.uid}`, values)
-  //       .then((response) => {
-  //         console.log(response);
-  //       });
-  //   } catch ({ response }) {
-  //     console.log(response);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   const formik = useFormik({
     initialValues: user
@@ -44,13 +30,21 @@ const Profile = () => {
       : {
           fullname: '',
           phone: '',
-          sex: '',
+          sex: 1,
           address: '',
         },
     enableReinitialize: true,
     validationSchema: Yup.object({
       fullname: Yup.string().required('Tên người dùng không được để trống'),
-      phone: Yup.string().required('Số điện thoại không được để trống'),
+      phone: Yup.string()
+        .min(10, 'Số điện thoại không hơp lệ')
+        .max(11, 'Số điện thoại không hơp lệ')
+        .matches(
+          /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+          'Số điện thoại không hơp lệ'
+        )
+        .typeError('Số điện thoại không hơp lệ')
+        .required('Số điện thoại không được để trống'),
       address: Yup.string().required('Số nhà không được để trống'),
     }),
     onSubmit: (values) => {
@@ -59,89 +53,105 @@ const Profile = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log(values);
-    console.log(123);
+    try {
+      setLoading(true);
+      axios
+        .put(`http://localhost:3030/user/update/${user.uid}`, values)
+        .then((resp) => {
+          setMessage(resp.data.message);
+          setStatus(resp.data.status);
+        });
+    } catch (error) {
+      setMessage(error.data.message);
+      setStatus(error.data.status);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // const changeAddress = useFormik({
-  //   initialValues: {
-  //     ward: '',
-  //     district: '',
-  //     province: '',
-  //     street: '',
-  //   },
-  //   validationSchema: Yup.object({
-  //     street: Yup.string().required('Số nhà không được để trống'),
-  //     ward: Yup.string().required('Vui lòng chọn xã phường'),
-  //     district: Yup.string().required('Vui lòng chọn quận huyện'),
-  //     province: Yup.string().required('Vui lòng chọn tỉnh thành phố'),
-  //   }),
-  //   onSubmit: () => {
-  //     const currentProvince = arrayProvince.find(
-  //       (p) => p.province_id === formik.values.province
-  //     );
-  //     const currentDistrict = arrayDistricts.find(
-  //       (d) => d.district_id === formik.values.district
-  //     );
-  //     const currentWard = arrayWard.find(
-  //       (w) => w.ward_id === formik.values.ward
-  //     );
-  //     const address = `${changeAddress.values.street}, ${currentWard.ward_name}, ${currentDistrict.district_name}, ${currentProvince.province_name}`;
-  //     setAddress(address);
-  //     console.log(currentWard);
-  //   },
-  // });
+  const changeAddress = useFormik({
+    initialValues: {
+      ward: '',
+      district: '',
+      province: '',
+      street: '',
+    },
+    validationSchema: Yup.object({
+      street: Yup.string().required('Số nhà không được để trống'),
+      ward: Yup.string().required('Vui lòng chọn xã phường'),
+      district: Yup.string().required('Vui lòng chọn quận huyện'),
+      province: Yup.string().required('Vui lòng chọn tỉnh thành phố'),
+    }),
+    onSubmit: () => {
+      const currentProvince = arrayProvince.find(
+        (p) => p.province_id === changeAddress.values.province
+      );
+      const currentDistrict = arrayDistricts.find(
+        (d) => d.district_id === changeAddress.values.district
+      );
+      const currentWard = arrayWard.find(
+        (w) => w.ward_id === changeAddress.values.ward
+      );
+      const address = `${changeAddress.values.street}, ${currentWard.ward_name}, ${currentDistrict.district_name}, ${currentProvince.province_name}`;
+      formik.setValues({
+        address: address,
+        fullname: formik.values.fullname,
+        phone: formik.values.phone,
+        sex: formik.values.sex,
+      });
+    },
+  });
 
-  // useEffect(() => {
-  //   axios
-  //     .get('https://vapi.vnappmob.com/api/province', {
-  //       withCredentials: false,
-  //     })
-  //     .then((resp) => {
-  //       setArrayProvince(resp.data.results);
-  //     })
-  //     .catch(({ response }) => {
-  //       console.log(response);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get('https://vapi.vnappmob.com/api/province', {
+        withCredentials: false,
+      })
+      .then((resp) => {
+        setArrayProvince(resp.data.results);
+      })
+      .catch(({ response }) => {
+        console.log(response);
+      });
+  }, []);
 
-  // useEffect(() => {
-  //   if (changeAddress.values.province > 0) {
-  //     axios
-  //       .get(
-  //         `https://vapi.vnappmob.com/api/province/district/${changeAddress.values.province}`,
-  //         {
-  //           withCredentials: false,
-  //         }
-  //       )
-  //       .then((resp) => {
-  //         setArrayDistricts(resp.data.results);
-  //         // console.log(resp.data.results);
-  //       })
-  //       .catch(({ response }) => {
-  //         console.log(response);
-  //       });
-  //   }
-  // }, [changeAddress.values.province]);
+  useEffect(() => {
+    if (changeAddress.values.province > 0) {
+      axios
+        .get(
+          `https://vapi.vnappmob.com/api/province/district/${changeAddress.values.province}`,
+          {
+            withCredentials: false,
+          }
+        )
+        .then((resp) => {
+          setArrayDistricts(resp.data.results);
+          // console.log(resp.data.results);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+        });
+    }
+  }, [changeAddress.values.province]);
 
-  // useEffect(() => {
-  //   if (changeAddress.values.district > 0) {
-  //     axios
-  //       .get(
-  //         `https://vapi.vnappmob.com/api/province/ward/${changeAddress.values.district}`,
-  //         {
-  //           withCredentials: false,
-  //         }
-  //       )
-  //       .then((resp) => {
-  //         setArrayWard(resp.data.results);
-  //         console.log(resp.data.results);
-  //       })
-  //       .catch(({ response }) => {
-  //         console.log(response);
-  //       });
-  //   }
-  // }, [changeAddress.values.district]);
+  useEffect(() => {
+    if (changeAddress.values.district > 0) {
+      axios
+        .get(
+          `https://vapi.vnappmob.com/api/province/ward/${changeAddress.values.district}`,
+          {
+            withCredentials: false,
+          }
+        )
+        .then((resp) => {
+          setArrayWard(resp.data.results);
+          console.log(resp.data.results);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+        });
+    }
+  }, [changeAddress.values.district]);
 
   return (
     <MainAccount heading="Thông tin cá nhân">
@@ -168,7 +178,7 @@ const Profile = () => {
           <option value={0}>Nữ</option>
         </Select>
         <Input
-          type="number"
+          type="text"
           name="phone"
           label="Số điện thoại"
           placeholder="Nhập số điện thoại của bạn*"
@@ -188,7 +198,13 @@ const Profile = () => {
           </span>
         </div>
         {message ? (
-          <div className="text-secondary_red bg-[#ffe2e2] h-10 text-center text-sm mb-5 font-medium flex items-center justify-center">
+          <div
+            className={`${
+              status === 0
+                ? 'text-secondary_red bg-[#ffe2e2]'
+                : 'text-primary_green bg-[#b5fCa9]'
+            } h-10 text-center text-sm mb-5 font-medium flex items-center justify-center`}
+          >
             {message}
           </div>
         ) : null}
@@ -196,7 +212,7 @@ const Profile = () => {
           Cập nhật thông tin
         </Button>
       </form>
-      {/* <Modal
+      <Modal
         id="exampleModal"
         aria-labelledby="exampleModalLabel"
         title="Thay đổi địa chỉ"
@@ -264,7 +280,7 @@ const Profile = () => {
             Cập nhật địa chỉ
           </Button>
         </form>
-      </Modal> */}
+      </Modal>
     </MainAccount>
   );
 };

@@ -51,25 +51,45 @@ const Cart = () => {
     }
   }
 
-  const handleBuy = () => {
-    const orderId = [];
-    const quantityItem = [];
-    products?.map(({ pid, quantity }) => {
-      orderId.push(pid);
-      quantityItem.push(quantity);
+  const handleDelete = (value) => {
+    const productId = value.split(',');
+    productId.map((item) => {
+      axios
+        .post(deleteItemCart, {
+          uid: user.uid,
+          pid: item,
+        })
+        .then((res) => {});
     });
-    axios
-      .post(addOrder, {
-        uid: user.uid,
-        pid: orderId.join(','),
-        total: subtotal,
-        quantity: quantityItem.join(','),
-        message: message,
-      })
-      .then((res) => {
-        if (res.data.status === 1) {
-        }
+  };
+
+  const handleBuy = () => {
+    if (products.length > 0) {
+      const orderId = [];
+      const quantityItem = [];
+      products?.map(({ pid, quantity }) => {
+        orderId.push(pid);
+        quantityItem.push(quantity);
       });
+      axios
+        .post(addOrder, {
+          uid: user.uid,
+          pid: orderId.join(','),
+          total: subtotal,
+          quantity: quantityItem.join(','),
+          message: message,
+        })
+        .then((res) => {
+          if (res.data.status === 1) {
+            handleDelete(orderId.join(','));
+            init();
+            alert('Thanh toán thành công');
+            router.push('/account/my-order');
+          }
+        });
+    } else {
+      alert('Không có sản phẩm trong giỏ hàng!');
+    }
   };
 
   return (
@@ -115,17 +135,16 @@ const Cart = () => {
                   <label htmlFor="note" className="text-sm font-medium">
                     Ghi chú đơn hàng
                   </label>
-                  <input
-                    type="textarea"
+                  <textarea
                     name="note"
                     id="note"
-                    className={`bg-transparent w-full min-h-10 px-5 block outline-none border border-border_input text-sm text-secondary_text`}
+                    className={`bg-transparent w-full min-h-[80px] p-5 block outline-none border border-border_input text-sm text-secondary_text`}
                     placeholder="Ghi chú đơn hàng"
                     value={message}
                     onChange={(e) => {
                       setMessage(e.target.value);
                     }}
-                  />
+                  ></textarea>
                 </div>
                 <Select label="Chọn mã giảm giá" name="voucher"></Select>
                 <div className="mt-4">
@@ -164,7 +183,7 @@ function CartItem({ product, color, size, reload }) {
           reload();
         });
     } else {
-      // gọi api xóa
+      handleDelete();
     }
   };
 

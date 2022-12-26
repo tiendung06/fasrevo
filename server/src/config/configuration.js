@@ -70,7 +70,7 @@ const okConfig = {
       'Chúng tôi đã gửi một email đến cho bạn. Vui lòng kiểm tra hòm thư',
   },
   user: {
-    UPDATE_USER: 'Cập nhật thông tin user thành công',
+    UPDATE_USER: 'Cập nhật thông tin thành công',
   },
   fileFilter: {
     FILE_OK: 'Đúng định dạng',

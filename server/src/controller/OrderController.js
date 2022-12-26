@@ -52,7 +52,10 @@ class OrderController {
 
   async getOrderByUid(req, res) {
     try {
-      const orders = await Order.findAll({ where: { uid: req.query.uid } });
+      const orders = await Order.findAll({
+        where: { uid: req.query.uid },
+        order: [[sequelize.col('createdAt'), 'DESC']],
+      });
       res.status(200).send(orders);
     } catch (error) {
       res.status(400).send(error);

@@ -10,19 +10,16 @@ import axios from 'axios';
 import { formatMoney, getImageUrl } from '../../src/helpers';
 
 const Order = () => {
-  const { authenticated, user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const router = useRouter();
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const [subtotal, setSubtotal] = useState(0);
-  const [colorList, setColorList] = useState([]);
-  const [sizeList, setSizeList] = useState([]);
   const init = () => {
     axios.post(getCart, { uid: user.uid }).then((res) => {
       setProducts(res.data.carts);
+      console.log(res.data.carts);
       setSubtotal(res.data.subtotal);
-      setColorList(res.data.colorList);
-      setSizeList(res.data.sizeList);
     });
   };
 
@@ -65,9 +62,31 @@ const Order = () => {
         <h1 className="text-primary font-bold text-2xl py-10">Đơn hàng</h1>
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-y-10 lg:gap-5">
           <div className="lg:col-span-3 xl:col-span-2">
-            <OrderItem />
-            <OrderItem />
-            <OrderItem />
+            {products.map(
+              ({
+                pid,
+                image,
+                pname,
+                size_id,
+                color_id,
+                quantity,
+                price,
+                total,
+              }) => {
+                return (
+                  <OrderItem
+                    key={pid}
+                    image={image}
+                    pname={pname}
+                    size_id={size_id}
+                    color_id={color_id}
+                    quantity={quantity}
+                    price={price}
+                    total={total}
+                  />
+                );
+              }
+            )}
           </div>
           <div className="hidden xl:block invisible"></div>
           <div className="lg:col-span-3 justify-end">
@@ -120,33 +139,47 @@ const Order = () => {
   );
 };
 
-function OrderItem({ product, color, size }) {
+function OrderItem({
+  pid,
+  image,
+  pname,
+  size_id,
+  color_id,
+  quantity,
+  price,
+  total,
+}) {
   return (
     <div className="h-[200px] flex pb-5">
       <picture>
         <img
-          src={getImageUrl(product.image)}
+          src={getImageUrl(image)}
           alt=""
           className="w-full h-full object-cover"
         />
       </picture>
       <div className="pl-5 flex justify-between flex-col">
         <div>
-          <p className="font-medium text-base md:text-xl pb-1">
-            {product.pname}
-          </p>
+          <p className="font-medium text-base md:text-xl pb-1">{pname}</p>
           <div className="flex items-center">
             <span className="text-primary text-sm md:text-base">
-              {product.price}
+              Giá tiền: {formatMoney(price)}
             </span>
           </div>
-          <p className="text-sm text-primary">Màu: Be</p>
-          <p className="text-sm text-primary">Size: L</p>
+          <p className="text-sm text-primary">
+            Màu: {color_id === 1 && 'Hồng'} {color_id === 2 && 'Đen'}{' '}
+            {color_id === 3 && 'Trắng'}
+          </p>
+          <p className="text-sm text-primary">
+            Size: {size_id === 1 && 'S'} {size_id === 2 && 'M'}{' '}
+            {size_id === 3 && 'L'} {size_id === 4 && 'XL'}
+          </p>
         </div>
         <div className="">
-          <p className="text-sm text-primary">Số lượng: 3</p>
+          <p className="text-sm text-primary">Số lượng: {quantity}</p>
           <p className="text-primary font-medium text-sm md:text-base">
-            Số tiền: <span className="text-primary_red">747.000 VND</span>
+            Số tiền:{' '}
+            <span className="text-primary_red">{formatMoney(total)}</span>
           </p>
         </div>
       </div>

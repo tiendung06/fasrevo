@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Button from '../../../src/components/admin/Button';
+import Modal from '../../../src/components/Modal';
 import { getUser } from '../../../src/constants/constants';
 import Main from '../../../src/layout/admin/Main';
 
@@ -64,7 +65,11 @@ const Customer = () => {
                     <td>{address}</td>
                     <td>
                       <div className="flex items-center gap-x-5">
-                        <button className="text-primary_blue">
+                        <button
+                          className="text-primary_blue"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#customer-${uid}`}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -80,6 +85,25 @@ const Customer = () => {
                             />
                           </svg>
                         </button>
+                        <Modal
+                          id={`customer-${uid}`}
+                          aria-labelledby="updateCustomer"
+                          title="Thông tin chi tiết khách hàng"
+                        >
+                          <div className="w-full mb-5">
+                            Tên khách hàng: {fullname}
+                          </div>
+                          <div className="w-full mb-5">Email: {email}</div>
+                          <div className="w-full mb-5">
+                            Giới tính: {sex === 1 ? 'Nam' : 'Nữ'}
+                          </div>
+                          <div className="w-full mb-5">
+                            Số điện thoại: {phone}
+                          </div>
+                          <div className="w-full mb-5 break-words">
+                            Địa chỉ: {address}
+                          </div>
+                        </Modal>
                       </div>
                     </td>
                   </tr>

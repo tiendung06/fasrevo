@@ -22,11 +22,11 @@ const statusOrder = [
     name: 'Đang giao hàng',
   },
   {
-    id: 1,
+    id: 2,
     name: 'Giao hàng thành công',
   },
   {
-    id: 2,
+    id: 3,
     name: 'Đã hủy hàng',
   },
 ];
@@ -64,7 +64,7 @@ const Order = () => {
       }),
     [orders, products, users]
   );
-  console.log(data);
+
   const formik = useFormik({
     initialValues: {
       uid: '',
@@ -209,7 +209,7 @@ const Order = () => {
                           </div>
                           <Input
                             type="textarea"
-                            label="Chi chú đơn hàng"
+                            label="Ghi chú đơn hàng"
                             name="message"
                             placeholder="Nhập xuất xứ sản phẩm"
                             value={formik.values.message}

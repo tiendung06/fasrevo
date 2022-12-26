@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAuthenticated, setUser } from '../../../redux/authSlide';
 import { logout } from '../../constants/constants';
 import { getImageUrl } from '../../helpers';
+import { setCartQuantity } from '../../../redux/cartSlide';
 
 const AccountMenu = () => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const AccountMenu = () => {
       axios.get(logout).then((res) => {
         dispatch(setAuthenticated(false));
         dispatch(setUser(null));
+        dispatch(setCartQuantity(0));
         router.push('/');
       });
     }

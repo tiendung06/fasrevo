@@ -47,9 +47,9 @@ const Bottom = () => {
               d="M8.25 4.5l7.5 7.5-7.5 7.5"
             />
           </svg>
-          <Link href="/men">
+          <Link href="/women">
             <a className="font-medium px-2 lg:px-3 text-header">
-              Thời trang nam
+              Thời trang nữ
             </a>
           </Link>
           <svg

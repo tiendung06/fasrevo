@@ -5,10 +5,20 @@ import axios from 'axios';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
 import Button from '../../src/components/Button';
-import { addCart, productDetail } from '../../src/constants/constants';
+import SectionHeading from '../../src/components/SectionHeading';
+import {
+  addCart,
+  productDetail,
+  searchItem,
+} from '../../src/constants/constants';
 import { useSelector } from 'react-redux';
 import { getImageUrl, getPrice, formatMoney } from '../../src/helpers';
 import Breadcrumb from '../../src/components/Breadcrumb';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import Card from '../../src/components/Card';
 
 const ProductDetails = () => {
   const [product, setProduct] = useState();
@@ -20,6 +30,7 @@ const ProductDetails = () => {
   const [productSizes, setProductSizes] = useState([]);
   const [colorList, setColorList] = useState([]);
   const [sizeList, setSizeList] = useState([]);
+  const [featuredProduct, setFeaturedProduct] = useState();
   const router = useRouter();
   const { pid } = router.query;
 
@@ -71,8 +82,19 @@ const ProductDetails = () => {
             alert(res.data.message);
           }
         });
+    } else {
+      alert('Bạn chưa đăng nhập. Hãy đăng nhập để tiếp tục mua hàng');
     }
   };
+
+  useEffect(() => {
+    axios
+      .get(searchItem.getSearchByCdid(1, product?.cdid, 0))
+      .then((resp) => {
+        setFeaturedProduct(resp.data.products);
+      })
+      .catch((e) => {});
+  }, [product]);
 
   return (
     <Main heading={product?.pname}>
@@ -228,6 +250,32 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
+      </Section>
+      <Section>
+        <SectionHeading>Sản phẩm tương tự</SectionHeading>
+        <Swiper
+          slidesPerView={'auto'}
+          modules={[Navigation]}
+          navigation
+          spaceBetween={20}
+          className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mx-auto max-w-[1920px] w-full"
+        >
+          {featuredProduct
+            ?.slice(0, 20)
+            .map(({ pid, cost, discount, image, isDiscount, pname }) => (
+              <SwiperSlide key={pid}>
+                <Card
+                  key={pid}
+                  id={pid}
+                  title={pname}
+                  image={getImageUrl(image)}
+                  basePrice={cost}
+                  isDiscount={isDiscount}
+                  discount={discount}
+                />
+              </SwiperSlide>
+            ))}
+        </Swiper>
       </Section>
     </Main>
   );
