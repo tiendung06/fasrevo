@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Main from '../../src/layout/Main';
 import Section from '../../src/layout/Section';
-import { addOrder, getCart } from '../../src/constants/constants';
+import {
+  addOrder,
+  deleteItemCart,
+  getCart,
+} from '../../src/constants/constants';
 import Button from '../../src/components/Button';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,11 +18,12 @@ const Order = () => {
   const router = useRouter();
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
+  const [message, setMessage] = useState();
   const [subtotal, setSubtotal] = useState(0);
+
   const init = () => {
     axios.post(getCart, { uid: user.uid }).then((res) => {
       setProducts(res.data.carts);
-      console.log(res.data.carts);
       setSubtotal(res.data.subtotal);
     });
   };
@@ -29,31 +34,44 @@ const Order = () => {
     }
   }, [user]);
 
-  // if (typeof window !== 'undefined') {
-  //   if (!authenticated) {
-  //     router.push('/sign-in');
-  //   }
-  // }
-
   const handleBuy = () => {
-    const orderId = [];
-    const quantityItem = [];
-    products?.map(({ pid, quantity }) => {
-      orderId.push(pid);
-      quantityItem.push(quantity);
-    });
-    axios
-      .post(addOrder, {
-        uid: user.uid,
-        pid: orderId.join(','),
-        total: subtotal,
-        quantity: quantityItem.join(','),
-        message: message,
-      })
-      .then((res) => {
-        if (res.data.status === 1) {
-        }
+    if (products.length > 0) {
+      const orderId = [];
+      const quantityItem = [];
+      products?.map(({ pid, quantity }) => {
+        orderId.push(pid);
+        quantityItem.push(quantity);
       });
+      axios
+        .post(addOrder, {
+          uid: user.uid,
+          pid: orderId.join(','),
+          total: subtotal,
+          quantity: quantityItem.join(','),
+          message: message,
+        })
+        .then((res) => {
+          if (res.data.status === 1) {
+            handleDelete(orderId.join(','));
+            init();
+            router.push('/order/receipt');
+          }
+        });
+    } else {
+      alert('Không có sản phẩm trong giỏ hàng!');
+    }
+  };
+
+  const handleDelete = (value) => {
+    const productId = value.split(',');
+    productId.map((item) => {
+      axios
+        .post(deleteItemCart, {
+          uid: user.uid,
+          pid: item,
+        })
+        .then((res) => {});
+    });
   };
 
   return (
@@ -61,7 +79,7 @@ const Order = () => {
       <Section>
         <h1 className="text-primary font-bold text-2xl py-10">Đơn hàng</h1>
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-y-10 lg:gap-5">
-          <div className="lg:col-span-3 xl:col-span-2">
+          <div className="lg:col-span-3">
             {products.map(
               ({
                 pid,
@@ -76,6 +94,7 @@ const Order = () => {
                 return (
                   <OrderItem
                     key={pid}
+                    pid={pid}
                     image={image}
                     pname={pname}
                     size_id={size_id}
@@ -88,7 +107,6 @@ const Order = () => {
               }
             )}
           </div>
-          <div className="hidden xl:block invisible"></div>
           <div className="lg:col-span-3 justify-end">
             <div className="w-full flex justify-end">
               <div className="w-full max-w-[500px]">
@@ -116,6 +134,21 @@ const Order = () => {
                   </div>
                 </div>
                 <div className="py-5 text-sm border-b border-t-border_input">
+                  <label htmlFor="note" className="text-sm font-medium">
+                    Ghi chú đơn hàng
+                  </label>
+                  <textarea
+                    name="note"
+                    id="note"
+                    className={`bg-transparent w-full min-h-[80px] p-5 block outline-none border border-border_input text-sm text-secondary_text`}
+                    placeholder="Ghi chú đơn hàng"
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                    }}
+                  ></textarea>
+                </div>
+                <div className="py-5 text-sm border-b border-t-border_input">
                   <div className="flex items-center justify-between">
                     <p>Giá trị</p>
                     <span>{formatMoney(subtotal)}</span>
@@ -129,7 +162,7 @@ const Order = () => {
                     </span>
                   </div>
                 </div>
-                <Button>Tiến hành thanh toán</Button>
+                <Button onClick={handleBuy}>Tiến hành đặt hàng</Button>
               </div>
             </div>
           </div>
@@ -150,7 +183,7 @@ function OrderItem({
   total,
 }) {
   return (
-    <div className="h-[200px] flex pb-5">
+    <div className="h-40 w-full flex pb-5">
       <picture>
         <img
           src={getImageUrl(image)}
@@ -158,30 +191,33 @@ function OrderItem({
           className="w-full h-full object-cover"
         />
       </picture>
-      <div className="pl-5 flex justify-between flex-col">
+      <div className="pl-5 w-full flex justify-between">
         <div>
-          <p className="font-medium text-base md:text-xl pb-1">{pname}</p>
+          <Link href={`./products/${pid}`}>
+            <p className="font-medium text-sm md:text-lg pb-1 cursor-pointer hover:text-primary_red transition-all">
+              {pname}
+            </p>
+          </Link>
           <div className="flex items-center">
             <span className="text-primary text-sm md:text-base">
-              Giá tiền: {formatMoney(price)}
+              {formatMoney(price)}
             </span>
           </div>
-          <p className="text-sm text-primary">
+          <p className="text-xs md:text-sm text-primary">
             Màu: {color_id === 1 && 'Hồng'} {color_id === 2 && 'Đen'}{' '}
             {color_id === 3 && 'Trắng'}
           </p>
-          <p className="text-sm text-primary">
+          <p className="text-xs md:text-sm text-primary">
             Size: {size_id === 1 && 'S'} {size_id === 2 && 'M'}{' '}
             {size_id === 3 && 'L'} {size_id === 4 && 'XL'}
           </p>
-        </div>
-        <div className="">
-          <p className="text-sm text-primary">Số lượng: {quantity}</p>
-          <p className="text-primary font-medium text-sm md:text-base">
-            Số tiền:{' '}
-            <span className="text-primary_red">{formatMoney(total)}</span>
+          <p className="text-xs md:text-sm text-primary">
+            Số lượng: {quantity}
           </p>
         </div>
+        <p className="text-primary font-medium text-sm md:text-base">
+          <span className="text-primary_red">{formatMoney(total)}</span>
+        </p>
       </div>
     </div>
   );

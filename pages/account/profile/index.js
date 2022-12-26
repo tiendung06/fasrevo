@@ -18,14 +18,14 @@ const Profile = () => {
   const [arrayProvince, setArrayProvince] = useState([]);
   const [arrayDistricts, setArrayDistricts] = useState([]);
   const [arrayWard, setArrayWard] = useState([]);
-
+  console.log(user);
   const formik = useFormik({
     initialValues: user
       ? {
           fullname: user.fullname,
           phone: user.phone,
           sex: user.sex,
-          address: user.address,
+          address: address,
         }
       : {
           fullname: '',
@@ -93,12 +93,7 @@ const Profile = () => {
         (w) => w.ward_id === changeAddress.values.ward
       );
       const address = `${changeAddress.values.street}, ${currentWard.ward_name}, ${currentDistrict.district_name}, ${currentProvince.province_name}`;
-      formik.setValues({
-        address: address,
-        fullname: formik.values.fullname,
-        phone: formik.values.phone,
-        sex: formik.values.sex,
-      });
+      setAddress(address);
     },
   });
 
@@ -126,7 +121,6 @@ const Profile = () => {
         )
         .then((resp) => {
           setArrayDistricts(resp.data.results);
-          // console.log(resp.data.results);
         })
         .catch(({ response }) => {
           console.log(response);
@@ -145,7 +139,6 @@ const Profile = () => {
         )
         .then((resp) => {
           setArrayWard(resp.data.results);
-          console.log(resp.data.results);
         })
         .catch(({ response }) => {
           console.log(response);
@@ -171,7 +164,7 @@ const Profile = () => {
           className="giới tính"
           name="sex"
           label="Giới tính"
-          values={formik.values.sex}
+          value={formik.values.sex}
           onChange={formik.handleChange}
         >
           <option value={1}>Nam</option>

@@ -2,16 +2,30 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Button from '../../../src/components/admin/Button';
 import Modal from '../../../src/components/Modal';
-import { getUser } from '../../../src/constants/constants';
+import {
+  getOrder,
+  getUser,
+  productDetail,
+} from '../../../src/constants/constants';
 import Main from '../../../src/layout/admin/Main';
 
 const Customer = () => {
   const [customers, setCustomers] = useState();
+  const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
   useEffect(() => {
     axios.get(getUser).then((resp) => {
       setCustomers(resp.data.users);
     });
   }, []);
+  // useEffect(() => {
+  //   axios.get(`${getOrder.getOrderByUid(user?.uid)}`).then((resp) => {
+  //     setOrders(resp.data);
+  //   });
+  //   axios.get(productDetail.getAllProduct(1)).then((resp) => {
+  //     setProducts(resp.data);
+  //   });
+  // }, []);
   return (
     <Main heading="Tổng quan khách hàng">
       <>
@@ -55,7 +69,7 @@ const Customer = () => {
             <tbody>
               {customers?.map(
                 ({ uid, fullname, email, phone, sex, address }, index) => (
-                  <tr key={index}>
+                  <tr key={uid}>
                     <td>{index + 1}</td>
                     <td>{uid}</td>
                     <td>{fullname}</td>
@@ -102,6 +116,9 @@ const Customer = () => {
                           </div>
                           <div className="w-full mb-5 break-words">
                             Địa chỉ: {address}
+                          </div>
+                          <div className="w-full mb-5">
+                            <p className="font-medium">Lịch sử mua hàng</p>
                           </div>
                         </Modal>
                       </div>

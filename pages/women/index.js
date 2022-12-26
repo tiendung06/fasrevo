@@ -54,14 +54,14 @@ const Women = () => {
           </Link>
         </div>
         <SectionHeading>Thời trang nữ</SectionHeading>
-        <CategoryDetails gender="women"></CategoryDetails>
-        <div className="my-20">
+        <div className="mb-10">
           <List
             productItems={women}
             reload={(pageNumber) => init(pageNumber)}
             totalPageNumber={totalPageNumber}
           />
         </div>
+        <CategoryDetails gender="women"></CategoryDetails>
       </Section>
     </Main>
   );

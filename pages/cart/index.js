@@ -7,7 +7,6 @@ import Select from '../../src/components/Select';
 import Link from 'next/link';
 import axios from 'axios';
 import {
-  addOrder,
   deleteItemCart,
   getCart,
   updateQuantity,
@@ -21,7 +20,6 @@ const Cart = () => {
   const { authenticated, user } = useSelector((state) => state.auth);
   const router = useRouter();
   const [products, setProducts] = useState([]);
-  const [message, setMessage] = useState();
   const [subtotal, setSubtotal] = useState(0);
 
   const [colorList, setColorList] = useState([]);
@@ -51,42 +49,9 @@ const Cart = () => {
     }
   }
 
-  const handleDelete = (value) => {
-    const productId = value.split(',');
-    productId.map((item) => {
-      axios
-        .post(deleteItemCart, {
-          uid: user.uid,
-          pid: item,
-        })
-        .then((res) => {});
-    });
-  };
-
   const handleBuy = () => {
     if (products.length > 0) {
-      const orderId = [];
-      const quantityItem = [];
-      products?.map(({ pid, quantity }) => {
-        orderId.push(pid);
-        quantityItem.push(quantity);
-      });
-      axios
-        .post(addOrder, {
-          uid: user.uid,
-          pid: orderId.join(','),
-          total: subtotal,
-          quantity: quantityItem.join(','),
-          message: message,
-        })
-        .then((res) => {
-          if (res.data.status === 1) {
-            handleDelete(orderId.join(','));
-            init();
-            alert('Thanh toán thành công');
-            router.push('/account/my-order');
-          }
-        });
+      router.push('/order');
     } else {
       alert('Không có sản phẩm trong giỏ hàng!');
     }
@@ -131,21 +96,6 @@ const Cart = () => {
                 </div>
               </div>
               <div className="w-full col-span-4 lg:col-span-1">
-                <div className="w-full mb-5">
-                  <label htmlFor="note" className="text-sm font-medium">
-                    Ghi chú đơn hàng
-                  </label>
-                  <textarea
-                    name="note"
-                    id="note"
-                    className={`bg-transparent w-full min-h-[80px] p-5 block outline-none border border-border_input text-sm text-secondary_text`}
-                    placeholder="Ghi chú đơn hàng"
-                    value={message}
-                    onChange={(e) => {
-                      setMessage(e.target.value);
-                    }}
-                  ></textarea>
-                </div>
                 <Select label="Chọn mã giảm giá" name="voucher"></Select>
                 <div className="mt-4">
                   <div className="flex justify-between text-sm mb-5">

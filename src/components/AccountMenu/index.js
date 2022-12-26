@@ -33,7 +33,7 @@ const AccountMenu = () => {
 
   return (
     <div>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center relative">
         <picture>
           <img
             src={user?.image ? getImageUrl(user?.image) : '../images/error.jpg'}
@@ -41,6 +41,9 @@ const AccountMenu = () => {
             className="w-[100px] h-[100px] lg:w-[200px] lg:h-[200px] object-cover rounded-full shadow-lg"
           />
         </picture>
+        <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-lg">
+          Avatar
+        </span>
       </div>
       <p className="text-center text-lg lg:text-2xl text-primary font-medium pt-5 uppercase">
         {user?.fullname}

@@ -39,9 +39,10 @@ const Filter = () => {
           </div>
           <div className="p-5 w-full border-b-border_input border-b">
             <h3 className="pb-5 font-medium">Bộ sưu tập</h3>
-            <Checkbox name="kyle" label="Kyle" />
-            <Checkbox name="felix" label="Felix" />
-            <Checkbox name="casmere" label="Casmere" />
+            <Checkbox name="winter" label="Winter collection" />
+            <Checkbox name="spring" label="Spring collection" />
+            <Checkbox name="autumn" label="Autumn collection" />
+            <Checkbox name="fall" label="Fall collection" />
           </div>
           <div className="p-5 w-full border-b-border_input border-b">
             <h3 className="pb-5 font-medium">Màu sắc</h3>
@@ -56,7 +57,9 @@ const Filter = () => {
             <Checkbox name="l" label="L" />
             <Checkbox name="xl" label="XL" />
           </div>
-          <Button>Xác nhận</Button>
+          <Button onClick={() => alert('Tính năng không khả dụng')}>
+            Xác nhận
+          </Button>
         </div>
       </div>
     </div>
