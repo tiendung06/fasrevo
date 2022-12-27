@@ -9,24 +9,61 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
   addProduct,
+  deleteProduct,
   productDetail,
+  searchItem,
   updateProduct,
 } from '../../../src/constants/constants';
 import Checkbox from '../../../src/components/Checkbox';
+import { getImageUrl } from '../../../src/helpers';
+import useDebounce from '../../../hooks/useDebounce';
 
 const ProductReport = () => {
   const [product, setProduct] = useState();
-
+  const [pid, setPid] = useState();
   const [productDetails, setProductDetails] = useState([]);
+  const [productColors, setProductColors] = useState([]);
+  const [productSizes, setProductSizes] = useState([]);
+  const [currentImage, setCurrentImage] = useState();
+  const [currentImageBase64, setCurrentImageBase64] = useState();
+  const [filter, setFilter] = useState('');
+  const [url, setUrl] = useState(productDetail.getAllProduct());
+  const filterDebounce = useDebounce(filter);
+  const [typeSearch, setTypeSearch] = useState(1);
 
   useEffect(() => {
-    axios.get(productDetail.getAllProduct(1)).then((resp) => {
+    init();
+  }, [url]);
+
+  const init = () => {
+    axios.get(url).then((resp) => {
       setProduct(resp.data);
     });
-    axios.get(productDetail.getAllProductDetails(1)).then((resp) => {
+    axios.get(productDetail.getAllProductDetails()).then((resp) => {
       setProductDetails(resp.data);
     });
-  }, []);
+    axios.get(productDetail.getAllProductColorsAndSizes(1)).then((resp) => {
+      setProductColors(resp.data.productColors);
+      setProductSizes(resp.data.productSizes);
+    });
+  };
+
+  const handleSearchChange = (e) => {
+    setFilter(e.target.value);
+  };
+
+  useEffect(() => {
+    if (filterDebounce !== '') {
+      if (typeSearch === 1) {
+        setUrl(searchItem.getProductByPid(filterDebounce.trim()));
+      } else {
+        setUrl(searchItem.getProductByPname(filterDebounce.trim()));
+      }
+    } else {
+      setUrl(productDetail.getAllProduct());
+    }
+  }, [typeSearch, filterDebounce]);
+
   const formik = useFormik({
     initialValues: {
       sex_id: 1,
@@ -48,8 +85,26 @@ const ProductReport = () => {
       quantity_sold: 0,
     },
     validationSchema: Yup.object({}),
-    onSubmit: (values) => {
-      handleAddProduct(values);
+    onSubmit: (values, actions) => {
+      actions.resetForm({
+        sex_id: 1,
+        cid: 1,
+        cdid: 1,
+        combo_id: 1,
+        collection_id: 1,
+        pname: '',
+        cost: 0,
+        color_id: 1,
+        size_id: 1,
+        inStoke: 0,
+        isDiscount: 0,
+        discount: 0,
+        origin: '',
+        description: '',
+        texture: '',
+        small_detail: '',
+        quantity_sold: 0,
+      });
     },
   });
 
@@ -74,64 +129,18 @@ const ProductReport = () => {
       quantity_sold: 0,
     },
     validationSchema: Yup.object({}),
-    onSubmit: (values) => {
-      handleUpdateProduct(values);
-    },
+    onSubmit: (values) => {},
   });
 
-  const handleAddProduct = (values) => {
-    var image = document.querySelector('.image').files[0];
-    upLoad(values, image);
-    console.log(values);
-  };
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
 
-  const handleUpdateProduct = (values) => {
-    var image = document.querySelector('.image').files[0];
-    upLoad(values, image, true);
-    console.log(values);
-  };
-
-  const upLoad = (values, image, isUpdate = false) => {
-    var formData = new FormData();
-    formData.append('sex_id', values.sex_id);
-    formData.append('cid', values.cid);
-    formData.append('cdid', values.cdid);
-    formData.append('combo_id', values.combo_id);
-    formData.append('image', image);
-    formData.append('collection_id', values.collection_id);
-    formData.append('color_id', values.color_id);
-    formData.append('size_id', values.size_id);
-    formData.append('pname', values.pname);
-    formData.append('cost', values.cost);
-    formData.append('inStoke', values.inStoke);
-    formData.append('quantity_sold', 0);
-    formData.append('isDiscount', values.isDiscount);
-    formData.append('discount', values.isDiscount === 1 ? values.discount : 0);
-    formData.append('origin', values.origin);
-    formData.append('texture', values.texture);
-    formData.append('description', values.description);
-    formData.append('small_detail', values.small_detail);
-
-    console.log({ image: formData.get('image') });
-
-    const modalId = isUpdate ? 'updateProduct' : 'exampleModal';
-
-    if (isUpdate) {
-      axios.put(updateProduct, formData).then((res) => {
-        if (res.status === 200 && res.data.status === 1) {
-          console.log(res.data);
-          document.querySelector(`#modal-${modalId}-close-button`).click();
-        }
-      });
-    } else {
-      axios.post(addProduct, formData).then((res) => {
-        if (res.status === 200 && res.data.status === 1) {
-          console.log(res.data);
-          document.querySelector(`#modal-${modalId}-close-button`).click();
-        }
-      });
-    }
-  };
   return (
     <Main heading="Quản lý tồn kho">
       <>
@@ -141,15 +150,18 @@ const ProductReport = () => {
             type="text"
             className="h-10 px-5 text-sm border-border_input border outline-none text-header rounded-lg"
             placeholder="Nhập thông tin tìm kiếm"
+            value={filter}
+            onChange={handleSearchChange}
           />
           <select
-            name=""
-            id=""
-            className="border-border_input border outline-none h-10 text-sm text-header rounded-lg px-5"
+            name="typeSearch"
+            id="typeSearch"
+            className="border-border_input border outline-none h-10 text-sm text-header rounded-lg"
+            value={typeSearch}
+            onChange={(e) => setTypeSearch(e.target.value)}
           >
-            <option value="">Áo</option>
-            <option value="">Quần</option>
-            <option value="">Phụ kiện</option>
+            <option value={1}>Tìm kiếm theo mã sản phẩm</option>
+            <option value={2}>Tìm kiếm theo tên sản phẩm</option>
           </select>
           <select
             name=""
@@ -182,6 +194,7 @@ const ProductReport = () => {
                 <th>Số lượng</th>
                 <th>Giá tiền</th>
                 <th>Đã bán</th>
+                <th>Ngày tạo</th>
                 <th>Tác vụ</th>
               </tr>
             </thead>
@@ -196,18 +209,20 @@ const ProductReport = () => {
                   pid,
                   pname,
                   quantity_sold,
+                  createdAt,
                 } = product;
                 return (
                   <tr key={pid}>
                     <td>{index + 1}</td>
                     <td>{pid}</td>
                     <td>{pname}</td>
-                    <td>{sex_id}</td>
+                    <td>{sex_id === 0 ? 'Nữ' : 'Nam'}</td>
                     <td>{cid}</td>
                     <td>{cdid}</td>
                     <td>{inStoke}</td>
                     <td>{cost}</td>
                     <td>{quantity_sold}</td>
+                    <td>{createdAt}</td>
                     <td>
                       <div className="flex items-center gap-x-5">
                         <div className="">
@@ -219,14 +234,42 @@ const ProductReport = () => {
                               const details = productDetails.find(
                                 (pd) => pd.pid === pid
                               );
+                              setPid(pid);
+                              const productColor = productColors.find(
+                                (pc) => pc.pid === pid
+                              );
+
+                              const productSize = productSizes.find(
+                                (ps) => ps.pid === pid
+                              );
 
                               updateProductFormik.setValues({
                                 ...product,
-                                description: details.description,
-                                origin: details.origin,
-                                small_detail: details.small_detail,
-                                texture: details.texture,
+                                description: details?.description,
+                                origin: details?.origin,
+                                small_detail: details?.small_detail,
+                                texture: details?.texture,
+                                color_id: productColor?.color_id,
+                                size_id: productSize?.size_id,
                               });
+
+                              const imageUrl = getImageUrl(product.image);
+
+                              fetch(imageUrl)
+                                .then((res) => res.blob())
+                                .then((res) => {
+                                  const file = new File(
+                                    [res],
+                                    product.image.split('/').reverse()[0],
+                                    { type: res.type }
+                                  );
+
+                                  setCurrentImage(file);
+
+                                  getBase64(file).then((data) =>
+                                    setCurrentImageBase64(data)
+                                  );
+                                });
                             }}
                           >
                             <svg
@@ -240,7 +283,7 @@ const ProductReport = () => {
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
                               />
                             </svg>
                           </button>
@@ -258,6 +301,15 @@ const ProductReport = () => {
                                 value={updateProductFormik.values.pname}
                                 onChange={updateProductFormik.handleChange}
                               />
+                              <Select
+                                label="Giới tính"
+                                name="sex_id"
+                                value={updateProductFormik.values.sex_id}
+                                onChange={updateProductFormik.handleChange}
+                              >
+                                <option value={1}>Nam</option>
+                                <option value={0}>Nữ</option>
+                              </Select>
                               <Input
                                 type="text"
                                 name="cost"
@@ -268,8 +320,14 @@ const ProductReport = () => {
                               />
                               <Select
                                 label="Màu sắc"
+                                name="color_id"
                                 value={updateProductFormik.values.color_id}
-                                onChange={updateProductFormik.handleChange}
+                                onChange={(e) => {
+                                  updateProductFormik.setFieldValue(
+                                    'color_id',
+                                    parseInt(e.target.value)
+                                  );
+                                }}
                               >
                                 <option value={1}>Hồng</option>
                                 <option value={2}>Đen</option>
@@ -277,8 +335,14 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Kích thước"
+                                name="size_id"
                                 value={updateProductFormik.values.size_id}
-                                onChange={updateProductFormik.handleChange}
+                                onChange={(e) => {
+                                  updateProductFormik.setFieldValue(
+                                    'size_id',
+                                    parseInt(e.target.value)
+                                  );
+                                }}
                               >
                                 <option value={1}>S</option>
                                 <option value={2}>M</option>
@@ -287,6 +351,7 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Danh mục"
+                                name="cid"
                                 values={updateProductFormik.values.cid}
                                 onChange={updateProductFormik.handleChange}
                               >
@@ -296,10 +361,11 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Chi tiết danh mục"
+                                name="cdid"
                                 values={updateProductFormik.values.cdid}
                                 onChange={updateProductFormik.handleChange}
                               >
-                                <option value={1}>Hoddie</option>
+                                <option value={1}>Hoodie</option>
                                 <option value={2}>Phông</option>
                                 <option value={3}>Sơ mi</option>
                                 <option value={4}>Khoác</option>
@@ -327,6 +393,7 @@ const ProductReport = () => {
                                 onChange={updateProductFormik.handleChange}
                               />
                               <Select
+                                name="collection"
                                 label="Bộ sưu tập"
                                 values={
                                   updateProductFormik.values.collection_id
@@ -362,27 +429,31 @@ const ProductReport = () => {
                                 value={updateProductFormik.values.small_detail}
                                 onChange={updateProductFormik.handleChange}
                               />
-                              <input type="file" className="image mb-5" />
-                              <Button type="submit">Cập nhật sản phẩm</Button>
+                              {!(currentImage && currentImageBase64) ? (
+                                <input type="file" className="image mb-5" />
+                              ) : (
+                                <div className="relative w-40">
+                                  <picture>
+                                    <img
+                                      src={currentImageBase64}
+                                      alt={product.id}
+                                      className="mb-5"
+                                    />
+                                  </picture>
+                                  <button
+                                    type="button"
+                                    className="btn-close box-content text-white absolute top-2 right-2 w-4 h-4 border-none opacity-50"
+                                    aria-label="Close"
+                                    onClick={() => {
+                                      setCurrentImage(undefined);
+                                      setCurrentImageBase64(undefined);
+                                    }}
+                                  ></button>
+                                </div>
+                              )}
                             </form>
                           </Modal>
                         </div>
-                        <button className="text-primary_red">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-4 h-4"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                            />
-                          </svg>
-                        </button>
                       </div>
                     </td>
                   </tr>

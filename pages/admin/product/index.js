@@ -11,33 +11,35 @@ import {
   addProduct,
   deleteProduct,
   productDetail,
+  searchItem,
   updateProduct,
 } from '../../../src/constants/constants';
 import Checkbox from '../../../src/components/Checkbox';
 import { getImageUrl } from '../../../src/helpers';
+import useDebounce from '../../../hooks/useDebounce';
 
 const ProductReport = () => {
   const [product, setProduct] = useState();
   const [pid, setPid] = useState();
   const [productDetails, setProductDetails] = useState([]);
-
   const [productColors, setProductColors] = useState([]);
-
   const [productSizes, setProductSizes] = useState([]);
-
   const [currentImage, setCurrentImage] = useState();
-
   const [currentImageBase64, setCurrentImageBase64] = useState();
+  const [filter, setFilter] = useState('');
+  const [url, setUrl] = useState(productDetail.getAllProduct());
+  const filterDebounce = useDebounce(filter);
+  const [typeSearch, setTypeSearch] = useState(1);
 
   useEffect(() => {
     init();
-  }, []);
+  }, [url]);
 
   const init = () => {
-    axios.get(productDetail.getAllProduct(1)).then((resp) => {
+    axios.get(url).then((resp) => {
       setProduct(resp.data);
     });
-    axios.get(productDetail.getAllProductDetails(1)).then((resp) => {
+    axios.get(productDetail.getAllProductDetails()).then((resp) => {
       setProductDetails(resp.data);
     });
     axios.get(productDetail.getAllProductColorsAndSizes(1)).then((resp) => {
@@ -45,6 +47,22 @@ const ProductReport = () => {
       setProductSizes(resp.data.productSizes);
     });
   };
+
+  const handleSearchChange = (e) => {
+    setFilter(e.target.value);
+  };
+
+  useEffect(() => {
+    if (filterDebounce !== '') {
+      if (typeSearch === 1) {
+        setUrl(searchItem.getProductByPid(filterDebounce.trim()));
+      } else {
+        setUrl(searchItem.getProductByPname(filterDebounce.trim()));
+      }
+    } else {
+      setUrl(productDetail.getAllProduct());
+    }
+  }, [typeSearch, filterDebounce]);
 
   const formik = useFormik({
     initialValues: {
@@ -134,9 +152,13 @@ const ProductReport = () => {
 
   const handleDeleteProduct = (pid) => {
     if (confirm('Xác nhận xóa sản phẩm?') == true) {
-      axios.delete(`${deleteProduct}/${pid}`).then((resp) => {
-        init();
-      });
+      try {
+        axios.delete(`${deleteProduct}/${pid}`).then((resp) => {
+          init();
+        });
+      } catch {
+        alert('Không thể thực hiện tác vụ này, vui lòng thử lại');
+      }
     }
   };
 
@@ -202,15 +224,18 @@ const ProductReport = () => {
             type="text"
             className="h-10 px-5 text-sm border-border_input border outline-none text-header rounded-lg"
             placeholder="Nhập thông tin tìm kiếm"
+            value={filter}
+            onChange={handleSearchChange}
           />
           <select
-            name=""
-            id=""
-            className="border-border_input border outline-none h-10 text-sm text-header rounded-lg px-5"
+            name="typeSearch"
+            id="typeSearch"
+            className="border-border_input border outline-none h-10 text-sm text-header rounded-lg"
+            value={typeSearch}
+            onChange={(e) => setTypeSearch(e.target.value)}
           >
-            <option value="">Áo</option>
-            <option value="">Quần</option>
-            <option value="">Phụ kiện</option>
+            <option value={1}>Tìm kiếm theo mã sản phẩm</option>
+            <option value={2}>Tìm kiếm theo tên sản phẩm</option>
           </select>
           <select
             name=""
@@ -424,7 +449,11 @@ const ProductReport = () => {
                     <td>{pid}</td>
                     <td>{pname}</td>
                     <td>{sex_id === 0 ? 'Nữ' : 'Nam'}</td>
-                    <td>{cid}</td>
+                    <td>
+                      {cid === 1 && 'Áo'}
+                      {cid === 2 && 'Quần'}
+                      {cid === 3 && 'Phụ kiện'}
+                    </td>
                     <td>{cdid}</td>
                     <td>{inStoke}</td>
                     <td>{cost}</td>
@@ -526,7 +555,7 @@ const ProductReport = () => {
                               />
                               <Select
                                 label="Màu sắc"
-                                name="color"
+                                name="color_id"
                                 value={updateProductFormik.values.color_id}
                                 onChange={(e) => {
                                   updateProductFormik.setFieldValue(
@@ -541,7 +570,7 @@ const ProductReport = () => {
                               </Select>
                               <Select
                                 label="Kích thước"
-                                name="size"
+                                name="size_id"
                                 value={updateProductFormik.values.size_id}
                                 onChange={(e) => {
                                   updateProductFormik.setFieldValue(
@@ -561,9 +590,9 @@ const ProductReport = () => {
                                 values={updateProductFormik.values.cid}
                                 onChange={updateProductFormik.handleChange}
                               >
-                                <option value="1">Top</option>
-                                <option value="2">Bottom</option>
-                                <option value="3">Accessory</option>
+                                <option value={1}>Top</option>
+                                <option value={2}>Bottom</option>
+                                <option value={3}>Accessory</option>
                               </Select>
                               <Select
                                 label="Chi tiết danh mục"

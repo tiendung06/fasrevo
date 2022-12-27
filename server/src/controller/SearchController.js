@@ -1,7 +1,9 @@
 import { Op, QueryTypes } from 'sequelize';
 import { PAGE_LIMIT } from '../config/configuration.js';
 import { sequelize } from '../database/mysql_db.js';
+import Order from '../model/Order.js';
 import Product from '../model/Product.js';
+import User from '../model/User.js';
 
 class SearchController {
   // doGet: Lấy sản phẩm theo collection
@@ -91,6 +93,73 @@ class SearchController {
         },
         offset: (parseInt(req.query.page) - 1) * PAGE_LIMIT,
         limit: PAGE_LIMIT,
+      });
+      res.status(200).send(products);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
+  async SearchUserById(req, res) {
+    try {
+      const users = await User.findAll({
+        where: {
+          uid: { [Op.like]: `%${req.query.uid}%` },
+          role: req.params.role == 1,
+        },
+      });
+      res.status(200).send({ users: users });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
+  async SearchUserByPhone(req, res) {
+    try {
+      const users = await User.findAll({
+        where: {
+          phone: { [Op.like]: `%${req.query.phone}%` },
+          role: req.params.role == 1,
+        },
+      });
+      res.status(200).send({ users: users });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
+  async SearchProductByPid(req, res) {
+    try {
+      const products = await Product.findAll({
+        where: {
+          pid: { [Op.like]: `%${req.query.pid}%` },
+        },
+      });
+      res.status(200).send(products);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
+  async SearchProductByPname(req, res) {
+    try {
+      const products = await Product.findAll({
+        where: {
+          pname: { [Op.like]: `%${req.query.pname}%` },
+        },
+      });
+      res.status(200).send(products);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+
+  async SearchOrderById(req, res) {
+    try {
+      const products = await Order.findAll({
+        where: {
+          order_id: { [Op.like]: `%${req.query.order_id}%` },
+        },
       });
       res.status(200).send(products);
     } catch (error) {

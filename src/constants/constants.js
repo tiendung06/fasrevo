@@ -51,6 +51,13 @@ const searchItem = {
     `${search}/sort?page=${page}&sex_id=${sex_id}&cid=${cid}&cdid=${cdid}&collection_id=${collection_id}&color_id=${color_id}&size_id=${size_id}&sort_name=${sort_name}&sort_by=${sort_by}`,
   getFilter: (page = 1, sex_id, cid, cdid, collection_id, color_id, size_id) =>
     `${search}/filter?page=${page}&sex_id=${sex_id}&cid=${cid}&cdid=${cdid}&collection_id=${collection_id}&color_id=${color_id}&size_id=${size_id}`,
+  getUserByUid: (uid) => `${search}/search-user-by-uid?uid=${uid}`,
+  getUserByPhone: (phone) => `${search}/search-user-by-phone?phone=${phone}`,
+  getProductByPname: (pname) =>
+    `${search}/search-product-by-pname?pname=${pname}`,
+  getProductByPid: (pid) => `${search}/search-product-by-pid?pid=${pid}`,
+  getOrderById: (order_id) =>
+    `${search}/search-order-by-id?order_id=${order_id}`,
 };
 const productDetail = {
   getProductDetail: (pid) => `${productDetails}/get-pid?pid=${pid}`,

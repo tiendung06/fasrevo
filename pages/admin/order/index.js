@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import React, { useEffect, useMemo, useState } from 'react';
+import useDebounce from '../../../hooks/useDebounce';
 import Button from '../../../src/components/admin/Button';
 import Input from '../../../src/components/Input';
 import Modal from '../../../src/components/Modal';
@@ -9,6 +10,7 @@ import {
   getOrder,
   getUser,
   productDetail,
+  searchItem,
 } from '../../../src/constants/constants';
 import { formatMoney, getImageUrl, getPrice } from '../../../src/helpers';
 import Main from '../../../src/layout/admin/Main';
@@ -34,22 +36,37 @@ const Order = () => {
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [url, setUrl] = useState(getOrder.getAllOrder());
+  const filterDebounce = useDebounce(filter);
 
   useEffect(() => {
     init();
-  }, []);
+  }, [url]);
 
   const init = () => {
-    axios.get(getOrder.getAllOrder(1)).then((resp) => {
+    axios.get(url).then((resp) => {
       setOrders(resp.data);
     });
-    axios.get(productDetail.getAllProduct(1)).then((resp) => {
+    axios.get(productDetail.getAllProduct()).then((resp) => {
       setProducts(resp.data);
     });
     axios.get(getUser).then((resp) => {
       setUsers(resp.data.users);
     });
   };
+
+  const handleSearchChange = (e) => {
+    setFilter(e.target.value);
+  };
+
+  useEffect(() => {
+    if (filterDebounce !== '') {
+      setUrl(searchItem.getOrderById(filterDebounce.trim()));
+    } else {
+      setUrl(getOrder.getAllOrder());
+    }
+  }, [filterDebounce]);
 
   const data = useMemo(
     () =>
@@ -101,7 +118,9 @@ const Order = () => {
           <input
             type="text"
             className="h-10 px-5 text-sm border-border_input border outline-none text-header rounded-lg"
-            placeholder="Nhập thông tin tìm kiếm"
+            placeholder="Nhập thông tin tìm kiếm theo mã đơn hàng"
+            value={filter}
+            onChange={handleSearchChange}
           />
           <select
             name=""
